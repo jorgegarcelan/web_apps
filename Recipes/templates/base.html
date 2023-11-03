@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe App! | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <h1>Recipe App</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="{{ url_for('main.index') }}">Home</a>
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+        <!-- Additional navigation links -->
+    </nav>
+
+    <div class="container main">
+        {% block content %}
+        <!-- Content will go here -->
+        {% endblock %}
+    </div>
+
+    <footer class="footer">
+        {% block footer %}
+        &copy; {{ current_year }} Recipe App. All rights reserved.
+        {% endblock %}
+    </footer>
+
+    {% block scripts %}
+    <!-- Additional Scripts can be added here if necessary -->
+    {% endblock %}
+</body>
+</html>
