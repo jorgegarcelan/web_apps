@@ -2,7 +2,7 @@ import pandas as pd
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from Recipes.model import Recipe, Ingredient, QuantifiedIngredient, Step, Rating, Photo  # import your models
-from Recipes.__init__ import db, create_app
+from Recipes import db, create_app
 import logging
 
 # Configure logging
