@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block content %}
+{% if current_user.is_authenticated: %}
+    <div>User: {{current_user.name}}</div>
+{% endif %}
+{% endblock %}

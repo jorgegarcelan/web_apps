@@ -9,8 +9,8 @@ class User(flask_login.UserMixin, db.Model):
     name = db.Column(db.String(64), nullable=False)
     password_hash = db.Column(db.String(100), nullable=False)
     recipes = db.relationship('Recipe', backref='author', lazy='dynamic')
-    ratings = db.relationship('Rating', backref='user', lazy='dynamic')
-    photos = db.relationship('Photo', backref='user', lazy='dynamic')
+    ratings = db.relationship('Rating', backref='rated_by', lazy='dynamic')
+    photos = db.relationship('Photo', backref='uploaded_by', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
