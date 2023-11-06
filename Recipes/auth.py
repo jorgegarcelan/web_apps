@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db
 from .model import User
+import flask_login
 
 bp = Blueprint("auth", __name__)
 
@@ -29,6 +30,7 @@ def login_post():
     # Check if the hashed password matches
     if user and user.check_password(password):
         flash("You've successfully logged in!")
+        flask_login.login_user(user)
         return redirect(url_for("main.index"))
     else:
         flash("Sorry, the password is not correct.")

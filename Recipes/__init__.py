@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 # Inicializa la extensión SQLAlchemy, pero todavía no la asocia con ninguna aplicación.
 db = SQLAlchemy()
@@ -19,8 +20,17 @@ def create_app(config_name=None):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-    # Inicializa las extensiones
     db.init_app(app)
+
+    # Login manager.
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    from . import model
+    @login_manager.user_loader
+    def load_user(user_id):
+        return db.session.get(model.User, int(user_id))
 
     # Register blueprints
     from . import main
