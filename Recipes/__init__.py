@@ -12,6 +12,9 @@ def create_app(config_name=None):
     """
     app = Flask(__name__)
 
+    # A secret for signing session cookies
+    app.config["SECRET_KEY"] = "93220d9b340cf9a6c39bac99cce7daf220167498f91fa"
+
     # Configuración de la aplicación.
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
