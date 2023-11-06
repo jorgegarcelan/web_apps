@@ -29,7 +29,6 @@ def login_post():
     
     # Check if the hashed password matches
     if user and user.check_password(password):
-        flash("You've successfully logged in!")
         flask_login.login_user(user)
         return redirect(url_for("main.index"))
     else:
@@ -58,5 +57,11 @@ def signup_post():
     new_user.set_password(password)
     db.session.add(new_user)
     db.session.commit()
-    flash("You've successfully signed up!")
+    flask_login.login_user(new_user)
     return redirect(url_for("main.index"))
+
+
+@bp.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return redirect(url_for('auth.login'))
