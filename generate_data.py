@@ -2,6 +2,7 @@
 
 import random
 import string
+import pandas as pd
 
 # Helper function to create a random string (for titles, descriptions, etc.)
 def random_string(length=10):
