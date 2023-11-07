@@ -39,6 +39,7 @@ def login_post():
 @bp.route("/signup", methods=["POST"])
 def signup_post():
     email = request.form.get("email")
+    name = request.form.get("name")
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -53,7 +54,7 @@ def signup_post():
         return redirect(url_for("auth.signup"))
 
     # Create a new user instance
-    new_user = User(email=email, name=username)
+    new_user = User(email=email, name=name, username=username)
     new_user.set_password(password)
     db.session.add(new_user)
     db.session.commit()
