@@ -18,20 +18,23 @@ body {
   }
   
   .recipes-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* creates a responsive grid layout */
+    gap: 20px; /* space between cards */
     padding: 20px;
+    align-items: start; /* aligns items to the start of the grid area */
   }
   
   .recipes-header {
+    grid-column: 1 / -1; /* header will span all columns */
     text-align: center;
     margin-bottom: 20px;
   }
   
   .recipe-card {
-    width: 100%;
-    max-width: 300px; /* Control the card width here */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* makes sure all cards have the same height */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 10px;
     margin-bottom: 20px;
@@ -40,23 +43,33 @@ body {
     overflow: hidden;
   }
   
-  .recipe-card:hover {
-    transform: translateY(-5px);
-  }
-  
   .card-image img {
     width: 100%;
-    height: 200px;
+    height: 200px; /* fixed height for images */
     object-fit: cover;
   }
   
   .card-body {
+    display: flex;
+    flex-direction: column;
     padding: 15px;
+    flex: 1; /* allows the card body to expand */
   }
   
   .recipe-title {
     color: #333;
     margin-bottom: 10px;
+    word-wrap: break-word; /* prevents text from overflowing */
+  }
+  
+  .recipe-description,
+  .recipe-servings,
+  .recipe-cook-time {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* aligns content to the top */
+    word-wrap: break-word; /* prevents text from overflowing */
   }
   
   .recipe-description h3,
@@ -70,18 +83,14 @@ body {
   .recipe-servings p,
   .recipe-cook-time p {
     color: #666;
-    margin-bottom: 10px;
   }
   
-  @media (min-width: 600px) {
-    .recipes-grid {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-    }
-  
-    .recipe-card {
-      margin: 10px;
-    }
+  /* Ensures all paragraphs have the same height for alignment */
+  .recipe-description p,
+  .recipe-servings p,
+  .recipe-cook-time p {
+    display: flex;
+    align-items: center;
+    min-height: 3em; /* adjust accordingly */
   }
   
