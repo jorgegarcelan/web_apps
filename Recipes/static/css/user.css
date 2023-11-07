@@ -2,8 +2,8 @@
 /* General body styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #f9f8f0;
+    color: #142c35;
     line-height: 1.6;
   }
   
@@ -57,7 +57,7 @@ body {
   }
   
   .recipe-title {
-    color: #333;
+    color: #142c35;
     margin-bottom: 10px;
     word-wrap: break-word; /* prevents text from overflowing */
   }
