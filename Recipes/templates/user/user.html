@@ -23,7 +23,7 @@ User
     </div>
     <div class="profile-info">
       <h3>{{user.name}}</h3>
-      <p>@johndoe</p>
+      <p>{{user.username}}</p>
       <p>Member since: January 2023</p>
     </div>
     <div>
@@ -50,18 +50,18 @@ User
         </div>
         <div class="card-body">
             <h3 class="recipe-title">{{ recipe.title }}</h2>
-            <div class="recipe-description">
+            <span class="recipe-description">
                 <h2>📝 Description</h3>
                 <p>{{ recipe.description }}</p>
-            </div>
-            <div class="recipe-servings">
+                </span>
+            <span class="recipe-servings">
                 <h2>🍴 Servings</h3>
                 <p>{{ recipe.servings }}</p>
-            </div>
-            <div class="recipe-cook-time">
+            </span>
+            <span class="recipe-cook-time">
                 <h2>⏲️ Cook Time</h3>
                 <p>{{ recipe.cook_time }}</p>
-            </div>
+            </span>
         </div>
     </div>
     {% endfor %}
