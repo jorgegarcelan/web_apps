@@ -24,18 +24,8 @@ def user(user_id):
     recipes = db.session.execute(query_r).scalars().all()
     print(recipes)
 
-
     if not recipes:
         abort(404, "Recipes for User id {} doesn't exist.".format(user_id))
-    """
-    query_p = db.select(model.Message).where(model.Message.user_id == user_id).where(model.Message.response_to_id == None).order_by(model.Message.timestamp.desc()) # get messages that are not responses
-    posts = db.session.execute(query_p).scalars().all()
-    #print(posts)
 
-    if not posts:
-        abort(404, "Posts for User id {} doesn't exist.".format(user_id))
-
-    return render_template("main/user.html", posts=posts, user=user)
-    """
     
     return render_template("user/user.html", user=user, recipes=recipes)
