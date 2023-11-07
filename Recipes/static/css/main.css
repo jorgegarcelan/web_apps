@@ -1,0 +1,20 @@
+@font-face {
+    font-family: "Bavista Soulare";
+    src: url('static/fonts/Bavista_Soulare.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f8f0;
+    color: #142c35;
+    line-height: 1.6;
+  }
+
+h1, h2 {
+    font-family: 'Bavista Soulare';
+    color: #142c35;
+}
+  

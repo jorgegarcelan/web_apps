@@ -10,30 +10,10 @@ Home Page
 
 {% block content %}
 {% if current_user.is_authenticated: %}
-    <div class="profile-container">
-        <div class="profile-header">
-          <h1>User Profile</h1>
-          <p>Welcome to your profile page!</p>
-        </div>
-        
-        <div class="profile-content">
-          <div class="profile-picture">
-            <img src="{{ url_for('static', filename='images/profile-picture.jpg') }}" alt="Profile Picture">
-          </div>
-          <div class="profile-info">
-            <h2>{{current_user.name}}</h2>
-            <p>@johndoe</p>
-            <p>Member since: January 2023</p>
-          </div>
-          <div>
-            <h3>About</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Pellentesque habitant morbi tristique senectus et netus.</p>
-          </div>
-        </div>
-        
-        <div class="profile-footer">
-          <p>Contact info: <a href="mailto:{{current_user.email}}">{{current_user.email}}</a></p>
-        </div>
-      </div>
+    <div>
+        <h1>Welcome to RecipeRealm</h1>
+        <p>RecipeRealm is an enchanting web application that serves as a culinary compass guiding food enthusiasts through a vast expanse of gastronomic delights. It's a digital haven where recipes are not just instructions but treasured scrolls holding the secrets to kitchen magic. From the bustling streets of Mumbai to the rustic farms of Tuscany, RecipeRealm offers a portal to global cuisines right at your fingertips.</p>
+    </div>
+
 {% endif %}
 {% endblock %}
