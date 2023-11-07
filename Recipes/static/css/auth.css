@@ -1,8 +1,22 @@
+@font-face {
+    font-family: "Bavista Soulare";
+    src: url('static/fonts/Bavista_Soulare.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
+    color: #142c35;
     margin: 0;
     padding: 0;
+}
+
+h1, h2 {
+    font-family: 'Bavista Soulare';
+    color: #142c35;
+    text-align: center;
 }
 
 .container {
@@ -15,10 +29,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    text-align: center;
-    color: #333;
-}
 
 form {
     display: flex;
@@ -47,7 +57,7 @@ form input[type=text] {
 
 button {
     padding: 10px;
-    background-color: #5cb85c;
+    background-color: #142c35;
     color: white;
     border: none;
     border-radius: 4px;
@@ -55,7 +65,7 @@ button {
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #0e1f25;
 }
 
 p {
@@ -63,7 +73,7 @@ p {
 }
 
 a {
-    color: #5cb85c;
+    color: #ca9e67;
     text-decoration: none;
 }
 

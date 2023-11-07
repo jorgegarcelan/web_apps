@@ -21,8 +21,26 @@ SignUp
         <input type="email" id="email" name="email" required>
     </div>
     <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username" placeholder="@" required >
+        <!-- JavaScript to ensure the input starts with "@" -->
+        <script>
+        // When the document is fully loaded, attach an event listener to the input field
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.getElementById('username');
+            
+            input.addEventListener('input', function() {
+            // Check if the value doesn't start with "@" and prepend it
+            if (input.value.length > 0 && !input.value.startsWith('@')) {
+                input.value = '@' + input.value;
+            }
+            });
+        });
+        </script>
     </div>
     <div>
         <label for="password">Password:</label>
