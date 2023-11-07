@@ -13,7 +13,7 @@ User
 <!-- User Profile -->
 <div class="profile-container">
   <div class="profile-header">
-    <h1>User Profile</h1>
+    <h1>🧑🏻‍🍳 Chef Profile</h1>
     <p>Welcome to your profile page, chef!</p>
   </div>
   
@@ -38,35 +38,32 @@ User
 </div>
 
 <!-- Recipes Created by User -->
-<div class="recipes-container">
+
+<div class="recipes-grid">
     <div class="recipes-header">
-        <h1>User Recipes</h1>
+        <h1>🍽️ User Recipes</h1>
     </div>
 
     {% for recipe in recipes %}
-        <div class="recipes-content">
-            <div class="recipes-picture">
-                <img src="{{ url_for('static', filename='images/profile-picture.jpg') }}" alt="Profile Picture">
+    <div class="recipe-card">
+        <div class="card-image">
+        </div>
+        <div class="card-body">
+            <h2 class="recipe-title">{{ recipe.title }}</h2>
+            <div class="recipe-description">
+                <h3>📝 Description</h3>
+                <p>{{ recipe.description }}</p>
             </div>
-            <div class="recipes-info">
-                <h2>{{recipe.title}}</h2>
+            <div class="recipe-servings">
+                <h3>🍴 Servings</h3>
+                <p>{{ recipe.servings }}</p>
             </div>
-            <div>
-                <h3>Description</h3>
-                <p>{{recipe.description}}</p>
-            </div>
-            <div>
-                <h3>Servings</h3>
-                <p>{{recipe.servings}}</p>
-            </div>
-            <div>
-                <h3>Cook Time</h3>
-                <p>{{recipe.cook_time}}</p>
+            <div class="recipe-cook-time">
+                <h3>⏲️ Cook Time</h3>
+                <p>{{ recipe.cook_time }}</p>
             </div>
         </div>
-        
-        <div class="recipes-footer">
-        </div>
-      {% endfor %}
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}
