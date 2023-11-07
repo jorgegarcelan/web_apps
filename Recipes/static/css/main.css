@@ -17,4 +17,9 @@ h1, h2 {
     font-family: 'Bavista Soulare';
     color: #142c35;
 }
-  
+
+.recipe-realm-font {
+    font-family: 'Bavista Soulare';
+    color: #142c35;
+    font-size: 16pt;
+  }

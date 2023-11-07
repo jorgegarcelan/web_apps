@@ -11,8 +11,13 @@ Home Page
 {% block content %}
 {% if current_user.is_authenticated: %}
     <div>
-        <h1>👋 Welcome to RecipeRealm</h1>
+        <h1>👋 Welcome Chef</h1>
         <p>RecipeRealm is an enchanting web application that serves as a culinary compass guiding food enthusiasts through a vast expanse of gastronomic delights. It's a digital haven where recipes are not just instructions but treasured scrolls holding the secrets to kitchen magic. From the bustling streets of Mumbai to the rustic farms of Tuscany, RecipeRealm offers a portal to global cuisines right at your fingertips.</p>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+              document.body.innerHTML = document.body.innerHTML.replace(/RecipeRealm/g, '<span class="recipe-realm-font">RecipeRealm</span>');
+            });
+        </script>
     </div>
 
 {% endif %}
