@@ -1,9 +1,6 @@
 @font-face {
-    font-family: "Telefonica Sans";
-    src: url('static/fonts/telefonica-sans-regular.eot');
-    src: url('static/fonts/telefonica-sans-regular.eot') format('embedded-opentype'),
-         url('static/fonts/telefonica-sans-regular.woff') format('woff'),
-         url('static/fonts/telefonica-sans-regular.ttf') format('truetype');
+    font-family: "Bavista Soulare";
+    src: url('static/fonts/Bavista_Soulare.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -15,6 +12,11 @@ body {
     color: #142c35;
     line-height: 1.6;
   }
+
+h1, h2 {
+    font-family: 'Bavista Soulare';
+    color: #142c35;
+}
   
   /* Container for both profile and recipes */
   .profile-container {

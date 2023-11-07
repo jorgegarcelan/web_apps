@@ -22,12 +22,12 @@ User
       <img src="{{ url_for('static', filename='images/profile-picture.jpg') }}" alt="Profile Picture">
     </div>
     <div class="profile-info">
-      <h2>{{user.name}}</h2>
+      <h3>{{user.name}}</h3>
       <p>@johndoe</p>
       <p>Member since: January 2023</p>
     </div>
     <div>
-      <h3>About</h3>
+      <h2>About</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Pellentesque habitant morbi tristique senectus et netus.</p>
     </div>
   </div>
@@ -49,17 +49,17 @@ User
         <div class="card-image">
         </div>
         <div class="card-body">
-            <h2 class="recipe-title">{{ recipe.title }}</h2>
+            <h3 class="recipe-title">{{ recipe.title }}</h2>
             <div class="recipe-description">
-                <h3>📝 Description</h3>
+                <h2>📝 Description</h3>
                 <p>{{ recipe.description }}</p>
             </div>
             <div class="recipe-servings">
-                <h3>🍴 Servings</h3>
+                <h2>🍴 Servings</h3>
                 <p>{{ recipe.servings }}</p>
             </div>
             <div class="recipe-cook-time">
-                <h3>⏲️ Cook Time</h3>
+                <h2>⏲️ Cook Time</h3>
                 <p>{{ recipe.cook_time }}</p>
             </div>
         </div>
