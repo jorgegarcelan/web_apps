@@ -9,6 +9,8 @@ User
 {% endblock %}
 
 {% block content %}
+
+<!-- User Profile -->
 <div class="profile-container">
   <div class="profile-header">
     <h1>User Profile</h1>
@@ -33,5 +35,38 @@ User
   <div class="profile-footer">
     <p>Contact info: <a href="mailto:{{user.email}}">{{user.email}}</a></p>
   </div>
+</div>
+
+<!-- Recipes Created by User -->
+<div class="recipes-container">
+    <div class="recipes-header">
+        <h1>User Recipes</h1>
+    </div>
+
+    {% for recipe in recipes %}
+        <div class="recipes-content">
+            <div class="recipes-picture">
+                <img src="{{ url_for('static', filename='images/profile-picture.jpg') }}" alt="Profile Picture">
+            </div>
+            <div class="recipes-info">
+                <h2>{{recipe.title}}</h2>
+            </div>
+            <div>
+                <h3>Description</h3>
+                <p>{{recipe.description}}</p>
+            </div>
+            <div>
+                <h3>Servings</h3>
+                <p>{{recipe.servings}}</p>
+            </div>
+            <div>
+                <h3>Cook Time</h3>
+                <p>{{recipe.cook_time}}</p>
+            </div>
+        </div>
+        
+        <div class="recipes-footer">
+        </div>
+      {% endfor %}
 </div>
 {% endblock %}

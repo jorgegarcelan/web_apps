@@ -1,6 +1,6 @@
 import datetime
 import dateutil.tz
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, abort
 import flask_login
 from . import model
 from Recipes import db, create_app
@@ -14,10 +14,19 @@ def index():
 @bp.route("/user/<int:user_id>")
 @flask_login.login_required
 def user(user_id):
+    # user:
     query_u = db.select(model.User).where(model.User.id == user_id)
     user = db.session.execute(query_u).scalar_one_or_none()
     print(user)
     
+    # recipes:
+    query_r = db.select(model.Recipe).where(model.Recipe.user_id == user_id)
+    recipes = db.session.execute(query_r).scalars().all()
+    print(recipes)
+
+
+    if not recipes:
+        abort(404, "Recipes for User id {} doesn't exist.".format(user_id))
     """
     query_p = db.select(model.Message).where(model.Message.user_id == user_id).where(model.Message.response_to_id == None).order_by(model.Message.timestamp.desc()) # get messages that are not responses
     posts = db.session.execute(query_p).scalars().all()
@@ -29,4 +38,4 @@ def user(user_id):
     return render_template("main/user.html", posts=posts, user=user)
     """
     
-    return render_template("user/user.html", user=user)
+    return render_template("user/user.html", user=user, recipes=recipes)
