@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "Telefonica Sans";
+    src: url('static/fonts/telefonica-sans-regular.eot');
+    src: url('static/fonts/telefonica-sans-regular.eot') format('embedded-opentype'),
+         url('static/fonts/telefonica-sans-regular.woff') format('woff'),
+         url('static/fonts/telefonica-sans-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* General body styling */
 body {
