@@ -1,16 +1,20 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 import flask_login
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.sql import func
 
 
 class User(flask_login.UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(128), unique=True, nullable=False)
     name = db.Column(db.String(64), nullable=False)
+    username = db.Column(db.String(64), nullable=True)
     password_hash = db.Column(db.String(100), nullable=False)
     recipes = db.relationship('Recipe', backref='author', lazy='dynamic')
     ratings = db.relationship('Rating', backref='rated_by', lazy='dynamic')
     photos = db.relationship('Photo', backref='uploaded_by', lazy='dynamic')
+    sign_up_date = db.Column(DateTime(timezone=True), server_default=func.now())
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
