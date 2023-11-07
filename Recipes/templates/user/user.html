@@ -12,7 +12,7 @@ User
 <div class="profile-container">
   <div class="profile-header">
     <h1>User Profile</h1>
-    <p>Welcome to your profile page!</p>
+    <p>Welcome to your profile page, chef!</p>
   </div>
   
   <div class="profile-content">
@@ -20,7 +20,7 @@ User
       <img src="{{ url_for('static', filename='images/profile-picture.jpg') }}" alt="Profile Picture">
     </div>
     <div class="profile-info">
-      <h2>John Doe</h2>
+      <h2>{{user.name}}</h2>
       <p>@johndoe</p>
       <p>Member since: January 2023</p>
     </div>
@@ -31,7 +31,7 @@ User
   </div>
   
   <div class="profile-footer">
-    <p>Contact info: <a href="mailto:johndoe@example.com">johndoe@example.com</a></p>
+    <p>Contact info: <a href="mailto:{{user.email}}">{{user.email}}</a></p>
   </div>
 </div>
 {% endblock %}
