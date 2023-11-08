@@ -27,5 +27,9 @@ def user(user_id):
     if not recipes:
         abort(404, "Recipes for User id {} doesn't exist.".format(user_id))
 
+    # photos:
+    query_p = db.select(model.Photo).where(model.Photo.user_id == user_id)
+    photos = db.session.execute(query_p).scalars().all()
+    print(photos)
     
-    return render_template("user/user.html", user=user, recipes=recipes)
+    return render_template("user/user.html", user=user, recipes=recipes, photos=photos)
