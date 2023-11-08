@@ -1,0 +1,18 @@
+ESQUEMA:
+    - Main View 
+    - Filter and Search View (Botón a crear nueva receta)
+    - New Recipe View
+    - Profile View
+    - Recipe View
+    
+MODELS:
+    - Foto de perfil de los usuarios (uso del media de Django pero en Flask)
+
+DATABASE:
+    - Creación de datos reales y no de palabras aleatorias.
+
+MAIN VIEW:
+    - Sección donde se puedan ver las recetas con mejor Rating.
+    - Sección para empezar a navegar en la aplicación (buscar recetas)
+    - About Us.
+    - Formulario de Contacto.
