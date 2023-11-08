@@ -12,7 +12,6 @@ def index():
     return render_template("main/main.html")
 
 @bp.route("/user/<int:user_id>")
-@flask_login.login_required
 def user(user_id):
     # user:
     query_u = db.select(model.User).where(model.User.id == user_id)
