@@ -33,3 +33,18 @@ def user(user_id):
     print(photos)
     
     return render_template("user/user.html", user=user, recipes=recipes, photos=photos)
+
+@bp.route("/recipes/<int:recipe_id>")
+def recipe(recipe_id):
+    # recipe:
+    query_r = db.select(model.Recipe).where(model.Recipe.id == recipe_id)
+    recipe = db.session.execute(query_r).scalar_one_or_none()
+    print(recipe)
+    
+    # user:
+    query_u = db.select(model.User).where(model.User.id == recipe.user_id)
+    user = db.session.execute(query_u).scalar_one_or_none()
+    print(user)
+
+    
+    return render_template("recipes/recipes.html", recipe=recipe)
