@@ -9,5 +9,23 @@ User
 {% endblock %}
 
 {% block content %}
-
+<div class="recipe-card">
+  <div class="card-image">
+  </div>
+  <div class="card-body">
+      <h3 class="recipe-title">{{ recipe.title }}</h2>
+      <span class="recipe-description">
+          <h2>📝 Description</h3>
+          <p>{{ recipe.description }}</p>
+          </span>
+      <span class="recipe-servings">
+          <h2>🍴 Servings</h3>
+          <p>{{ recipe.servings }}</p>
+      </span>
+      <span class="recipe-cook-time">
+          <h2>⏲️ Cook Time</h3>
+          <p>{{ recipe.cook_time }}</p>
+      </span>
+  </div>
+</div>
 {% endblock %}
