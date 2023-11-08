@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Bavista Soulare";
-    src: url('static/fonts/Bavista_Soulare.ttf') format('truetype');
+    src: url('../fonts/Bavista_Soulare.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
