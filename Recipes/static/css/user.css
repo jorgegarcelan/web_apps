@@ -13,13 +13,21 @@ body {
     line-height: 1.6;
   }
 
-h1, h2 {
+h1 {
     font-family: 'Bavista Soulare';
     color: #142c35;
+    text-align: center;
+    font-size: 40pt;
 }
+
+h2 {
+  font-family: 'Bavista Soulare';
+  color: #142c35;
+}
+
   
   /* Container for both profile and recipes */
-  .profile-container {
+  .profile-content {
     background-color: #fff;
     margin: 20px auto;
     padding: 20px;

@@ -14,7 +14,6 @@ User
 <div class="profile-container">
   <div class="profile-header">
     <h1>🧑🏻‍🍳 Chef Profile</h1>
-    <p>Welcome to your profile page, chef!</p>
   </div>
   
   <div class="profile-content">
@@ -30,15 +29,11 @@ User
       <h2>About</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Pellentesque habitant morbi tristique senectus et netus.</p>
     </div>
-  </div>
-  
-  <div class="profile-footer">
     <p>Contact info: <a href="mailto:{{user.email}}">{{user.email}}</a></p>
   </div>
 </div>
 
 <!-- Recipes Created by User -->
-
 <div class="recipes-grid">
     <div class="recipes-header">
         <h1>🍽️ User Recipes</h1>
@@ -66,4 +61,14 @@ User
     </div>
     {% endfor %}
 </div>
+
+<!-- Bookmarked Recipes by User -->
+{% if current_user.is_authenticated: %}
+  <div class="bookmark">
+    <div class="bookmark-header">
+      <h1> 📂 Bookmarked Recipes </h1>
+    </div>
+  </div>
+{% endif %}
+
 {% endblock %}
