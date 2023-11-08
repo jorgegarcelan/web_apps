@@ -5,7 +5,7 @@ Activate the virtual environment that has been prepared already.
 
 ### Command Prompt (cmd):
 ```
-.venv\Scripts\activate
+venv\Scripts\activate
 ```
 
 ## Create Database:
