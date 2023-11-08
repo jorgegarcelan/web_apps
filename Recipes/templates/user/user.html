@@ -63,7 +63,7 @@ User
 </div>
 
 <!-- Bookmarked Recipes by User -->
-{% if current_user.is_authenticated: %}
+{% if current_user.id == user.id: %}
   <div class="bookmark">
     <div class="bookmark-header">
       <h1> 📂 Bookmarked Recipes </h1>
