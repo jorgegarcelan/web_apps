@@ -68,7 +68,24 @@ User
     <div class="bookmark-header">
       <h1> 📂 Bookmarked Recipes </h1>
     </div>
+    <div class="bookmark-container">
+    </div>
   </div>
 {% endif %}
+
+<!-- Photos by User -->
+<div class="photos">
+  <div class="photos-header">
+    <h1> 📷 Photos </h1>
+  </div>
+  <div class="photos-container">
+    {% for photo in photos %}
+    <div class="photos-card">
+        <div class="card-image">
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}
