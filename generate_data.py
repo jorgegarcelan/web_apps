@@ -15,7 +15,9 @@ recipes_data = {
     'description': [random_string(50) for _ in range(25)],
     'user_id': [random.randint(1, 10) for _ in range(25)],
     'servings': [random.randint(1, 10) for _ in range(25)],
-    'cook_time': [random.randint(10, 120) for _ in range(25)]
+    'cook_time': [random.randint(10, 120) for _ in range(25)],
+    'type_food': [random.choice(["Mexican", "Japanese", "Chinese", "Korean", "Thai", "Indian", "American", "Spanish", "Italian", "French", "Eastern Europe", "Arab", "African", "Other"]) for _ in range(25)],
+    'category_food': [random.choice(["Breakfast", "Meal", "Brunch", "Snack", "Dessert"]) for _ in range(25)]
 }
 
 # Ingredients data
