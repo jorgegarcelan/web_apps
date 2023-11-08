@@ -58,27 +58,27 @@ photos_data = {
 }
 
 # Convert the dictionaries to pandas DataFrames
-df_recipes_new = pd.DataFrame(recipes_data)
-df_ingredients_new = pd.DataFrame(ingredients_data)
-df_quantified_ingredients_new = pd.DataFrame(quantified_ingredients_data)
-df_steps_new = pd.DataFrame(steps_data)
-df_ratings_new = pd.DataFrame(ratings_data)
-df_photos_new = pd.DataFrame(photos_data)
+df_recipes = pd.DataFrame(recipes_data)
+df_ingredients = pd.DataFrame(ingredients_data)
+df_quantified_ingredients = pd.DataFrame(quantified_ingredients_data)
+df_steps = pd.DataFrame(steps_data)
+df_ratings = pd.DataFrame(ratings_data)
+df_photos = pd.DataFrame(photos_data)
 
 # Save each DataFrame to a CSV file
-df_recipes_new.to_csv('/data/recipes_new.csv', index=False)
-df_ingredients_new.to_csv('/data/ingredients_new.csv', index=False)
-df_quantified_ingredients_new.to_csv('/data/quantified_ingredients_new.csv', index=False)
-df_steps_new.to_csv('/data/steps_new.csv', index=False)
-df_ratings_new.to_csv('/data/ratings_new.csv', index=False)
-df_photos_new.to_csv('/data/photos_new.csv', index=False)
+df_recipes.to_csv('data/recipes.csv', index=False)
+df_ingredients.to_csv('data/ingredients.csv', index=False)
+df_quantified_ingredients.to_csv('data/quantified_ingredients.csv', index=False)
+df_steps.to_csv('data/steps.csv', index=False)
+df_ratings.to_csv('data/ratings.csv', index=False)
+df_photos.to_csv('data/photos.csv', index=False)
 
 # File paths for the user
-file_paths_new = {
-    'recipes': '/data/recipes_new.csv',
-    'ingredients': '/data/ingredients_new.csv',
-    'quantified_ingredients': '/data/quantified_ingredients_new.csv',
-    'steps': '/data/steps_new.csv',
-    'ratings': '/data/ratings_new.csv',
-    'photos': '/data/photos_new.csv'
+file_paths = {
+    'recipes': 'data/recipes.csv',
+    'ingredients': 'data/ingredients.csv',
+    'quantified_ingredients': 'data/quantified_ingredients.csv',
+    'steps': 'data/steps.csv',
+    'ratings': 'data/ratings.csv',
+    'photos': 'data/photos.csv'
 }
