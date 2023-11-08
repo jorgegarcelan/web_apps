@@ -34,6 +34,8 @@ class Recipe(db.Model):
     steps = db.relationship('Step', backref='recipe', lazy=True)
     ratings = db.relationship('Rating', backref='recipe', lazy=True)
     photos = db.relationship('Photo', backref='recipe', lazy=True)
+    type_food = db.Column(db.String(200), nullable=False) # asiatico, española...
+    category_food = db.Column(db.String(200), nullable=False) # postre, aperitivo...
 
 
 class Ingredient(db.Model):
