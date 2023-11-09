@@ -10,6 +10,7 @@ User
 
 {% block content %}
 
+
 <!-- User Profile -->
 <div class="profile-container">
   <div class="profile-header">
@@ -18,7 +19,7 @@ User
   
   <div class="profile-content">
     <div class="profile-picture">
-      <img src="{{ url_for('static', filename='images/profile-picture.jpg') }}" alt="Profile Picture">
+      <img src="{{ url_for('static', filename='imgs/profile_picture.jpeg') }}" alt="Profile Picture">
     </div>
     <div class="profile-info">
       <h3>{{user.name}}</h3>
@@ -42,6 +43,7 @@ User
     {% for recipe in recipes %}
     <div class="recipe-card">
         <div class="card-image">
+          <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg') }}" alt="Profile Picture">
         </div>
         <div class="card-body">
             <h3 class="recipe-title">{{ recipe.title }}</h2>
@@ -55,13 +57,15 @@ User
             </span>
             <span class="recipe-cook-time">
                 <h2>⏲️ Cook Time</h3>
-                <p>{{ recipe.cook_time }}</p>
+                <p>{{ recipe.cook_time }}'</p>
             </span>
         </div>
     </div>
     {% endfor %}
 </div>
 
+
+</div>
 <!-- Bookmarked Recipes by User -->
 {% if current_user.id == user.id: %}
   <div class="bookmark">
@@ -86,6 +90,4 @@ User
     </div>
     {% endfor %}
   </div>
-</div>
-
 {% endblock %}

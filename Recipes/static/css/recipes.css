@@ -28,7 +28,7 @@ h2 {
 .container {
   margin: 0 auto;
   padding: 20px;
-  /*background-color: #fff;
+  /* background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
   display: flex;
@@ -46,22 +46,7 @@ h2 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.profile-picture {
-  display: flex; /* enables flexbox layout */
-  justify-content: center; /* centers children horizontally */
-  align-items: center; /* centers children vertically */
-  border-radius: 50%; /* circular shape */
-  overflow: hidden; /* hides the overflow to maintain the circular shape */
-  width: 100px; /* fixed width */
-  height: 100px; /* fixed height */
-  margin: auto; /* centers the circle itself if it's within a flex or grid layout */
-}
 
-.profile-picture img {
-  max-width: 100%; /* ensures the image is not larger than the container */
-  max-height: 100%; /* prevents the image from being taller than the container */
-  object-fit: cover; /* covers the area, may crop the image if the aspect ratio is different */
-}
   
   /* Container for recipes */
 
@@ -70,10 +55,10 @@ h2 {
     display: grid;
     width: 70%;
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* creates a responsive grid layout */
+    grid-template-columns: 1fr; /* creates a responsive grid layout */
     gap: 10px; /* space between cards */
     align-items: start; /* aligns items to the start of the grid area */
   }
@@ -91,7 +76,7 @@ h2 {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 10px;
     margin-bottom: 20px;
-    background: #ffffff;
+    background: #f0eeee;
     transition: transform 0.2s ease-in-out;
     overflow: hidden;
   }
