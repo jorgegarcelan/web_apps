@@ -2,8 +2,9 @@ import datetime
 import dateutil.tz
 from flask import Blueprint, render_template, abort
 import flask_login
-from . import model
+from . import model, gpt
 from Recipes import db, create_app
+from gpt import gpt4_vision
 
 bp = Blueprint("main", __name__)
 
@@ -47,3 +48,11 @@ def recipe(recipe_id):
 
     
     return render_template("recipes/recipes.html", recipe=recipe)
+
+@bp.route("/recipe_vision")
+def recipe_vision():
+
+    image = request.form
+    output = gpt4_vision(image)
+
+    return render_template("gpt/gpt4vision.html", )
