@@ -1,10 +1,9 @@
 import datetime
 import dateutil.tz
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, request
 import flask_login
-from . import model, gpt
-from Recipes import db, create_app
-from gpt import gpt4_vision
+from . import model
+from Recipes import db, create_app, gpt
 
 bp = Blueprint("main", __name__)
 
@@ -51,8 +50,25 @@ def recipe(recipe_id):
 
 @bp.route("/recipe_vision")
 def recipe_vision():
+    if request.method == 'POST':
+        # Check if the post request has the file part
+        if 'file' not in request.files:
+            return 'No file part in the request'
+        
+        file = request.files['file']
+        print(file)
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            return 'No selected file'
 
-    image = request.form
-    output = gpt4_vision(image)
+        if file:
+            # Process the image with your GPT model here
+            # Assuming gpt.gpt4_vision is your function to handle the image
+            output = gpt.gpt4_vision(file)
 
-    return render_template("gpt/gpt4vision.html", )
+            # Render the template with the output
+            return render_template("gpt/gpt4vision.html", output=output, uploaded_image=file)
+
+    # If it's not a POST request, just render the template
+    return render_template("gpt/gpt4vision.html")
