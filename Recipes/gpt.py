@@ -32,4 +32,8 @@ def gpt4_vision(image):
         max_tokens=300,
     )
 
-    return response.choices[0]
+    print(response.choices[0].message.content)
+    return response.choices[0].message.content
+
+
+gpt4_vision("C:/Users/jorge/Desktop/UNI/4-CUARTO/4-1-WEB APPS/PROJECT/web_apps/Recipes/static/imgs/5cf5dad1-4634-468e-a04c-11f2ed72cd85--Fridge_Rocky_Luten.png")

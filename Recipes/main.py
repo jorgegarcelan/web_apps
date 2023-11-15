@@ -1,9 +1,11 @@
 import datetime
 import dateutil.tz
-from flask import Blueprint, render_template, abort, request
+from flask import Blueprint, render_template, abort, request, url_for
 import flask_login
 from . import model
 from Recipes import db, create_app, gpt
+from werkzeug.utils import secure_filename
+import os
 
 bp = Blueprint("main", __name__)
 
@@ -48,27 +50,27 @@ def recipe(recipe_id):
     
     return render_template("recipes/recipes.html", recipe=recipe)
 
-@bp.route("/recipe_vision")
+@bp.route("/recipe_vision", methods=['GET', 'POST'])
 def recipe_vision():
     if request.method == 'POST':
-        # Check if the post request has the file part
-        if 'file' not in request.files:
-            return 'No file part in the request'
-        
-        file = request.files['file']
-        print(file)
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
+        file = request.files.get('file')
+
+        if not file or file.filename == '':
             return 'No selected file'
 
-        if file:
-            # Process the image with your GPT model here
-            # Assuming gpt.gpt4_vision is your function to handle the image
-            output = gpt.gpt4_vision(file)
+        # Save the file
+        filename = secure_filename(file.filename)
+        filepath = os.path.join('Recipes/static/imgs', filename)
+        print(filepath)
+        file.save(filepath)
+        print(filepath)
 
-            # Render the template with the output
-            return render_template("gpt/gpt4vision.html", output=output, uploaded_image=file)
+        # Process the image with your GPT model here
+        output = gpt.gpt4_vision(filepath)
 
-    # If it's not a POST request, just render the template
+        # URL for the uploaded image
+        uploaded_image_url = url_for('static', filename='imgs' + filename)
+
+        return render_template("gpt/gpt4vision.html", output=output, uploaded_image=uploaded_image_url)
+
     return render_template("gpt/gpt4vision.html")
