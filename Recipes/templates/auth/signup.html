@@ -9,6 +9,7 @@ SignUp
 {% endblock %}
 
 {% block content %}
+<div class="container main">
 <h2>Sign Up</h2>
 <form action="{{ url_for('auth.signup_post') }}" method="post">
     {% with messages = get_flashed_messages() %}
@@ -57,4 +58,5 @@ SignUp
         Do you already have an account? <a href="{{ url_for('auth.login') }}">Login</a>
     </p>
 </form>
+</div>
 {% endblock %}

@@ -6,16 +6,106 @@ Home Page
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<!-- SWIPER CSS-->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
 {% endblock %}
 
 {% block content %}
-    <div>
-        <h1>👋 Welcome Chef</h1>
-        <p>RecipeRealm is an enchanting web application that serves as a culinary compass guiding food enthusiasts through a vast expanse of gastronomic delights. It's a digital haven where recipes are not just instructions but treasured scrolls holding the secrets to kitchen magic. From the bustling streets of Mumbai to the rustic farms of Tuscany, RecipeRealm offers a portal to global cuisines right at your fingertips.</p>
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-              document.body.innerHTML = document.body.innerHTML.replace(/RecipeRealm/g, '<span class="recipe-realm-font">RecipeRealm</span>');
-            });
-        </script>
+<section class="welcome section" id="welcome">
+    <h1 class="section__title">Welcome Chef 👋</h1>
+    <p class="section__subtitle">Most valorated recipes</p>
+    <div class="container section__border">
+        <div class="recipes__container swiper">
+            <div class="swiper-wrapper">
+                <!--Bucle for aquí con las 5 recetas más valoradas-->
+                <div class="recipes__content swiper-slide">
+                    <div>
+                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                        <p class="recipes__subtitle">Prueba</p>
+                        <h1 class="recipes_title">Prueba Moderna</h1>
+
+                        <a href="#" class="recipes__button">
+                            View recipe <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="recipes__content swiper-slide">
+                    <div>
+                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                        <p class="recipes__subtitle">Prueba 2</p>
+                        <h1 class="recipes_title">Prueba Moderna 2</h1>
+
+                        <a href="#" class="recipes__button">
+                            View recipe <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="recipes__content swiper-slide">
+                    <div>
+                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                        <p class="recipes__subtitle">Prueba 3</p>
+                        <h1 class="recipes_title">Prueba Moderna 3</h1>
+
+                        <a href="#" class="recipes__button">
+                            View recipe <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="recipes__content swiper-slide">
+                    <div>
+                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                        <p class="recipes__subtitle">Prueba 4</p>
+                        <h1 class="recipes_title">Prueba Moderna 4</h1>
+
+                        <a href="#" class="recipes__button">
+                            View recipe <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SWIPER ARROWS AND PAGINATION-->
+            <div class="swiper-button-next">
+                <i class="ri-arrow-right-s-line"></i>
+            </div>
+            <div class="swiper-button-prev">
+                <i class="ri-arrow-left-s-line"></i>
+            </div>
+            <div class="swiper-pagination"></div>
+
+        </div>
     </div>
+</section>
+<!-- SWIPER JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>let swiper = new Swiper(".swiper", {
+    loop: true,
+    spaceBetween: 24,
+
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+        el: ".swiper-pagination",
+    },
+    breakpoints: {
+        1200: {
+            slidesPerView: 2,
+            spaceBetween: 0,
+        }
+    },
+});
+window.addEventListener('load', function() {
+    var slides = document.querySelectorAll('.swiper-slide');
+    slides.forEach(function(slide) {
+        slide.style.marginRight = '0px';
+    });
+});</script>
 {% endblock %}

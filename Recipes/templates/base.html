@@ -5,36 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecipeRealm | {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     {% block head %}{% endblock %}
 </head>
 <body>
-    <header class="header">
-        <img height=130 src="{{ url_for('static', filename='imgs/logo_recipe_realm_negativo.png') }}" alt="Logo">
-    </header>
+    <div class="wrapper">
+        <header class="header">
+            <img height=130 src="{{ url_for('static', filename='imgs/logo_recipe_realm_negativo.png') }}" alt="Logo">
+        </header>
 
-    <nav class="nav">
-        <a href="{{ url_for('main.index') }}">Home</a>
-        {% if current_user.is_authenticated %}
-            <a href="{{ url_for('main.user', user_id=current_user.id) }}">Profile</a>
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-        {% else %}
-            <a href="{{ url_for('auth.login') }}">Login</a>
-        {% endif %}
-        <!-- Additional navigation links -->
-    </nav>
+        <nav class="nav">
+            <a href="{{ url_for('main.index') }}">Home</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.user', user_id=current_user.id) }}">Profile</a>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">Login</a>
+            {% endif %}
+            <!-- Additional navigation links -->
+        </nav>
 
-    <div class="container main">
-        {% block content %}
-        <!-- Content will go here -->
-        {% endblock %}
+        <main>
+            {% block content %}
+            <!-- Content will go here -->
+            {% endblock %}
+        </main>
     </div>
-
     <footer class="footer">
         {% block footer %}
-        &copy; {{ current_year }} RecipeRealm. All rights reserved.
+        &copy; {{ current_year }} <span class="recipe-realm-font">RecipeRealm</span>. All rights reserved.
         {% endblock %}
     </footer>
-
-
 </body>
 </html>

@@ -1,8 +1,15 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f8f0;
+    color: #142c35;
+    line-height: 1.6;
     margin: 0;
-    padding: 0;
-    background: #f7f7f7;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header, .footer {
