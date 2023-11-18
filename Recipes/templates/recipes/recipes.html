@@ -1,39 +1,60 @@
 {% extends "base.html" %}
 
 {% block title %}
-User
+Recipe
 {% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/recipes.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="recipe-card">
-  <div class="card-image">
-  </div>
-  <div class="card-body">
-      <h3 class="recipe-title">{{ recipe.title }}</h2>
-      <span class="recipe-description">
-          <h2>📝 Description</h3>
-          <p>{{ recipe.description }}</p>
-          </span>
-      <span class="recipe-servings">
-          <h2>🍴 Servings</h3>
-          <p>{{ recipe.servings }}</p>
-      </span>
-      <span class="recipe-cook-time">
-          <h2>⏲️ Cook Time</h3>
-          <p>{{ recipe.cook_time }}</p>
-      </span>
-      <span class="recipe-type_food">
-        <h2>⏲️ Type </h3>
-        <p>{{ recipe.type_food }}</p>
-    </span>
-    <span class="recipe-category_food">
-      <h2>⏲️ Category </h3>
-      <p>{{ recipe.category_food }}</p>
-  </span>
-  </div>
+<h1 class="recipe-title">{{ recipe.title }}</h1>
+
+<p class="user">Submitted by chef <a href="{{ url_for(main.user, user_id=user.id) }}">{{ user.username }}</a></p>
+
+
+<div class="recipe-info">
+    <div class="recipe-servings">
+        <h3>👥 <span class="servings-count">{{ recipe.servings }}</span></h3>
+    </div>
+    <div class="recipe-cook_time">
+        <h3>⏲️ <span class="cook_time-count">{{ recipe.cook_time }}'</span></h3>
+    </div>
+    <div class="recipe-type_food">
+        <h3>🍽️ <span class="type_food-count">{{ recipe.type_food }}</span></h3>
+    </div>
+    <div class="recipe-category_food">
+        <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
+    </div>
 </div>
+
+<span class="recipe-description">
+    <h2>📝 Description</h3>
+    <p>{{ recipe.description }}</p>
+</span>
+
+<div class="recipe-card">
+    <div class="card-columns">
+        <!-- Column 1 -->
+        <div class="card-column">
+            <div class="card-body">
+                <h2>🔢 Steps</h3>
+                {% for step in recipe.steps %}
+                <p>{{ step.sequence_number }}. <span class="step-description">{{ step.description }}</span></p>
+                {% endfor %}
+            </div>
+        </div>
+    
+        <!-- Column 2 -->
+        <div class="card-column">
+            <div class="card-image">
+                <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg') }}" alt="Profile Picture">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 {% endblock %}

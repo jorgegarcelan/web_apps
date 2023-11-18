@@ -14,8 +14,8 @@ body {
   }
 
 h1 {
-    font-family: 'Bavista Soulare';
     color: #142c35;
+    font-family: 'Bavista Soulare';
     text-align: center;
     font-size: 40pt;
 }
@@ -25,67 +25,78 @@ h2 {
   color: #142c35;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 20px;
-  /* background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+h3 {
+  color: #142c35;
+  margin: 0; /* Remove default margins from h3 elements */
+  white-space: nowrap; /* Keep the icon and text on the same line */
+}
+
+
+.recipe-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Distribute space between the items */
+  align-items: center; /* Align items vertically */
+  flex-wrap: wrap; /* Allow items to wrap to the next line on small screens */
+  margin: 20px;
+}
+
+.recipe-info > div {
+  /* If you want to ensure that the divs do not shrink or grow, set them to not flex */
+  flex: 0 0 auto;
+  margin: 0 5px; /* Add a little space between each div */
+}
+
+.recipe-description {
+  margin: 20px;
+  justify-content: center; /* Distribute space between the items */
+  align-items: center; /* Align items vertically */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; /* prevents text from overflowing */
+}
+.recipe-description h2 {
+  margin-bottom: 0; /* Reduces space below the heading */
+}
+
+.recipe-description p {
+  margin-top: 0; /* Removes space above the paragraph */
+}
+
+.user {
+  margin: 20px;
+  justify-content: center; /* Distribute space between the items */
+  align-items: center; /* Align items vertically */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; /* prevents text from overflowing */
+}
+
+.card-columns {
+  display: flex; /* Enables Flexbox */
+}
+
+.card-column {
+  flex: 1; /* Each column takes equal width */
 }
 
 
-
-
-.profile-container {
-  width: 20%;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-
-  
-  /* Container for recipes */
-
-  
-  .recipes-grid {
-    display: grid;
-    width: 70%;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    grid-template-columns: 1fr; /* creates a responsive grid layout */
-    gap: 10px; /* space between cards */
-    align-items: start; /* aligns items to the start of the grid area */
-  }
-  
-  .recipes-header {
-    grid-column: 1 / -1; /* header will span all columns */
-    text-align: center;
-    margin-bottom: 20px;
-  }
   
   .recipe-card {
     display: flex;
     flex-direction: column;
+    padding: 20px;
     height: 100%; /* makes sure all cards have the same height */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin: 30px;
     background: #f0eeee;
     transition: transform 0.2s ease-in-out;
     overflow: hidden;
   }
   
-  .card-image img {
-    width: 100%;
-    height: 200px; /* fixed height for images */
-    object-fit: cover;
-  }
+
   
   .card-body {
     display: flex;
@@ -98,37 +109,5 @@ h2 {
     color: #142c35;
     margin-bottom: 10px;
     word-wrap: break-word; /* prevents text from overflowing */
-  }
-  
-  .recipe-description,
-  .recipe-servings,
-  .recipe-cook-time {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* aligns content to the top */
-    word-wrap: break-word; /* prevents text from overflowing */
-  }
-  
-  .recipe-description h3,
-  .recipe-servings h3,
-  .recipe-cook-time h3 {
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-  
-  .recipe-description p,
-  .recipe-servings p,
-  .recipe-cook-time p {
-    color: #666;
-  }
-  
-  /* Ensures all paragraphs have the same height for alignment */
-  .recipe-description p,
-  .recipe-servings p,
-  .recipe-cook-time p {
-    display: flex;
-    align-items: center;
-    min-height: 3em; /* adjust accordingly */
   }
   

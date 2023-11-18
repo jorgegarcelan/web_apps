@@ -41,6 +41,7 @@ def recipe(recipe_id):
     query_r = db.select(model.Recipe).where(model.Recipe.id == recipe_id)
     recipe = db.session.execute(query_r).scalar_one_or_none()
     print(recipe)
+
     
     # user:
     query_u = db.select(model.User).where(model.User.id == recipe.user_id)
@@ -48,7 +49,7 @@ def recipe(recipe_id):
     print(user)
 
     
-    return render_template("recipes/recipes.html", recipe=recipe)
+    return render_template("recipes/recipes.html", recipe=recipe, user=user)
 
 @bp.route("/recipe_vision", methods=['GET', 'POST'])
 def recipe_vision():
@@ -61,7 +62,7 @@ def recipe_vision():
         # Save the file
         filename = secure_filename(file.filename)
         filepath = os.path.join('Recipes/static/imgs', filename)
-        print(filepath)
+        print(filename)
         file.save(filepath)
         print(filepath)
 
@@ -69,7 +70,7 @@ def recipe_vision():
         output = gpt.gpt4_vision(filepath)
 
         # URL for the uploaded image
-        uploaded_image_url = url_for('static', filename='imgs' + filename)
+        uploaded_image_url = url_for('static', filename='imgs/' + filename)
 
         return render_template("gpt/gpt4vision.html", output=output, uploaded_image=uploaded_image_url)
 
