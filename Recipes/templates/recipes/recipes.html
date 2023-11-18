@@ -6,12 +6,17 @@ Recipe
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/recipes.css') }}">
+<!-- SWIPER CSS-->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
 {% endblock %}
 
 {% block content %}
 <h1 class="recipe-title">{{ recipe.title }}</h1>
 
-<p class="user">Submitted by chef <a href="{{ url_for(main.user, user_id=user.id) }}">{{ user.username }}</a></p>
+<p class="user">Submitted by chef {{ user.username }} </p>
 
 
 <div class="recipe-info">
@@ -49,7 +54,73 @@ Recipe
         <!-- Column 2 -->
         <div class="card-column">
             <div class="card-image">
-                <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg') }}" alt="Profile Picture">
+                <div class="container section__border">
+                    <div class="recipes__container swiper">
+                        <div class="swiper-wrapper">
+                            <!--Bucle for aquí con las 5 recetas más valoradas-->
+                            <div class="recipes__content swiper-slide">
+                                <div>
+                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                                </div>
+                            </div>
+            
+                            <div class="recipes__content swiper-slide">
+                                <div>
+                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                                </div>
+                            </div>
+            
+                            <div class="recipes__content swiper-slide">
+                                <div>
+                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                                </div>
+                            </div>
+            
+                            <div class="recipes__content swiper-slide">
+                                <div>
+                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- SWIPER ARROWS AND PAGINATION-->
+                        <div class="swiper-button-next">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </div>
+                        <div class="swiper-button-prev">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </div>
+                        <div class="swiper-pagination"></div>
+            
+                    </div>
+                </div>
+            </section>
+            <!-- SWIPER JS -->
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+            <script>let swiper = new Swiper(".swiper", {
+                loop: true,
+                spaceBetween: 24,
+            
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                },
+                breakpoints: {
+                    1200: {
+                        slidesPerView: 2,
+                        spaceBetween: 0,
+                    }
+                },
+            });
+            window.addEventListener('load', function() {
+                var slides = document.querySelectorAll('.swiper-slide');
+                slides.forEach(function(slide) {
+                    slide.style.marginRight = '0px';
+                });
+            });</script>
             </div>
         </div>
     </div>
