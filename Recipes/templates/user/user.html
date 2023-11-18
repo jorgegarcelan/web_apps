@@ -24,7 +24,7 @@ User
     <div class="profile-info">
       <h3>{{user.name}}</h3>
       <p>{{user.username}}</p>
-      <p>Chef since: {{user.sign_up_date.month}}/{{user.sign_up_date.year}}</p>
+      <p>Chef in the Realm since: {{user.sign_up_date.month}}/{{user.sign_up_date.year}}</p>
     </div>
     <div>
       <h2>About</h2>
@@ -47,10 +47,6 @@ User
         </div>
         <div class="card-body">
             <h3 class="recipe-title">{{ recipe.title }}</h2>
-            <span class="recipe-description">
-                <h2>📝 Description</h3>
-                <p>{{ recipe.description }}</p>
-                </span>
             <span class="recipe-servings">
                 <h2>🍴 Servings</h3>
                 <p>{{ recipe.servings }}</p>
