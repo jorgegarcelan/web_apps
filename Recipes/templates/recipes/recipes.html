@@ -14,9 +14,16 @@ Recipe
 {% endblock %}
 
 {% block content %}
+
+{% if current_user.is_authenticated %}
+    <div class="recipe-bookmark">
+        <h3>🤎 <span class="bookmark">Save Recipe</span></h3>
+    </div>
+{% endif %}
+
 <h1 class="recipe-title">{{ recipe.title }}</h1>
 
-<p class="user">Submitted by chef {{ user.username }} </p>
+<p class="user">Submitted by chef <a href="{{ url_for('main.user', user_id=user.id) }}"> {{ user.username }}</a></p>
 
 
 <div class="recipe-info">
@@ -32,6 +39,9 @@ Recipe
     <div class="recipe-category_food">
         <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
     </div>
+    <div class="recipe-rating">
+        <h3>⭐ <span class="rating-count">{{ rating }}/5</span></h3>
+    </div>
 </div>
 
 <span class="recipe-description">
@@ -42,7 +52,51 @@ Recipe
 <div class="recipe-card">
     <div class="card-columns">
         <!-- Column 1 -->
-        <div class="card-column">
+        <div class="card-column1">
+            <!-- Tab links -->
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'London')">London</button>
+                <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+            </div>
+            
+            <!-- Tab content -->
+            <div id="London" class="tabcontent">
+                <h3>London</h3>
+                <p>London is the capital city of England.</p>
+            </div>
+            
+            <div id="Paris" class="tabcontent">
+                <h3>Paris</h3>
+                <p>Paris is the capital of France.</p>
+            </div>
+            
+            <div id="Tokyo" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+            <script>
+                function openCity(evt, cityName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks;
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                    }
+            </script>
             <div class="card-body">
                 <h2>🔢 Steps</h3>
                 {% for step in recipe.steps %}
@@ -52,7 +106,7 @@ Recipe
         </div>
     
         <!-- Column 2 -->
-        <div class="card-column">
+        <div class="card-column2">
             <div class="card-image">
                 <div class="container section__border">
                     <div class="recipes__container swiper">

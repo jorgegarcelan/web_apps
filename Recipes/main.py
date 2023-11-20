@@ -6,6 +6,7 @@ from . import model
 from Recipes import db, create_app, gpt
 from werkzeug.utils import secure_filename
 import os
+import numpy as np
 
 bp = Blueprint("main", __name__)
 
@@ -48,8 +49,13 @@ def recipe(recipe_id):
     user = db.session.execute(query_u).scalar_one_or_none()
     print(user)
 
+    # rating:
+    query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
+    ratings_list = db.session.execute(query_rt).scalars().all()
+    rating = np.round(np.mean(ratings_list), 1)
     
-    return render_template("recipes/recipes.html", recipe=recipe, user=user)
+    return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating)
+
 
 @bp.route("/recipe_vision", methods=['GET', 'POST'])
 def recipe_vision():
