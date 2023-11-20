@@ -11,6 +11,7 @@ Home Page
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block content %}
@@ -19,7 +20,7 @@ Home Page
         <h1 class="section__title">Welcome Chef 👋</h1>
         <p>Delight in a diverse array of recipes, from cozy classics to daring delights. <span>'RecipeRealm'</span> is your destination for memorable gastronomic adventures.</p>
         <div class="btn-container">
-            <a href="#" ><button class="btn-primary">Explore!</button></a>
+            <a href="#" ><button class="btn-primary">Explore</button></a>
         </div>
     </div>
 </section>
@@ -34,9 +35,9 @@ Home Page
                         <div>
                             <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
                             <h1 class="recipes_title">{{ recipe.title }}</h1>
-                            <p class="recipes__subtitle">{{ average_rating }}</p>
+                            <p class="recipes__subtitle">{{ average_rating }} ⭐</p>
 
-                            <a href="#" class="recipes__button">
+                            <a href="{{ url_for('main.recipe', recipe_id=recipe.id)}}" class="recipes__button">
                                 View recipe <i class="ri-arrow-right-line"></i>
                             </a>
                         </div>
@@ -53,6 +54,58 @@ Home Page
             </div>
             <div class="swiper-pagination"></div>
 
+        </div>
+    </div>
+</section>
+
+<section class="AboutUs__section" id="About">
+    <h1 class="section__title">About Us</h1>
+    <div class="container section__border">
+
+    </div>
+</section>
+
+<section class="contact__section section" id="Contact">
+    <h1 class="section__title">Contact</h1>
+    <div class="container">
+        <div class="fila">
+            <!-- Formulario -->
+            <div class="col">
+                <form
+                action="https://formspree.io/f/xzblobjj"
+                method="POST"
+                >
+                    <input name="name" type="text" placeholder="Your Name">
+                    <input name="tel" type="tel" placeholder="Phone Number">
+                    <input name="email" type="email" placeholder="Email Address">
+                    <input name="topic" type="text" placeholder="Topic">
+                    <textarea name="message" id="" cols="30" rows="10" placeholder="Message"></textarea>
+                    <button>
+                        Send Message <i class="fa-solid fa-paper-plane"></i>
+                        <span class="overlay"></span>
+                    </button>
+                </form>
+            </div>
+            <!-- Mapa -->
+            <div class="col">
+                <img src="{{ url_for('static', filename='imgs/ubicacion.png') }}" alt="">
+                <div class="info">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            Calle de la Cava Baja. Madrid, Spain.
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-mobile-screen"></i>
+                            PhoneNumber: +34 606157414 
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            Email: recipeRealm@gmail.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>

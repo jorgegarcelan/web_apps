@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Work+Sans:wght@100;300;400;600;800&display=swap');
 @font-face {
     font-family: "Bavista Soulare";
     src: url('../fonts/Bavista_Soulare.ttf') format('truetype');
@@ -159,8 +160,7 @@ a {
 }
 
 #welcome p{
-  font-family: "Bavista Soulare";
-  font-size: var(--h3-font-size);
+  font-size: var(--normal-font-size);
   color: white;
   padding: 0px 30px;
 }
@@ -280,8 +280,85 @@ a {
   background-color: var(--title-color);
 }
 
-
-
+/*=============== Contact ===============*/
+.contact__section{
+  margin-top: 70px;
+  background-image: url(../imgs/contact_bg.png);
+  background-color: #1e2326;
+  color: #fff;
+  padding: 50px 0;
+  padding-bottom: 0;
+}
+.contact__section h1 {
+  color: #fff;
+}
+.contact__section .fila{
+  display: flex;
+}
+.contact__section .col{
+  width: 50%;
+  padding: 10px;
+  position: relative;
+}
+.contact__section .col input, .contact__section .col textarea{
+  display: block;
+  width: 100%;
+  padding: 18px;
+  border: none;
+  margin-bottom: 20px;
+  background-color: #252A2E;
+  color: #fff;
+  font-size: 18px;
+}
+.contact__section button{
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid #fff;
+  width: fit-content;
+  display: block;
+  margin: 20px auto;
+  padding: 10px 22px;
+  font-size: 16px;
+  color: #fff;
+  position: relative;
+  z-index: 10;
+}
+.contact__section button .overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #ca9e67;
+  z-index: -1;
+  transition: 1s;
+}
+.contact__section button:hover .overlay{
+  width: 100%;
+}
+.contact__section .col img{
+  width: 100%;
+}
+.contact__section .col .info{
+  position: absolute;
+  top: 40%;
+  background-color: #252A2E;
+  padding: 20px;
+  max-width: 350px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.contact__section .col .info ul{
+  list-style: none;
+}
+.contact__section .col .info ul li{
+  margin-bottom: 20px;
+}
+.contact__section .col .info ul li i{
+  color: #ca9e67;
+  display: inline-block;
+  margin-right: 20px;
+}
 
 /*========== RESPONSIVE ==========*/
 @media screen and (max-width: 340px){
