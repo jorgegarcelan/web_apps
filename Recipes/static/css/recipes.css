@@ -32,6 +32,14 @@ h3 {
 }
 
 
+.recipe-bookmark {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center; /* Distribute space between the items */
+  align-items: center; /* Align items vertically */
+  flex-wrap: wrap; /* Allow items to wrap to the next line on small screens */
+}
+
 .recipe-info {
   display: flex;
   justify-content: center; /* Distribute space between the items */
@@ -73,28 +81,33 @@ h3 {
   word-wrap: break-word; /* prevents text from overflowing */
 }
 
+
+
 .card-columns {
   display: flex; /* Enables Flexbox */
 }
 
-.card-column {
-  flex: 1; /* Each column takes equal width */
+.card-column1 {
+  width: 35%; 
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
+
+}
+.card-column2 {
+  width:65%;   background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
 }
 
 
-  
-  .recipe-card {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    height: 100%; /* makes sure all cards have the same height */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    margin: 30px;
-    background: #f0eeee;
-    transition: transform 0.2s ease-in-out;
-    overflow: hidden;
-  }
+
   
 
   
