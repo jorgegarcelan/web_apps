@@ -22,8 +22,10 @@ Recipe
 {% endif %}
 
 <h1 class="recipe-title">{{ recipe.title }}</h1>
-
-<p class="user">Submitted by chef <a href="{{ url_for('main.user', user_id=user.id) }}"> {{ user.username }}</a></p>
+<div class="user-image">
+    <img src="{{ url_for('static', filename='imgs/profile_picture.jpeg') }}" alt="Profile Picture">
+    <span class="user"> Submitted by chef <a href="{{ url_for('main.user', user_id=user.id) }}"> {{ user.username }}</a></span>    
+</div>
 
 
 <div class="recipe-info">
@@ -44,10 +46,6 @@ Recipe
     </div>
 </div>
 
-<span class="recipe-description">
-    <h2>📝 Description</h3>
-    <p>{{ recipe.description }}</p>
-</span>
 
 <div class="recipe-card">
     <div class="card-columns">
@@ -55,28 +53,30 @@ Recipe
         <div class="card-column1">
             <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-                <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                <button class="tablinks" onclick="openTab(event, 'Description')" id="default">📝 Description</button>
+                <button class="tablinks" onclick="openTab(event, 'Steps')">🔢 Steps</button>
+                <button class="tablinks" onclick="openTab(event, 'Rate')">⭐ Rate</button>
             </div>
             
             <!-- Tab content -->
-            <div id="London" class="tabcontent">
-                <h3>London</h3>
-                <p>London is the capital city of England.</p>
+            <div id="Description" class="tabcontent">
+                <h2>📝 Description</h2>
+                <p>{{ recipe.description }}</p>
             </div>
             
-            <div id="Paris" class="tabcontent">
-                <h3>Paris</h3>
-                <p>Paris is the capital of France.</p>
+            <div id="Steps" class="tabcontent">
+                <h2>🔢 Steps</h2>
+                {% for step in recipe.steps %}
+                <p>{{ step.sequence_number }}. <span class="step-description">{{ step.description }}</span></p>
+                {% endfor %}
             </div>
             
-            <div id="Tokyo" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
+            <div id="Rate" class="tabcontent">
+                <h2>⭐ Rate</h2>
+                <p>Chef, rate this recipe!</p>
             </div>
             <script>
-                function openCity(evt, cityName) {
+                function openTab(evt, Name) {
                     // Declare all variables
                     var i, tabcontent, tablinks;
 
@@ -93,16 +93,15 @@ Recipe
                     }
 
                     // Show the current tab, and add an "active" class to the button that opened the tab
-                    document.getElementById(cityName).style.display = "block";
+                    document.getElementById(Name).style.display = "block";
                     evt.currentTarget.className += " active";
                     }
+
+                    // Get the element with id="defaultOpen" and click on it
+                    document.getElementById("default").click();
             </script>
-            <div class="card-body">
-                <h2>🔢 Steps</h3>
-                {% for step in recipe.steps %}
-                <p>{{ step.sequence_number }}. <span class="step-description">{{ step.description }}</span></p>
-                {% endfor %}
-            </div>
+
+            
         </div>
     
         <!-- Column 2 -->

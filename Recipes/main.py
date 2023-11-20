@@ -59,6 +59,10 @@ def recipe(recipe_id):
     query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
     ratings_list = db.session.execute(query_rt).scalars().all()
     rating = np.round(np.mean(ratings_list), 1)
+    print(rating is np.nan)
+    if rating == 0: ### NO FUNCIONA
+        rating = "No reviews yet"
+
     
     return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating)
 
