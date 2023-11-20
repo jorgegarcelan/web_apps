@@ -2,6 +2,7 @@ import datetime
 import dateutil.tz
 from flask import Blueprint, render_template, abort, request, url_for
 import flask_login
+from sqlalchemy.sql import func
 from . import model
 from Recipes import db, create_app, gpt
 from werkzeug.utils import secure_filename
@@ -11,7 +12,12 @@ bp = Blueprint("main", __name__)
 
 @bp.route("/")
 def index():
-    return render_template("main/main.html")
+    top_recipes = db.session.query(
+        model.Recipe, 
+        func.avg(model.Rating.value).label('average_rating')
+    ).join(model.Rating).group_by(model.Recipe.id).order_by(func.avg(model.Rating.value).desc()).limit(5).all()
+
+    return render_template('main/main.html', top_recipes=top_recipes)
 
 @bp.route("/user/<int:user_id>")
 def user(user_id):

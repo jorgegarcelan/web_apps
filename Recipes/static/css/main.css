@@ -130,6 +130,66 @@ a {
   overflow: hidden; /* For animation */
 }
 
+/*=============== Welcome ===============*/
+#welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 95vh;
+  background-image: linear-gradient(
+      0deg,
+      rgba(0,0,0,0.75),
+      rgba(0,0,0,0.75)
+  )
+  ,url("../imgs/MainPicture3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+#welcome .container {
+  max-width: 720px;
+}
+
+#welcome h1{
+  color: white;
+  font-weight: bold;
+}
+
+#welcome p{
+  font-family: "Bavista Soulare";
+  font-size: var(--h3-font-size);
+  color: white;
+  padding: 0px 30px;
+}
+
+#welcome p span {
+  font-family: "Bavista Soulare";
+  font-weight: bold;
+}
+
+.btn-primary {
+  margin-top: 10px;
+  text-decoration: none;
+  font-size: 1.25em;
+  font-weight: bold;
+  padding: 10px 30px;
+  border: rgba(0,0,0,0.5) solid 1px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  background-color: #ca9e67;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Bavista Soulare";
+  font-size: var(--h3-font-size);
+}
+
+.btn-primary:hover {
+  background-color: #7d5627;
+}
+
 /*=============== Recipes ===============*/
 .recipes__container {
   overflow: initial;

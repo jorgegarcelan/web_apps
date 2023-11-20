@@ -15,59 +15,33 @@ Home Page
 
 {% block content %}
 <section class="welcome section" id="welcome">
-    <h1 class="section__title">Welcome Chef 👋</h1>
-    <p class="section__subtitle">Most valorated recipes</p>
+    <div class="container">
+        <h1 class="section__title">Welcome Chef 👋</h1>
+        <p>Delight in a diverse array of recipes, from cozy classics to daring delights. <span>'RecipeRealm'</span> is your destination for memorable gastronomic adventures.</p>
+        <div class="btn-container">
+            <a href="#" ><button class="btn-primary">Explore!</button></a>
+        </div>
+    </div>
+</section>
+
+<section class="most valorated section" id="mostValorated">
+    <h1 class="section__title">Most valorated recipes</h1>
     <div class="container section__border">
         <div class="recipes__container swiper">
             <div class="swiper-wrapper">
-                <!--Bucle for aquí con las 5 recetas más valoradas-->
-                <div class="recipes__content swiper-slide">
-                    <div>
-                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                        <p class="recipes__subtitle">Prueba</p>
-                        <h1 class="recipes_title">Prueba Moderna</h1>
+                {% for recipe, average_rating in top_recipes %}
+                    <div class="recipes__content swiper-slide">
+                        <div>
+                            <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                            <h1 class="recipes_title">{{ recipe.title }}</h1>
+                            <p class="recipes__subtitle">{{ average_rating }}</p>
 
-                        <a href="#" class="recipes__button">
-                            View recipe <i class="ri-arrow-right-line"></i>
-                        </a>
+                            <a href="#" class="recipes__button">
+                                View recipe <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="recipes__content swiper-slide">
-                    <div>
-                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                        <p class="recipes__subtitle">Prueba 2</p>
-                        <h1 class="recipes_title">Prueba Moderna 2</h1>
-
-                        <a href="#" class="recipes__button">
-                            View recipe <i class="ri-arrow-right-line"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="recipes__content swiper-slide">
-                    <div>
-                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                        <p class="recipes__subtitle">Prueba 3</p>
-                        <h1 class="recipes_title">Prueba Moderna 3</h1>
-
-                        <a href="#" class="recipes__button">
-                            View recipe <i class="ri-arrow-right-line"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="recipes__content swiper-slide">
-                    <div>
-                        <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                        <p class="recipes__subtitle">Prueba 4</p>
-                        <h1 class="recipes_title">Prueba Moderna 4</h1>
-
-                        <a href="#" class="recipes__button">
-                            View recipe <i class="ri-arrow-right-line"></i>
-                        </a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             
             <!-- SWIPER ARROWS AND PAGINATION-->
