@@ -18,6 +18,8 @@ h1 {
     font-family: 'Bavista Soulare';
     text-align: center;
     font-size: 40pt;
+    text-align: left;
+    margin: 30px;
 }
 
 h2 {
@@ -33,19 +35,19 @@ h3 {
 
 
 .recipe-bookmark {
-  margin-top: 10px;
+  margin: 30px;
   display: flex;
-  justify-content: center; /* Distribute space between the items */
+  justify-content: left; /* Distribute space between the items */
   align-items: center; /* Align items vertically */
   flex-wrap: wrap; /* Allow items to wrap to the next line on small screens */
 }
 
 .recipe-info {
   display: flex;
-  justify-content: center; /* Distribute space between the items */
+  justify-content: left; /* Distribute space between the items */
   align-items: center; /* Align items vertically */
   flex-wrap: wrap; /* Allow items to wrap to the next line on small screens */
-  margin: 20px;
+  margin: 30px;
 }
 
 .recipe-info > div {
@@ -54,24 +56,62 @@ h3 {
   margin: 0 5px; /* Add a little space between each div */
 }
 
-.recipe-description {
-  margin: 20px;
-  justify-content: center; /* Distribute space between the items */
-  align-items: center; /* Align items vertically */
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  word-wrap: break-word; /* prevents text from overflowing */
-}
-.recipe-description h2 {
-  margin-bottom: 0; /* Reduces space below the heading */
-}
-
-.recipe-description p {
-  margin-top: 0; /* Removes space above the paragraph */
-}
-
 .user {
+  margin: 30px;
+  justify-content: left; /* Distribute space between the items */
+  align-items: left;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; /* prevents text from overflowing */
+}
+
+
+.user-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  /* display: flex; */
+  justify-content: left;
+  align-items: left;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  margin: 30px;
+}
+
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent  {
   margin: 20px;
   justify-content: center; /* Distribute space between the items */
   align-items: center; /* Align items vertically */
@@ -80,6 +120,8 @@ h3 {
   flex-direction: column;
   word-wrap: break-word; /* prevents text from overflowing */
 }
+
+
 
 
 
