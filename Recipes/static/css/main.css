@@ -167,6 +167,7 @@ a {
 }
 
 #welcome p{
+  font-family: 'poppins';
   font-size: var(--normal-font-size);
   color: white;
   padding: 0px 30px;
