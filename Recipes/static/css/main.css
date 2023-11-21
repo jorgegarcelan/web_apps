@@ -6,6 +6,13 @@
     font-style: normal;
 }
 
+@font-face {
+  font-family: "poppins";
+  src: url('../fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /*=============== VARIABLES CSS ===============*/
 :root {
   --header-height: 3.5rem;
@@ -280,6 +287,93 @@ a {
   background-color: var(--title-color);
 }
 
+/*=============== About Us ===============*/
+.AboutUs__section .card {
+  font-family: 'poppins';
+}
+
+.AboutUs__section .card h2 {
+  font-family: 'poppins';
+}
+
+.about-wrapper {
+  padding: 5% 8%;
+}
+
+.AboutUs__section .about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.AboutUs__section .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.AboutUs__section .card {
+  height: 450px;
+  width: 370px;
+  background-color: #66441a;
+  padding: 3% 8%;
+  border: 2px solid #e9bc85;
+  border-radius: 9px;
+  transition: .6;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.AboutUs__section .card:after{
+  content: "";
+  position: absolute;
+  top: 150%;
+  left: -200px;
+  width: 120%;
+  transform: rotate(50deg);
+  background-color: #fff;
+  height: 18px;
+  filter: blur(30px);
+  opacity: 0.5;
+  transition: 1s;
+}
+.AboutUs__section .card:hover:after{
+  width: 225%;
+  top: -100%;
+}
+
+.AboutUs__section .card i{
+  color: #daac74;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: var(--biggest-font-size);
+}
+
+.AboutUs__section .card h2{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.AboutUs__section .card p {
+  text-align: left;
+  width: 100%;
+  margin: 12px 0;
+  color: rgba(255, 255, 255, 0.877);
+}
+
+.AboutUs__section .card:hover{
+  transform: translateY(-8px);
+  border-color: #f8e8d4;
+}
+
+.AboutUs__section .card:hover i{
+  color: #b38042;
+}
+
 /*=============== Contact ===============*/
 .contact__section{
   margin-top: 70px;
@@ -397,5 +491,16 @@ a {
   .recipes__container .swiper-button-prev,
   .recipes__container .swiper-button-next{
     font-size: 3rem;
+  }
+}
+
+@media screen and (max-width: 1200px){
+  .AboutUs__section .cards {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+@media screen and (max-width: 900px){
+  .AboutUs__section .cards {
+    grid-template-columns: repeat(1,1fr);
   }
 }
