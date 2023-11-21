@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 import flask_login
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import DateTime
 from sqlalchemy.sql import func
 
 
@@ -14,6 +14,7 @@ class User(flask_login.UserMixin, db.Model):
     recipes = db.relationship('Recipe', backref='author', lazy='dynamic')
     ratings = db.relationship('Rating', backref='rated_by', lazy='dynamic')
     photos = db.relationship('Photo', backref='uploaded_by', lazy='dynamic')
+    profile_image = db.Column(db.String(100), nullable=False, default='default.png')
     sign_up_date = db.Column(DateTime(timezone=True), server_default=func.now())
 
     def set_password(self, password):

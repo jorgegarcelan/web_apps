@@ -19,7 +19,7 @@ User
   
   <div class="profile-content">
     <div class="profile-picture">
-      <img src="{{ url_for('static', filename='imgs/profile_picture.jpeg') }}" alt="Profile Picture">
+      <img src="{{ url_for('static', filename='photos/' + user.profile_image) }}" alt="Profile Picture">
     </div>
     <div class="profile-info">
       <h3>{{user.name}}</h3>
