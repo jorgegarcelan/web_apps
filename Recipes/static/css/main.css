@@ -198,6 +198,16 @@ a {
 }
 
 /*=============== Recipes ===============*/
+
+.most__valorated {
+  margin-top: 50px;
+}
+
+.most__valorated .container{
+  margin-top : 50px;
+  padding-bottom: 100px;
+}
+
 .recipes__container {
   overflow: initial;
 }
