@@ -1,3 +1,10 @@
+@font-face {
+    font-family: "Bavista Soulare";
+    src: url('../fonts/Bavista_Soulare.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f8f0;
@@ -49,4 +56,10 @@ body {
 
 .main {
     margin-top: 50px;
+}
+
+.recipe-realm-font {
+    font-family: 'Bavista Soulare';
+    color: #444343;
+    font-size: 16pt;
 }

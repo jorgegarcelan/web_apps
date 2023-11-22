@@ -91,12 +91,6 @@ a {
   text-decoration: none;
 }
 
-.recipe-realm-font {
-    font-family: 'Bavista Soulare';
-    color: #444343;
-    font-size: 16pt;
-}
-
 .container {
   max-width: 1024px;
   margin-inline: 1.5rem;
