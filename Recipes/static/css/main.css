@@ -178,8 +178,14 @@ a {
   font-weight: bold;
 }
 
+#welcome .btns-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .btn-primary {
-  margin-top: 10px;
+  margin: 10px;
   text-decoration: none;
   font-size: 1.25em;
   font-weight: bold;
