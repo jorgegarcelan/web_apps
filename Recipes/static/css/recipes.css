@@ -1,4 +1,11 @@
 @font-face {
+  font-family: "poppins";
+  src: url('../fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
     font-family: "Bavista Soulare";
     src: url('../fonts/Bavista_Soulare.ttf') format('truetype');
     font-weight: normal;
@@ -73,6 +80,8 @@ h3 {
 
 
 
+
+
 /* Style the tab */
 .tab {
   overflow: hidden;
@@ -112,8 +121,46 @@ h3 {
   word-wrap: break-word; /* prevents text from overflowing */
 }
 
+form {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
 
+label[for="rating"] {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
+select[name="rating"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  margin: 10px;
+  text-decoration: none;
+  font-size: 1.25em;
+  font-weight: bold;
+  padding: 10px 30px;
+  border: rgba(0,0,0,0.5) solid 1px;
+  border-radius: 10px;
+  background-color: #ca9e67;
+  color: #fff;
+  cursor: pointer;
+  font-family: "poppins";
+  font-size: var(--h3-font-size);
+}
+
+.btn-primary:hover {
+  background-color: #7d5627;
+}
 
 
 .card-columns {

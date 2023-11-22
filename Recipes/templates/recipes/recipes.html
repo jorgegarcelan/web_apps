@@ -42,7 +42,7 @@ Recipe
         <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
     </div>
     <div class="recipe-rating">
-        <h3>⭐ <span class="rating-count">{{ rating }}/5</span></h3>
+        <h3>⭐ <span class="rating-count">{{ rating }} {{ count }}</span></h3>
     </div>
 </div>
 
@@ -53,9 +53,10 @@ Recipe
         <div class="card-column1">
             <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'Description')" id="default">📝 Description</button>
-                <button class="tablinks" onclick="openTab(event, 'Steps')">🔢 Steps</button>
-                <button class="tablinks" onclick="openTab(event, 'Rate')">⭐ Rate</button>
+                <button class="tablinks" onclick="openTab(event, 'Description', 'tabcontent', 'tablinks')" id="default">📝 Description</button>
+                <button class="tablinks" onclick="openTab(event, 'Steps', 'tabcontent', 'tablinks')">🔢 Steps</button>
+                <button class="tablinks" onclick="openTab(event, 'Ingredients', 'tabcontent', 'tablinks')">🥕 Ingredients</button>
+                <button class="tablinks" onclick="openTab(event, 'Rate', 'tabcontent', 'tablinks')">⭐ Rate</button>
             </div>
             
             <!-- Tab content -->
@@ -66,48 +67,54 @@ Recipe
             
             <div id="Steps" class="tabcontent">
                 <h2>🔢 Steps</h2>
-                {% for step in recipe.steps %}
-                <p>{{ step.sequence_number }}. <span class="step-description">{{ step.description }}</span></p>
-                {% endfor %}
+                <ol type="1">
+                    {% for step in recipe.steps %}
+                        <li>{{ step.sequence_number }}. <span class="step-description">{{ step.description }}</span></li>
+                    {% endfor %}
+                </ol>
+            </div>
+
+            <div id="Ingredients" class="tabcontent">
+                <h2>🥕 Ingredients</h2>
+                <ul style="list-style-type:circle;">
+                    {% for ingredient in ingredients_info %}
+                        <li>{{ ingredient.name }}: <span class="ingredient-description">{{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}</span></li>
+                    {% endfor %}
+                </ul>
             </div>
             
             <div id="Rate" class="tabcontent">
                 <h2>⭐ Rate</h2>
-                <p>Chef, rate this recipe!</p>
+                <form method="post">
+                    <label for="rating">Chef, rate this recipe!</label>
+                    <p class="rating-area">
+                        <input id="radio1" type="radio" name="rating" value="5">
+                        <label class="star" for="radio1">⭐</label>
+                        <input id="radio2" type="radio" name="rating" value="4">
+                        <label class="star" for="radio2">⭐</label>
+                        <input id="radio3" type="radio" name="rating" value="3">
+                        <label class="star" for="radio3">⭐</label>
+                        <input id="radio4" type="radio" name="rating" value="2">
+                        <label class="star" for="radio4">⭐</label>
+                        <input id="radio5" type="radio" name="rating" value="1">
+                        <label class="star" for="radio5">⭐</label>
+                    </p>
+                    <button type="submit" class="btn-primary">Enviar</button>
+                </form>
             </div>
-            <script>
-                function openTab(evt, Name) {
-                    // Declare all variables
-                    var i, tabcontent, tablinks;
-
-                    // Get all elements with class="tabcontent" and hide them
-                    tabcontent = document.getElementsByClassName("tabcontent");
-                    for (i = 0; i < tabcontent.length; i++) {
-                        tabcontent[i].style.display = "none";
-                    }
-
-                    // Get all elements with class="tablinks" and remove the class "active"
-                    tablinks = document.getElementsByClassName("tablinks");
-                    for (i = 0; i < tablinks.length; i++) {
-                        tablinks[i].className = tablinks[i].className.replace(" active", "");
-                    }
-
-                    // Show the current tab, and add an "active" class to the button that opened the tab
-                    document.getElementById(Name).style.display = "block";
-                    evt.currentTarget.className += " active";
-                    }
-
-                    // Get the element with id="defaultOpen" and click on it
-                    document.getElementById("default").click();
-            </script>
-
-            
         </div>
     
         <!-- Column 2 -->
         <div class="card-column2">
-            <div class="card-image">
-                <div class="container section__border">
+            <!-- Tab links -->
+            <div class="tab">
+                <button class="tablinks2" onclick="openTab(event, 'Chef Pictures', 'container section__border', 'tablinks2')" id="default">📸 Chef Pictures</button>
+                <button class="tablinks2" onclick="openTab(event, 'Users Pictures', 'tabcontent2', 'tablinks2')">📷 Users Pictures</button>
+                <button class="tablinks2" onclick="openTab(event, 'Upload Pictures', 'tabcontent2', 'tablinks2')">⤴️ Upload Pictures</button>
+            </div>
+            <!-- Tab content -->
+            <div class="card-image" >
+                <div class="container section__border" id="Chef Pictures">
                     <div class="recipes__container swiper">
                         <div class="swiper-wrapper">
                             <!--Bucle for aquí con las 5 recetas más valoradas-->
@@ -144,41 +151,75 @@ Recipe
                             <i class="ri-arrow-left-s-line"></i>
                         </div>
                         <div class="swiper-pagination"></div>
-            
                     </div>
                 </div>
-            </section>
-            <!-- SWIPER JS -->
-            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-            <script>let swiper = new Swiper(".swiper", {
-                loop: true,
-                spaceBetween: 24,
-            
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                },
-                breakpoints: {
-                    1200: {
-                        slidesPerView: 2,
-                        spaceBetween: 0,
-                    }
-                },
-            });
-            window.addEventListener('load', function() {
-                var slides = document.querySelectorAll('.swiper-slide');
-                slides.forEach(function(slide) {
-                    slide.style.marginRight = '0px';
-                });
-            });</script>
+
+                <div id="Users Pictures" class="tabcontent2">
+                    <h2>🥕 Ingredients</h2>
+                    <ul style="list-style-type:circle;">
+                        {% for ingredient in ingredients_info %}
+                            <li>{{ ingredient.name }}: <span class="ingredient-description">{{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- TABS JS -->
+<script>
+    function openTab(evt, Name, tab_content, tab_links) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName(tab_content);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName(tab_links);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(Name).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("default").click();
+</script>
+
+<!-- SWIPER JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>let swiper = new Swiper(".swiper", {
+    loop: true,
+    spaceBetween: 24,
+
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+        el: ".swiper-pagination",
+    },
+    breakpoints: {
+        1200: {
+            slidesPerView: 2,
+            spaceBetween: 0,
+        }
+    },
+});
+window.addEventListener('load', function() {
+    var slides = document.querySelectorAll('.swiper-slide');
+    slides.forEach(function(slide) {
+        slide.style.marginRight = '0px';
+    });
+});</script>
 
 
 {% endblock %}

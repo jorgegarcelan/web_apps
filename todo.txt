@@ -16,3 +16,9 @@ MAIN VIEW:
     - Sección para empezar a navegar en la aplicación (buscar recetas)
     - About Us.
     - Formulario de Contacto.
+
+
+RECIPE VIEW:
+    - Botón submit rate funcional
+    - Botón bookmark funcional
+    - tabs fotos (creador receta, usuarios, subit foto)
