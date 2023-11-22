@@ -79,6 +79,29 @@ h3 {
 }
 
 
+.card-columns {
+  display: flex; /* Enables Flexbox */
+}
+
+.card-column1 {
+  width: 35%; 
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
+
+}
+.card-column2 {
+  width:65%;   background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
+}
+
 
 
 
@@ -111,7 +134,7 @@ h3 {
 }
 
 /* Style the tab content */
-.tabcontent  {
+.tabcontent, .tabcontent2  {
   margin: 20px;
   justify-content: center; /* Distribute space between the items */
   align-items: center; /* Align items vertically */
@@ -121,12 +144,12 @@ h3 {
   word-wrap: break-word; /* prevents text from overflowing */
 }
 
-form {
+.rate-form {
   background-color: #f2f2f2;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 label[for="rating"] {
@@ -162,28 +185,34 @@ select[name="rating"] {
   background-color: #7d5627;
 }
 
-
-.card-columns {
-  display: flex; /* Enables Flexbox */
+.bookmark-form {
+  padding: 20px;
 }
 
-.card-column1 {
-  width: 35%; 
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-radius: 10px;
-  transition: transform 0.2s ease-in-out;
-  overflow: hidden;
-  margin: 30px;
-
+.bookmark-button {
+  background-color: #f8f8f800; /* Light grey background */
+  border: 1px solid #dcdcdc; /* Grey border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Top/bottom padding of 10px, left/right padding of 20px */
+  font-size: 12px; /* Set font-size */
+  cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  text-align: left; /* Center the text inside the button */
+  display: inline-block; /* Allows setting padding and width */
+  color: #142c35; /* Dark grey text color */
 }
-.card-column2 {
-  width:65%;   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-radius: 10px;
-  transition: transform 0.2s ease-in-out;
-  overflow: hidden;
-  margin: 30px;
+
+.bookmark-button.unbookmark{
+  background-color: #ca9e67;
+}
+
+.bookmark-button.unbookmark:hover {
+  background-color: #7d5627; /* Slightly darker background on hover */
+  color: #ffffff;
+}
+
+.bookmark-button:hover {
+  background-color: #e2e2e2; /* Slightly darker background on hover */
 }
 
 

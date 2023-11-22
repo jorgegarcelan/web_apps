@@ -1,7 +1,7 @@
 import datetime
 import dateutil.tz
-from flask import Blueprint, render_template, abort, request, url_for, flash
-import flask_login
+from flask import Blueprint, render_template, abort, request, url_for, flash, redirect
+from flask_login import current_user, login_required
 from sqlalchemy.sql import func
 from . import model
 from Recipes import db, create_app, gpt
@@ -19,6 +19,7 @@ def index():
     ).join(model.Rating).group_by(model.Recipe.id).order_by(func.avg(model.Rating.value).desc()).limit(5).all()
 
     return render_template('main/main.html', top_recipes=top_recipes)
+
 
 @bp.route("/user/<int:user_id>")
 def user(user_id):
@@ -42,6 +43,7 @@ def user(user_id):
     
     return render_template("user/user.html", user=user, recipes=recipes, photos=photos)
 
+
 @bp.route("/recipes/<int:recipe_id>")
 def recipe(recipe_id):
     # recipe:
@@ -59,16 +61,10 @@ def recipe(recipe_id):
     ratings_list = db.session.execute(query_rt).scalars().all()
     count = len(ratings_list)
 
-    # steps: ### ordenar por seuqence
-    print(recipe.steps)
-    steps = recipe.steps
-
     # ingredients:
     print(recipe.quantified_ingredients)
-    # Query the QuantifiedIngredient model to get all entries related to the recipe_id
-    quantified_ingredients = model.QuantifiedIngredient.query.filter_by(recipe_id=recipe_id).all()
+    quantified_ingredients = model.QuantifiedIngredient.query.filter_by(recipe_id=recipe_id).all()     # Query the QuantifiedIngredient model to get all entries related to the recipe_id
 
-    # for each quantified ingredient, retrieve the ingredient details
     ingredients_info = []
     for qi in quantified_ingredients:
         ingredient_detail = {
@@ -79,41 +75,38 @@ def recipe(recipe_id):
         ingredients_info.append(ingredient_detail)
 
     # bookmark:
-    """
-     # Check if the current user has already bookmarked the item
-    query_b = model.Bookmark.query.filter_by(
-                                        user_id=user.id,
-                                        recipe_id=recipe.id
-                                    ).first()
+    bookmark = model.Bookmark.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
+    is_bookmarked = bookmark is not None
 
-    if query_b:
-        # The user has already bookmarked this item
-        flash('You have already bookmarked this item.', 'info')
-    else:
-        # The user has not bookmarked this item, create a new bookmark
-        new_bookmark = model.Bookmark(user_id=user.id, recipe_id=recipe.id)
-        db.session.add(new_bookmark)
-        try:
-            db.session.commit()
-            flash('Item bookmarked successfully!', 'success')
-        except Exception as e:
-            db.session.rollback()
-            flash('An error occurred while bookmarking the item.', 'error')
-    """
-    
-
+    # ratings:
     if count == 0:
         rating = "No reviews yet"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info)
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked)
 
     else:
         count = f"({count})"
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, count=count, ingredients_info=ingredients_info)
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked)
 
 
+@bp.route('/bookmark/<int:recipe_id>', methods=['POST'])
+def bookmark_recipe(recipe_id):
+    # Check if bookmark already exists
+    bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
+    if bookmark:
+        # Bookmark exists, remove it
+        db.session.delete(bookmark)
+        db.session.commit()
+        flash('Bookmark removed.')
+    else:
+        # Bookmark does not exist, add a new one
+        new_bookmark = model.Bookmark(user_id=current_user.id, recipe_id=recipe_id)
+        db.session.add(new_bookmark)
+        db.session.commit()
+        flash('Recipe bookmarked.')
 
+    return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
 
 @bp.route("/recipe_vision", methods=['GET', 'POST'])

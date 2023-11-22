@@ -15,11 +15,18 @@ Recipe
 
 {% block content %}
 
-{% if current_user.is_authenticated %}
-    <div class="recipe-bookmark">
-        <h3>🤎 <span class="bookmark">Save Recipe</span></h3>
-    </div>
+{% if current_user.is_authenticated %} 
+    {% if is_bookmarked %}
+    <form action="{{ url_for('main.bookmark_recipe', recipe_id=recipe.id) }}" method="post" class="bookmark-form">
+        <button type="submit" class="bookmark-button unbookmark">🤎 Unbookmark</button>
+    </form>
+    {% else %}
+    <form action="{{ url_for('main.bookmark_recipe', recipe_id=recipe.id) }}" method="post" class="bookmark-form">
+        <button type="submit" class="bookmark-button bookmark">🤍 Bookmark</button>
+    </form>
+    {% endif %}
 {% endif %}
+
 
 <h1 class="recipe-title">{{ recipe.title }}</h1>
 <div class="user-image">
@@ -85,7 +92,7 @@ Recipe
             
             <div id="Rate" class="tabcontent">
                 <h2>⭐ Rate</h2>
-                <form method="post">
+                <form method="post" class="rate-form">
                     <label for="rating">Chef, rate this recipe!</label>
                     <p class="rating-area">
                         <input id="radio1" type="radio" name="rating" value="5">
@@ -108,13 +115,14 @@ Recipe
         <div class="card-column2">
             <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks2" onclick="openTab(event, 'Chef Pictures', 'container section__border', 'tablinks2')" id="default">📸 Chef Pictures</button>
+                <button class="tablinks2" onclick="openTab(event, 'Chef Pictures', 'tabcontent2', 'tablinks2')" id="default2">📸 Chef Pictures</button>
                 <button class="tablinks2" onclick="openTab(event, 'Users Pictures', 'tabcontent2', 'tablinks2')">📷 Users Pictures</button>
                 <button class="tablinks2" onclick="openTab(event, 'Upload Pictures', 'tabcontent2', 'tablinks2')">⤴️ Upload Pictures</button>
             </div>
             <!-- Tab content -->
             <div class="card-image" >
-                <div class="container section__border" id="Chef Pictures">
+                <div id="Chef Pictures" class="tabcontent2">
+                    <h2>📸 Pictures submitted by the Chef</h2>
                     <div class="recipes__container swiper">
                         <div class="swiper-wrapper">
                             <!--Bucle for aquí con las 5 recetas más valoradas-->
@@ -155,13 +163,23 @@ Recipe
                 </div>
 
                 <div id="Users Pictures" class="tabcontent2">
-                    <h2>🥕 Ingredients</h2>
+                    <h2>📷 Pictures submitted by users</h2>
                     <ul style="list-style-type:circle;">
                         {% for ingredient in ingredients_info %}
                             <li>{{ ingredient.name }}: <span class="ingredient-description">{{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}</span></li>
                         {% endfor %}
                     </ul>
                 </div>
+
+                <div id="Upload Pictures" class="tabcontent2">
+                    <h2>⤴️ Upload Pictures to the Realm</h2>
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        <label for="fileUpload">Upload an image:</label>
+                        <input type="file" id="fileUpload" name="file">
+                        <input type="submit" value="Upload Image" name="submit">
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -170,11 +188,16 @@ Recipe
 <!-- TABS JS -->
 <script>
     function openTab(evt, Name, tab_content, tab_links) {
+
+        console.log(Name);
+        console.log(tab_content);
+        console.log(tab_links);
         // Declare all variables
         var i, tabcontent, tablinks;
 
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName(tab_content);
+        console.log(tabcontent);
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
@@ -190,36 +213,43 @@ Recipe
         evt.currentTarget.className += " active";
         }
 
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("default").click();
+        // Get the element with id="default" and click on it
+        window.onload = function() {
+            // Get the element with id="default" and click on it
+            document.getElementById("default").click();
+            document.getElementById("default2").click();
+        };
 </script>
 
 <!-- SWIPER JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>let swiper = new Swiper(".swiper", {
-    loop: true,
-    spaceBetween: 24,
+<script>
+    let swiper = new Swiper(".swiper", {
+        loop: true,
+        spaceBetween: 24,
 
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    pagination: {
-        el: ".swiper-pagination",
-    },
-    breakpoints: {
-        1200: {
-            slidesPerView: 2,
-            spaceBetween: 0,
-        }
-    },
-});
-window.addEventListener('load', function() {
-    var slides = document.querySelectorAll('.swiper-slide');
-    slides.forEach(function(slide) {
-        slide.style.marginRight = '0px';
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        breakpoints: {
+            1200: {
+                slidesPerView: 2,
+                spaceBetween: 0,
+            }
+        },
     });
-});</script>
+
+    window.addEventListener('load', function() {
+        var slides = document.querySelectorAll('.swiper-slide');
+        slides.forEach(function(slide) {
+            slide.style.marginRight = '0px';
+        });
+    });
+</script>
 
 
 {% endblock %}

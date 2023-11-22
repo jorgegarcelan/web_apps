@@ -19,6 +19,6 @@ MAIN VIEW:
 
 
 RECIPE VIEW:
-    - Botón submit rate funcional
-    - Botón bookmark funcional
-    - tabs fotos (creador receta, usuarios, subit foto)
+    - Botón submit rate funcional ------------------------ TO DO
+    - Botón bookmark funcional --------------------------- DONE  (but id se quedan igual por lo que si borras el uno, se queda el 2,3,4...)
+    - tabs fotos (creador receta, usuarios, subir foto) -- TO DO
