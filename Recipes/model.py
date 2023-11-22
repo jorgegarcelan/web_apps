@@ -32,7 +32,7 @@ class Recipe(db.Model):
     servings = db.Column(db.Integer)
     cook_time = db.Column(db.Integer)  # In minutes
     quantified_ingredients = db.relationship('QuantifiedIngredient', backref='recipe', lazy=True)
-    steps = db.relationship('Step', backref='recipe', lazy=True)
+    steps = db.relationship('Step', backref='recipe', order_by="Step.sequence_number", lazy=True)
     ratings = db.relationship('Rating', backref='recipe', lazy=True)
     photos = db.relationship('Photo', backref='recipe', lazy=True)
     type_food = db.Column(db.String(200), nullable=False) # cuisine: asian, spanish...
