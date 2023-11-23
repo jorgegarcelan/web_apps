@@ -145,45 +145,56 @@ h3 {
 }
 
 .rate-form {
-  background-color: #f2f2f2;
+  margin: 20px 0;
   padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-}
-
-label[for="rating"] {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-select[name="rating"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  margin-bottom: 10px;
 }
 
-.btn-primary {
-  margin: 10px;
-  text-decoration: none;
-  font-size: 1.25em;
-  font-weight: bold;
-  padding: 10px 30px;
-  border: rgba(0,0,0,0.5) solid 1px;
-  border-radius: 10px;
-  background-color: #ca9e67;
-  color: #fff;
+.rate-form .rating-area {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.rate-form .star {
+  font-size: 30px;
+  color: #ffc107; /* Gold color for the stars */
   cursor: pointer;
-  font-family: "poppins";
-  font-size: var(--h3-font-size);
+  transition: transform 0.3s ease;
 }
 
-.btn-primary:hover {
-  background-color: #7d5627;
+.rate-form .star:hover {
+  transform: scale(1.5); /* Slightly increase size on hover */
 }
+
+.rate-form input[type='radio'] {
+  display: none; /* Hide the radio input */
+}
+
+.rate-form input[type='radio']:checked + label {
+  color: #f39c12; /* Change star color when selected */
+}
+
+.star.enlarged {
+  transform: scale(1.5); /* Larger size when clicked */
+  color: #f39c12; /* Optional: Change color for selected stars */
+}
+
+.rate-form button.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rate-form button.btn-primary:hover {
+  background-color: #0056b3;
+}
+
 
 .bookmark-form {
   padding: 20px;

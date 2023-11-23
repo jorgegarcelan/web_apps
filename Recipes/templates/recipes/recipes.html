@@ -92,21 +92,28 @@ Recipe
             
             <div id="Rate" class="tabcontent">
                 <h2>⭐ Rate</h2>
-                <form method="post" class="rate-form">
-                    <label for="rating">Chef, rate this recipe!</label>
+                {% if is_rated %}
+                    <p> You have rated this recipe with ⭐{{ rating }} </p>
+                {% endif %}
+                <form method="post" class="rate-form" action="{{ url_for('main.rate_recipe', recipe_id=recipe.id) }}">
+                    {% if is_rated %}
+                        <label for="rating">Chef, update your rating!</label>
+                    {% else %}
+                        <label for="rating">Chef, rate this recipe!</label>
+                    {% endif %}
                     <p class="rating-area">
-                        <input id="radio1" type="radio" name="rating" value="5">
+                        <input id="radio1" type="radio" name="rating" value="1">
                         <label class="star" for="radio1">⭐</label>
-                        <input id="radio2" type="radio" name="rating" value="4">
+                        <input id="radio2" type="radio" name="rating" value="2">
                         <label class="star" for="radio2">⭐</label>
                         <input id="radio3" type="radio" name="rating" value="3">
                         <label class="star" for="radio3">⭐</label>
-                        <input id="radio4" type="radio" name="rating" value="2">
+                        <input id="radio4" type="radio" name="rating" value="4">
                         <label class="star" for="radio4">⭐</label>
-                        <input id="radio5" type="radio" name="rating" value="1">
+                        <input id="radio5" type="radio" name="rating" value="5">
                         <label class="star" for="radio5">⭐</label>
                     </p>
-                    <button type="submit" class="btn-primary">Enviar</button>
+                    <button type="submit" class="btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -185,6 +192,7 @@ Recipe
     </div>
 </div>
 
+
 <!-- TABS JS -->
 <script>
     function openTab(evt, Name, tab_content, tab_links) {
@@ -220,6 +228,29 @@ Recipe
             document.getElementById("default2").click();
         };
 </script>
+
+<!-- STARS JS -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.rating-area .star');
+    
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                let clickedIndex = Array.from(stars).indexOf(star);
+                stars.forEach((s, index) => {
+                    if (index <= clickedIndex) {
+                        s.classList.add('enlarged');
+                    } else {
+                        s.classList.remove('enlarged');
+                    }
+                });
+            });
+        });
+    });
+    </script>
+    
+
 
 <!-- SWIPER JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

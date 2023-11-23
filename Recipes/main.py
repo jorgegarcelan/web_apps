@@ -55,11 +55,7 @@ def recipe(recipe_id):
     query_u = db.select(model.User).where(model.User.id == recipe.user_id)
     user = db.session.execute(query_u).scalar_one_or_none()
     print(user)
-
-    # rating:
-    query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
-    ratings_list = db.session.execute(query_rt).scalars().all()
-    count = len(ratings_list)
+    
 
     # ingredients:
     print(recipe.quantified_ingredients)
@@ -79,15 +75,23 @@ def recipe(recipe_id):
     is_bookmarked = bookmark is not None
 
     # ratings:
+    rate = model.Rating.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
+    is_rated = rate is not None
+
+
+    query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
+    ratings_list = db.session.execute(query_rt).scalars().all()
+    count = len(ratings_list)
+
     if count == 0:
         rating = "No reviews yet"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked)
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated)
 
     else:
         count = f"({count})"
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked)
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated)
 
 
 @bp.route('/bookmark/<int:recipe_id>', methods=['POST'])
@@ -106,6 +110,30 @@ def bookmark_recipe(recipe_id):
         db.session.commit()
         flash('Recipe bookmarked.')
 
+    return redirect(url_for('main.recipe', recipe_id=recipe_id))
+
+
+@bp.route('/rate_recipe/<int:recipe_id>', methods=['POST'])
+def rate_recipe(recipe_id):
+    # Get the rating from the submitted form
+    rating_value = request.form.get('rating')
+    print(rating_value)
+    # Check if the rating already exists for the user and recipe
+    rating = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
+
+    if rating:
+        # If a rating exists, update it
+        rating.value = rating_value
+        flash('Your rating has been updated.')
+    else:
+        # If no rating exists, create a new one
+        new_rating = model.Rating(user_id=current_user.id, recipe_id=recipe_id, value=rating_value)
+        db.session.add(new_rating)
+        flash('Your rating has been recorded.')
+
+    db.session.commit()
+
+    # Redirect to the recipe page or wherever is appropriate
     return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
 
