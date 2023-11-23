@@ -15,17 +15,44 @@ Recipe
 
 {% block content %}
 
-{% if current_user.is_authenticated %} 
-    {% if is_bookmarked %}
-    <form action="{{ url_for('main.bookmark_recipe', recipe_id=recipe.id) }}" method="post" class="bookmark-form">
-        <button type="submit" class="bookmark-button unbookmark">🤎 Unbookmark</button>
-    </form>
-    {% else %}
-    <form action="{{ url_for('main.bookmark_recipe', recipe_id=recipe.id) }}" method="post" class="bookmark-form">
-        <button type="submit" class="bookmark-button bookmark">🤍 Bookmark</button>
-    </form>
+<div class="button-container">
+    {% if current_user.is_authenticated %} 
+        {% if is_bookmarked %}
+        <form action="{{ url_for('main.bookmark_recipe') }}" method="post" class="bookmark-form">
+            <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+            <button type="submit" class="bookmark-button unbookmark">🤎 Unbookmark</button>
+        </form>
+        {% else %}
+        <form action="{{ url_for('main.bookmark_recipe') }}" method="post" class="bookmark-form">
+            <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+            <button type="submit" class="bookmark-button bookmark">🤍 Bookmark</button>
+        </form>
+        {% endif %}
     {% endif %}
-{% endif %}
+
+    {% if current_user.is_authenticated and current_user.id == user.id %} 
+        <form action="#" class="edit-form">
+            <button type="submit" id="myBtn" class="edit-button">✏️ Edit Recipe</button>
+        </form>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>✏️ Edit Recipe</h2>
+                <!-- Your form or content goes here -->
+                <form action="#" class="edit-form">
+
+                    <label for="edit_description"> 📝 Description </label>
+                    <textarea id="edit_description" name="edit_description" rows="10" cols="30"> {{ recipe.description }} </textarea>
+                    <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                    <button type="submit" class="bookmark-button unbookmark">Save</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
 
 
 <h1 class="recipe-title">{{ recipe.title }}</h1>
@@ -95,7 +122,7 @@ Recipe
                 {% if is_rated %}
                     <p> You have rated this recipe with ⭐{{ rating }} </p>
                 {% endif %}
-                <form method="post" class="rate-form" action="{{ url_for('main.rate_recipe', recipe_id=recipe.id) }}">
+                <form method="post" class="rate-form" action="{{ url_for('main.rate_recipe') }}">
                     {% if is_rated %}
                         <label for="rating">Chef, update your rating!</label>
                     {% else %}
@@ -113,6 +140,7 @@ Recipe
                         <input id="radio5" type="radio" name="rating" value="5">
                         <label class="star" for="radio5">⭐</label>
                     </p>
+                    <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
                     <button type="submit" class="btn-primary">Submit</button>
                 </form>
             </div>
@@ -132,32 +160,40 @@ Recipe
                     <h2>📸 Pictures submitted by the Chef</h2>
                     <div class="recipes__container swiper">
                         <div class="swiper-wrapper">
-                            <!--Bucle for aquí con las 5 recetas más valoradas-->
-                            <div class="recipes__content swiper-slide">
-                                <div>
-                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                            <!--Bucle for aquí con las recetas-->
+                            {% if chef_photos %}
+                                {% for photo in chef_photos %}
+                                <div class="recipes__content swiper-slide">
+                                    <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
                                 </div>
-                            </div>
-            
-                            <div class="recipes__content swiper-slide">
-                                <div>
-                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                                </div>
-                            </div>
-            
-                            <div class="recipes__content swiper-slide">
-                                <div>
-                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                                </div>
-                            </div>
-            
-                            <div class="recipes__content swiper-slide">
-                                <div>
-                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                                </div>
-                            </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
-                        
+                        <!-- SWIPER ARROWS AND PAGINATION-->
+                        <div class="swiper-button-next">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </div>
+                        <div class="swiper-button-prev">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                </div>
+
+                <div id="Users Pictures" class="tabcontent2">
+                    <h2>📷 Pictures submitted by users</h2>
+                    <div class="recipes__container swiper">
+                        <div class="swiper-wrapper">
+                            <!--Bucle for aquí con las recetas-->
+                            {% if recipe.photos %}
+                                {% for photo in recipe.photos %}
+                                <div class="recipes__content swiper-slide">
+                                    <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                         <!-- SWIPER ARROWS AND PAGINATION-->
                         <div class="swiper-button-next">
                             <i class="ri-arrow-right-s-line"></i>
@@ -169,28 +205,57 @@ Recipe
                     </div>
                 </div>
 
-                <div id="Users Pictures" class="tabcontent2">
-                    <h2>📷 Pictures submitted by users</h2>
-                    <ul style="list-style-type:circle;">
-                        {% for ingredient in ingredients_info %}
-                            <li>{{ ingredient.name }}: <span class="ingredient-description">{{ ingredient.quantity }} {{ ingredient.unit_of_measurement }}</span></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
                 <div id="Upload Pictures" class="tabcontent2">
                     <h2>⤴️ Upload Pictures to the Realm</h2>
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    {% if current_user.is_authenticated %} 
+                    <form action="{{ url_for('main.upload_photo') }}" method="post" enctype="multipart/form-data">
                         <label for="fileUpload">Upload an image:</label>
-                        <input type="file" id="fileUpload" name="file">
+                        <input type="file" id="fileUpload" name="file" accept="image/jpeg,image/png" required>
+                        <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
                         <input type="submit" value="Upload Image" name="submit">
                     </form>
+                    {% else %} 
+                    <p> ⚠️ Not too fast Chef! You must be logged in to upload pictures </p>
+                    <form action="{{ url_for('auth.login') }}">
+                        <button type="submit" class="btn-primary">Log in</button>
+                    </form>
+                    {% endif %} 
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- EDIT JS -->
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+</script>
 
 
 <!-- TABS JS -->
@@ -230,7 +295,6 @@ Recipe
 </script>
 
 <!-- STARS JS -->
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const stars = document.querySelectorAll('.rating-area .star');
@@ -248,7 +312,7 @@ Recipe
             });
         });
     });
-    </script>
+</script>
     
 
 

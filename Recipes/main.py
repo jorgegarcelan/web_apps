@@ -1,6 +1,6 @@
 import datetime
 import dateutil.tz
-from flask import Blueprint, render_template, abort, request, url_for, flash, redirect
+from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app
 from flask_login import current_user, login_required
 from sqlalchemy.sql import func
 from . import model
@@ -8,6 +8,7 @@ from Recipes import db, create_app, gpt
 from werkzeug.utils import secure_filename
 import os
 import numpy as np
+import pathlib
 
 bp = Blueprint("main", __name__)
 
@@ -71,33 +72,43 @@ def recipe(recipe_id):
         ingredients_info.append(ingredient_detail)
 
     # bookmark:
-    bookmark = model.Bookmark.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
+    bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
     is_bookmarked = bookmark is not None
+
+    # photos:
+    chef_photos = model.Photo.query.filter_by(user_id=user.id, recipe_id=recipe_id).all()
+    print(chef_photos)
 
     # ratings:
     rate = model.Rating.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
     is_rated = rate is not None
 
-
     query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
     ratings_list = db.session.execute(query_rt).scalars().all()
     count = len(ratings_list)
 
+    if is_rated == False:
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
+
     if count == 0:
         rating = "No reviews yet"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated)
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
 
     else:
         count = f"({count})"
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated)
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=rate.value, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
 
 
-@bp.route('/bookmark/<int:recipe_id>', methods=['POST'])
-def bookmark_recipe(recipe_id):
+@bp.route('/bookmark', methods=['POST'])
+def bookmark_recipe():
+    # Get data from the submitted form
+    recipe_id = request.form.get('recipe_id')
+
     # Check if bookmark already exists
     bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
+    
     if bookmark:
         # Bookmark exists, remove it
         db.session.delete(bookmark)
@@ -113,11 +124,12 @@ def bookmark_recipe(recipe_id):
     return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
 
-@bp.route('/rate_recipe/<int:recipe_id>', methods=['POST'])
-def rate_recipe(recipe_id):
-    # Get the rating from the submitted form
+@bp.route('/rate_recipe', methods=['POST'])
+def rate_recipe():
+    # Get data from the submitted form
     rating_value = request.form.get('rating')
-    print(rating_value)
+    recipe_id = request.form.get('recipe_id')
+
     # Check if the rating already exists for the user and recipe
     rating = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
 
@@ -136,6 +148,46 @@ def rate_recipe(recipe_id):
     # Redirect to the recipe page or wherever is appropriate
     return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
+
+@bp.route('/upload_image', methods=['POST'])
+def upload_photo():
+    # Get data from form
+    uploaded_file = request.files['file']
+    recipe_id = request.form.get('recipe_id')
+
+    if uploaded_file.filename != '':
+        content_type = uploaded_file.content_type
+        if content_type == "image/png":
+            file_extension = "png"
+        elif content_type == "image/jpeg":
+            file_extension = "jpg"
+        else:
+            abort(400, f"Unsupported file type {content_type}")
+
+        # Fetch the recipe from the database
+        recipe = model.Recipe.query.get_or_404(recipe_id)
+
+        # Create a new Photo object
+        photo = model.Photo(
+            user_id=current_user.id,
+            recipe_id=recipe.id,
+            file_extension=file_extension
+        )
+        db.session.add(photo)
+        db.session.commit()
+
+        # Save the file
+        path = (
+            pathlib.Path(current_app.root_path)
+            / "static"
+            / "photos"
+            / f"photo-{photo.id}.{file_extension}"
+        )
+        uploaded_file.save(path)
+
+        return redirect(url_for('main.recipe', recipe_id=recipe.id))
+
+    return abort(400, "No file uploaded")
 
 @bp.route("/recipe_vision", methods=['GET', 'POST'])
 def recipe_vision():
