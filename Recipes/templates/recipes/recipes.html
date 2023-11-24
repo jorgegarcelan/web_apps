@@ -40,7 +40,7 @@ Recipe
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>✏️ Edit Recipe</h2>
-                <!-- Your form or content goes here -->
+                <!-- Edit form -->
                 <form action="{{ url_for('main.edit_recipe') }}" method="post" class="edit-form">
                     <label for="edit_name">🔤 Name:</label>
                     <input type="text" id="edit_name" name="edit_name" value="{{ recipe.title }}">
@@ -208,7 +208,6 @@ Recipe
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
-
                 </div>
 
                 <div id="Users Pictures" class="tabcontent2">
@@ -362,7 +361,7 @@ Recipe
         },
         breakpoints: {
             1200: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 0,
             }
         },

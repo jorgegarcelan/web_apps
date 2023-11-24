@@ -168,7 +168,7 @@ input, select {
     margin-left: auto; /* This will push the edit button to the right */
 }
 
-/* The Modal (background) */
+/* =================MODAL WINDOW===================*/
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -210,7 +210,7 @@ input, select {
   cursor: pointer;
 }
 
-
+/* =================BOOKMARK===================*/
 .bookmark-button, .edit-button {
   background-color: #f8f8f800; /* Light grey background */
   border: 1px solid #dcdcdc; /* Grey border */
@@ -238,7 +238,7 @@ input, select {
 }
 
 
-/* Style the tab */
+/* =================TABS===================*/
 .tab {
   overflow: hidden;
   background-color: #ffffff;
@@ -277,6 +277,7 @@ input, select {
   word-wrap: break-word; /* prevents text from overflowing */
 }
 
+/* =================RATE FORM===================*/
 .rate-form {
   margin: 20px 0;
   padding: 15px;
@@ -327,3 +328,8 @@ input, select {
     word-wrap: break-word; /* prevents text from overflowing */
   }
   
+  .recipes__img {
+    width: 750px;
+    border-radius: .75rem;
+    margin-bottom: 1.5rem;
+  }
