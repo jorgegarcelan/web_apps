@@ -41,10 +41,40 @@ Recipe
                 <span class="close">&times;</span>
                 <h2>✏️ Edit Recipe</h2>
                 <!-- Your form or content goes here -->
-                <form action="#" class="edit-form">
-
-                    <label for="edit_description"> 📝 Description </label>
+                <form action="{{ url_for('main.edit_recipe') }}" method="post" class="edit-form">
+                    <label for="edit_name">🔤 Name:</label>
+                    <input type="text" id="edit_name" name="edit_name" value="{{ recipe.title }}">
+                    <label for="edit_description"> 📝 Description: </label>
                     <textarea id="edit_description" name="edit_description" rows="10" cols="30"> {{ recipe.description }} </textarea>
+                    <label for="edit_servings">👥 Servings: </label>
+                    <input type="number" id="edit_servings" name="edit_servings" min="1" max="25" value="{{ recipe.servings }}">
+                    <label for="edit_cook_time">⏲️ Cook Time: </label>
+                    <input type="number" id="edit_cook_time" name="edit_cook_time" min="1" max="1440" value="{{ recipe.cook_time }}">
+                    <label for="edit_type_food">🍽️ Food Type:</label>
+                    <select name="edit_type_food" id="edit_type_food">
+                        <option value="Mexican" {% if recipe.type_food == "Mexican" %}selected{% endif %}>Mexican</option>
+                        <option value="Japanese" {% if recipe.type_food == "Japanese" %}selected{% endif %}>Japanese</option>
+                        <option value="Chinese" {% if recipe.type_food == "Chinese" %}selected{% endif %}>Chinese</option>
+                        <option value="Korean" {% if recipe.type_food == "Korean" %}selected{% endif %}>Korean</option>
+                        <option value="Thai" {% if recipe.type_food == "Thai" %}selected{% endif %}>Thai</option>
+                        <option value="Indian" {% if recipe.type_food == "Indian" %}selected{% endif %}>Indian</option>
+                        <option value="American" {% if recipe.type_food == "American" %}selected{% endif %}>American</option>
+                        <option value="Spanish" {% if recipe.type_food == "Spanish" %}selected{% endif %}>Spanish</option>
+                        <option value="Italian" {% if recipe.type_food == "Italian" %}selected{% endif %}>Italian</option>
+                        <option value="French" {% if recipe.type_food == "French" %}selected{% endif %}>French</option>
+                        <option value="Eastern Europe" {% if recipe.type_food == "Eastern Europe" %}selected{% endif %}>Eastern Europe</option>
+                        <option value="Arab" {% if recipe.type_food == "Arab" %}selected{% endif %}>Arab</option>
+                        <option value="African" {% if recipe.type_food == "African" %}selected{% endif %}>African</option>
+                        <option value="Other" {% if recipe.type_food == "Other" %}selected{% endif %}>Other</option>
+                    </select>
+                    <label for="edit_category_food">🍴 Category Food:</label>
+                    <select name="edit_category_food" id="edit_category_food">
+                        <option value="Breakfast" {% if recipe.category_food == "Breakfast" %}selected{% endif %}>Breakfast</option>
+                        <option value="Meal" {% if recipe.category_food == "Meal" %}selected{% endif %}>Meal</option>
+                        <option value="Brunch" {% if recipe.category_food == "Brunch" %}selected{% endif %}>Brunch</option>
+                        <option value="Snack" {% if recipe.category_food == "Snack" %}selected{% endif %}>Snack</option>
+                        <option value="Dessert" {% if recipe.category_food == "Dessert" %}selected{% endif %}>Dessert</option>
+                    </select>
                     <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
                     <button type="submit" class="bookmark-button unbookmark">Save</button>
                 </form>
@@ -120,7 +150,7 @@ Recipe
             <div id="Rate" class="tabcontent">
                 <h2>⭐ Rate</h2>
                 {% if is_rated %}
-                    <p> You have rated this recipe with ⭐{{ rating }} </p>
+                    <p> You have rated this recipe with ⭐{{ current_rate }} </p>
                 {% endif %}
                 <form method="post" class="rate-form" action="{{ url_for('main.rate_recipe') }}">
                     {% if is_rated %}
@@ -141,7 +171,7 @@ Recipe
                         <label class="star" for="radio5">⭐</label>
                     </p>
                     <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
-                    <button type="submit" class="btn-primary">Submit</button>
+                    <button type="submit" class="bookmark-button unbookmark">Submit</button>
                 </form>
             </div>
         </div>
@@ -212,12 +242,12 @@ Recipe
                         <label for="fileUpload">Upload an image:</label>
                         <input type="file" id="fileUpload" name="file" accept="image/jpeg,image/png" required>
                         <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
-                        <input type="submit" value="Upload Image" name="submit">
+                        <button type="submit" class="bookmark-button unbookmark">Upload Image</button>
                     </form>
                     {% else %} 
                     <p> ⚠️ Not too fast Chef! You must be logged in to upload pictures </p>
                     <form action="{{ url_for('auth.login') }}">
-                        <button type="submit" class="btn-primary">Log in</button>
+                        <button type="submit" class="bookmark-button unbookmark">Log in</button>
                     </form>
                     {% endif %} 
                 </div>

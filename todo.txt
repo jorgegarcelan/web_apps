@@ -18,12 +18,12 @@ MAIN VIEW:
     - Formulario de Contacto.
 
 
-RECIPE VIEW:
+RECIPE VIEW: --------------------------------------------- DONE
     - Botón submit rate funcional ------------------------ DONE  (but id se quedan igual por lo que si borras el uno, se queda el 2,3,4...)
-    - Botón submit foto funcional ------------------------ TO DO
+    - Botón submit foto funcional ------------------------ DONE
     - Botón bookmark funcional --------------------------- DONE  (but id se quedan igual por lo que si borras el uno, se queda el 2,3,4...)
     - tabs fotos (creador receta, usuarios, subir foto) -- DONE
-    - Edit recipe ---------------------------------------- TO DO
+    - Edit recipe ---------------------------------------- DONE
     
 USER VIEW:
     - Ordenar -------------------------------------------- TO DO

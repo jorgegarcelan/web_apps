@@ -40,6 +40,43 @@ h3 {
   white-space: nowrap; /* Keep the icon and text on the same line */
 }
 
+label {
+  font-size: 16px;
+  display: block; /* Ensures they are block-level */
+}
+
+textarea {
+  width: 100%; /* Set the width to fill the container */
+  padding: 8px 15px; /* Add some padding inside the input */
+  margin: 8px 0; /* Add some margin around the input */
+  box-sizing: border-box; /* Include padding and border in the input's width */
+  border: 1px solid #ccc; /* A subtle border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f8f8f8; /* A light grey background */
+  color: #333; /* Dark grey text color */
+  font-size: 16px; /* Slightly larger font size for better readability */
+  line-height: 1.5; /* More space between lines */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+  resize: none;
+}
+
+input, select {
+  width: 100%; /* Set the width to fill the container */
+  padding: 8px 15px; /* Add some padding inside the input */
+  margin: 8px 0; /* Add some margin around the input */
+  box-sizing: border-box; /* Include padding and border in the input's width */
+  border: 1px solid #ccc; /* A subtle border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f8f8f8; /* A light grey background */
+  color: #333; /* Dark grey text color */
+  font-size: 16px; /* Slightly larger font size for better readability */
+  line-height: 1.5; /* More space between lines */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+
+
+
 
 .recipe-bookmark {
   margin: 30px;
@@ -104,6 +141,8 @@ h3 {
 
 
 
+
+
 .button-container {
     display: flex;
     justify-content: space-between;
@@ -121,9 +160,56 @@ h3 {
 }
 
 
+
+
+
+
 .edit-form {
     margin-left: auto; /* This will push the edit button to the right */
 }
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto;  /*Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 .bookmark-button, .edit-button {
   background-color: #f8f8f800; /* Light grey background */
@@ -219,30 +305,10 @@ h3 {
   display: none; /* Hide the radio input */
 }
 
-.rate-form input[type='radio']:checked + label {
-  color: #f39c12; /* Change star color when selected */
-}
 
 .star.enlarged {
   transform: scale(1.5); /* Larger size when clicked */
-  color: #f39c12; /* Optional: Change color for selected stars */
 }
-
-.rate-form button.btn-primary {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.rate-form button.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-
 
 
   
@@ -261,43 +327,3 @@ h3 {
     word-wrap: break-word; /* prevents text from overflowing */
   }
   
-
-
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}

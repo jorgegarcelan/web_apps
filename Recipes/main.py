@@ -80,7 +80,7 @@ def recipe(recipe_id):
     print(chef_photos)
 
     # ratings:
-    rate = model.Rating.query.filter_by(user_id=user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
+    rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
     is_rated = rate is not None
 
     query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
@@ -99,6 +99,43 @@ def recipe(recipe_id):
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
         return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=rate.value, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
+
+
+@bp.route('/edit_recipe', methods=['POST'])
+def edit_recipe():
+    # Get data from the submitted form
+    recipe_id = request.form.get('recipe_id')
+    name = request.form.get('edit_name')
+    description = request.form.get('edit_description')
+    servings = request.form.get('edit_servings')
+    cook_time = request.form.get('edit_cook_time')
+    type_food = request.form.get('edit_type_food')
+    category_food = request.form.get('edit_category_food')
+
+    print(f"{recipe_id=}")
+    print(f"{name=}")
+    print(f"{description=}")
+    print(f"{servings=}")
+    print(f"{cook_time=}")
+    print(f"{type_food=}")
+    print(f"{category_food=}")
+
+    recipe = model.Recipe.query.get_or_404(recipe_id)
+
+    # Update the recipe with the new data
+    recipe.title = name
+    recipe.description = description
+    recipe.servings = int(servings) if servings.isdigit() else None
+    recipe.cook_time = int(cook_time) if cook_time.isdigit() else None
+    recipe.type_food = type_food
+    recipe.category_food = category_food
+
+    # Commit the changes to the database
+    db.session.commit()
+
+    flash('Recipe updated successfully!', 'success')
+
+    return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
 
 @bp.route('/bookmark', methods=['POST'])
