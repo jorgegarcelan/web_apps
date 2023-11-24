@@ -27,22 +27,40 @@ def user(user_id):
     # user:
     query_u = db.select(model.User).where(model.User.id == user_id)
     user = db.session.execute(query_u).scalar_one_or_none()
-    print(user)
+    print(f"{user=}")
     
     # recipes:
-    query_r = db.select(model.Recipe).where(model.Recipe.user_id == user_id)
-    recipes = db.session.execute(query_r).scalars().all()
-    print(recipes)
+    recipes = db.session.query(
+            model.Recipe,
+            func.round(func.avg(model.Rating.value), 1).label('average_rating')
+        ).join(model.Rating, model.Rating.recipe_id == model.Recipe.id) \
+        .filter(model.Recipe.user_id == user_id) \
+        .group_by(model.Recipe.id, model.Recipe.title) \
+        .all()
+    
+    print(f"{recipes=}")
 
-    if not recipes:
-        abort(404, "Recipes for User id {} doesn't exist.".format(user_id))
+
+
+    # bookmark:
+    bookmarked_recipes = db.session.query(
+        model.Recipe,
+        func.round(func.avg(model.Rating.value), 1).label('average_rating')
+    ).join(model.Bookmark, model.Bookmark.recipe_id == model.Recipe.id) \
+    .join(model.Rating, model.Rating.recipe_id == model.Recipe.id, isouter=True) \
+    .filter(model.Bookmark.user_id == user_id) \
+    .group_by(model.Recipe.id) \
+    .all()
+
+
+    print(f"{bookmarked_recipes=}")
 
     # photos:
     query_p = db.select(model.Photo).where(model.Photo.user_id == user_id)
     photos = db.session.execute(query_p).scalars().all()
-    print(photos)
+    print(f"{photos=}")
     
-    return render_template("user/user.html", user=user, recipes=recipes, photos=photos)
+    return render_template("user/user.html", user=user, recipes=recipes, bookmarked_recipes=bookmarked_recipes, photos=photos)
 
 
 @bp.route("/recipes/<int:recipe_id>")
@@ -99,6 +117,37 @@ def recipe(recipe_id):
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
         return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=rate.value, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
+
+
+
+@bp.route('/edit_user', methods=['POST'])
+def edit_user():
+    # Get data from the submitted form
+    user_id = request.form.get('user_id')
+    name = request.form.get('edit_name')
+    #description = request.form.get('edit_description')
+    email = request.form.get('edit_email')
+
+
+    print(f"{user_id=}")
+    print(f"{name=}")
+    #print(f"{description=}")
+    print(f"{email=}")
+
+
+    user = model.User.query.get_or_404(user_id)
+
+    # Update the recipe with the new data
+    user.name = name
+    #recipe.description = description
+    user.email = email
+
+    # Commit the changes to the database
+    db.session.commit()
+
+    flash('User updated successfully!', 'success')
+
+    return redirect(url_for('main.user', user_id=user_id))
 
 
 @bp.route('/edit_recipe', methods=['POST'])

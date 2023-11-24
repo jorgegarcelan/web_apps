@@ -25,6 +25,42 @@ h2 {
   color: #142c35;
 }
 
+
+label {
+  font-size: 16px;
+  display: block; /* Ensures they are block-level */
+}
+
+textarea {
+  width: 100%; /* Set the width to fill the container */
+  padding: 8px 15px; /* Add some padding inside the input */
+  margin: 8px 0; /* Add some margin around the input */
+  box-sizing: border-box; /* Include padding and border in the input's width */
+  border: 1px solid #ccc; /* A subtle border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f8f8f8; /* A light grey background */
+  color: #333; /* Dark grey text color */
+  font-size: 16px; /* Slightly larger font size for better readability */
+  line-height: 1.5; /* More space between lines */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+  resize: none;
+}
+
+input, select {
+  width: 100%; /* Set the width to fill the container */
+  padding: 8px 15px; /* Add some padding inside the input */
+  margin: 8px 0; /* Add some margin around the input */
+  box-sizing: border-box; /* Include padding and border in the input's width */
+  border: 1px solid #ccc; /* A subtle border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f8f8f8; /* A light grey background */
+  color: #333; /* Dark grey text color */
+  font-size: 16px; /* Slightly larger font size for better readability */
+  line-height: 1.5; /* More space between lines */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+
 .container {
   margin: 0 auto;
   padding: 20px;
@@ -35,15 +71,33 @@ h2 {
   justify-content: space-between;
 }
 
+.card-columns {
+  display: flex; /* Enables Flexbox */
+}
+
+.card-column1 {
+  width: 25%; 
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
+
+}
+.card-column2 {
+  width:75%;   background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
+}
 
 
-
-.profile-container {
-  width: 20%;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.profile__info {
+  text-align: center;
+  margin: auto;
 }
 
 .profile-picture {
@@ -63,21 +117,46 @@ h2 {
   object-fit: cover; /* covers the area, may crop the image if the aspect ratio is different */
 }
   
-  /* Container for recipes */
 
-  
-  .recipes-grid {
-    display: grid;
-    width: 70%;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* creates a responsive grid layout */
-    gap: 10px; /* space between cards */
-    align-items: start; /* aligns items to the start of the grid area */
-  }
-  
+/* =================TABS===================*/
+.tab {
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  margin: 20px;
+  justify-content: center; /* Distribute space between the items */
+  align-items: center; /* Align items vertically */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; /* prevents text from overflowing */
+}
+
   .recipes-header {
     grid-column: 1 / -1; /* header will span all columns */
     text-align: center;
@@ -147,3 +226,193 @@ h2 {
     min-height: 3em; /* adjust accordingly */
   }
   
+/*=============== Recipes ===============*/S
+
+.recipes__container {
+  overflow: initial;
+}
+
+.recipes__container .recipes__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0;
+}
+
+.recipes__img {
+  display: block; /* Images are inline by default, block will allow margin: auto to work */
+  width: 250px; /* Set your desired width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 0.75rem;
+  margin: 1.5rem auto; /* Top and bottom margins are 1.5rem, left and right are auto */
+}
+
+.photos__img {
+    width: 500px;
+    border-radius: .75rem;
+    margin-bottom: 1.5rem;
+  }
+
+.recipes__subtitle {
+  font-size: 10px;
+  color: var(--text-color-light);
+}
+
+.recipes__title {
+  font-size: 30px;
+  margin: -1rem 0 -2.75rem;
+}
+
+.recipes__info {
+  display: flex;
+  justify-content: left; /* Distribute space between the items */
+  align-items: center; /* Align items vertically */
+  margin: 30px;
+}
+
+.recipes__info > div {
+  /* If you want to ensure that the divs do not shrink or grow, set them to not flex */
+  flex: 0 0 auto;
+  margin: 0 5px; /* Add a little space between each div */
+}
+
+
+.recipes__button {
+  display: inline-flex;
+  align-items: center;
+  column-gap: .5rem;
+  color: var(--title-color);
+  font-size: var(--small-font-size);
+}
+
+.recipes__button i {
+  font-size: 1rem;
+  transition: transform .3s;
+}
+
+.recipes__button:hover i{
+  transform: translateX(.25rem);
+}
+
+/* Swiper class */
+.recipes__container .swiper-button-prev::after,
+.recipes__container .swiper-button-next::after {
+  content: '';
+}
+
+.recipes__container .swiper-button-prev,
+.recipes__container .swiper-button-next {
+  width: initial;
+  height: initial;
+  margin: initial;
+  font-size: 2.5rem;
+  color: var(--title-color);
+}
+
+.recipes__container .swiper-button-prev{
+  left: 0.2rem;
+  top: 4.5rem;
+}
+
+.recipes__container .swiper-button-next {
+  right: 0.2rem;
+  top: 4.5rem;
+}
+
+.recipes__container .swiper-slide {
+  margin-bottom: 4.5rem;
+}
+
+.recipes__container .swiper-pagination-bullets{
+  bottom: 0;
+}
+
+.recipes__container .swiper-pagination-bullet{
+  background-color: var(--text-color-light);
+  opacity: initial;
+}
+
+.recipes__container .swiper-pagination-bullet-active {
+  background-color: var(--title-color);
+}
+
+/* =================EDIT===================*/
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Make sure the container spans the full width */
+}
+
+.edit-form {
+    margin-left: auto; /* This will push the edit button to the right */
+    margin: 0; /* Removes any default margin */
+    padding: 20px;
+}
+
+.edit-button, .save-button {
+  background-color: #f8f8f800; /* Light grey background */
+  border: 1px solid #dcdcdc; /* Grey border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Top/bottom padding of 10px, left/right padding of 20px */
+  font-size: 12px; /* Set font-size */
+  cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  text-align: left; /* Center the text inside the button */
+  display: inline-block; /* Allows setting padding and width */
+  color: #142c35; /* Dark grey text color */
+}
+
+.save-button {
+  background-color: #ca9e67;
+}
+
+.save-button:hover {
+  background-color: #7d5627; /* Slightly darker background on hover */
+  color: #ffffff;
+}
+
+
+
+/* =================MODAL WINDOW===================*/
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto;  /*Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

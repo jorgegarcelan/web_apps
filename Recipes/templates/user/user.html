@@ -6,84 +6,306 @@ User
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+<!-- SWIPER CSS-->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
 {% endblock %}
 
 {% block content %}
 
+<div class="card-columns">
+    <!-- User Profile -->
+    <div class="card-column1">
+        <div class="button-container">
+        {% if current_user.is_authenticated and current_user.id == user.id %} 
+            <form action="#" class="edit-form">
+                <button type="submit" id="myBtn" class="edit-button">✏️ Edit Recipe</button>
+            </form>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>✏️ Edit User</h2>
+                    <!-- Edit form -->
+                    <form action="{{ url_for('main.edit_user') }}" method="post" class="edit-form">
+                        <label for="edit_name">🔤 Name:</label>
+                        <input type="text" id="edit_name" name="edit_name" value="{{ user.name }}">
 
-<!-- User Profile -->
-<div class="profile-container">
-  <div class="profile-header">
-    <h1>🧑🏻‍🍳 Chef Profile</h1>
-  </div>
-  
-  <div class="profile-content">
-    <div class="profile-picture">
-      <img src="{{ url_for('static', filename='photos/' + user.profile_image) }}" alt="Profile Picture">
-    </div>
-    <div class="profile-info">
-      <h3>{{user.name}}</h3>
-      <p>{{user.username}}</p>
-      <p>Chef in the Realm since: {{user.sign_up_date.month}}/{{user.sign_up_date.year}}</p>
-    </div>
-    <div>
-      <h2>About</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Pellentesque habitant morbi tristique senectus et netus.</p>
-    </div>
-    <p>Contact info: <a href="mailto:{{user.email}}">{{user.email}}</a></p>
-  </div>
-</div>
+                        <label for="edit_email">👥 Email: </label>
+                        <input type="email" id="edit_email" name="edit_email" value="{{ user.email }}">
+                        
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
 
-<!-- Recipes Created by User -->
-<div class="recipes-grid">
-    <div class="recipes-header">
-        <h1>🍽️ User Recipes</h1>
-    </div>
-
-    {% for recipe in recipes %}
-    <div class="recipe-card">
-        <div class="card-image">
-          <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg') }}" alt="Profile Picture">
+                        <button type="submit" class="save-button">Save</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
         </div>
-        <div class="card-body">
-            <h3 class="recipe-title">{{ recipe.title }}</h2>
-            <span class="recipe-servings">
-                <h2>👥 Servings</h3>
-                <p>{{ recipe.servings }}</p>
-            </span>
-            <span class="recipe-cook-time">
-                <h2>⏲️ Cook Time</h3>
-                <p>{{ recipe.cook_time }}'</p>
-            </span>
+        <div class="profile-header">
+            <h1>🧑🏻‍🍳 Chef Profile</h1>
         </div>
-    </div>
-    {% endfor %}
-</div>
-
-
-</div>
-<!-- Bookmarked Recipes by User -->
-{% if current_user.id == user.id: %}
-  <div class="bookmark">
-    <div class="bookmark-header">
-      <h1> 🤎 Bookmarked Recipes </h1>
-    </div>
-    <div class="bookmark-container">
-    </div>
-  </div>
-{% endif %}
-
-<!-- Photos by User -->
-<div class="photos">
-  <div class="photos-header">
-    <h1> 📷 Photos </h1>
-  </div>
-  <div class="photos-container">
-    {% for photo in photos %}
-    <div class="photos-card">
-        <div class="card-image">
+        
+        <div class="profile-content">
+            <div class="profile-picture">
+                <img src="{{ url_for('static', filename='photos/' + user.profile_image) }}" alt="Profile Picture">
+            </div>
+            <div class="profile__info">
+                <h3>{{user.name}}</h3>
+                <p>{{user.username}}</p>
+                <p>Chef in the Realm since: {{user.sign_up_date.month}}/{{user.sign_up_date.year}}</p>
+                <h2>About</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Pellentesque habitant morbi tristique senectus et netus.</p>
+                <p>Contact info: <a href="mailto:{{user.email}}">{{user.email}}</a></p>
+            </div>
         </div>
     </div>
-    {% endfor %}
-  </div>
+
+
+    <!-- Column 2 -->
+    <div class="card-column2">
+      <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'User Recipes', 'tabcontent', 'tablinks')" id="default">🍽️ User Recipes</button>
+            <button class="tablinks" onclick="openTab(event, 'Photos', 'tabcontent', 'tablinks')">📷 Photos</button>
+            {% if current_user.is_authenticated and current_user.id == user.id %}
+              <button class="tablinks" onclick="openTab(event, 'Bookmarked Recipes', 'tabcontent', 'tablinks')">🤎 Bookmarked Recipes</button>
+            {% endif %}
+        </div>
+
+        <!-- Tab content -->
+
+        <!-- Recipes Created by User -->
+        <div id="User Recipes" class="tabcontent">
+            <div class="recipes-header">
+                <h1>🍽️ User Recipes</h1>
+            </div>
+
+            <div class="recipes__container swiper">
+                <div class="swiper-wrapper">
+                    {% for recipe, avg_rating in recipes %}
+                        <div class="recipes__content swiper-slide">
+                            <div>
+                                <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                                <h1 class="recipes__title">{{ recipe.title }}</h1>
+                                <div class="recipes__info">
+                                    <div class="recipes__subtitle">
+                                        <h3>👥 <span class="servings-count">{{ recipe.servings }}</span></h3>
+                                    </div>
+                                    <div class="recipes__subtitle">
+                                        <h3>⏲️ <span class="cook_time-count">{{ recipe.cook_time }}'</span></h3>
+                                    </div>
+                                    <div class="recipes__subtitle">
+                                        <h3>🍽️ <span class="type_food-count">{{ recipe.type_food }}</span></h3>
+                                    </div>
+                                    <div class="recipes__subtitle">
+                                        <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
+                                    </div>
+                                    <div class="recipes__subtitle">
+                                        <h3>⭐ <span class="rating-count">{{ avg_rating }}</span></h3>
+                                    </div>
+                                </div>
+                                <a href="{{ url_for('main.recipe', recipe_id=recipe.id)}}" class="recipes__button">
+                                    View recipe <i class="ri-arrow-right-line"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- SWIPER ARROWS AND PAGINATION-->
+                <div class="swiper-button-next">
+                    <i class="ri-arrow-right-s-line"></i>
+                </div>
+                <div class="swiper-button-prev">
+                    <i class="ri-arrow-left-s-line"></i>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <!-- Bookmarked Recipes by User -->
+        {% if current_user.is_authenticated and current_user.id == user.id %}
+            <div id="Bookmarked Recipes" class="tabcontent">
+                <div class="recipes-header">
+                    <h1>🤎 Bookmarked Recipes</h1>
+                </div>
+
+                <div class="recipes__container swiper">
+                    <div class="swiper-wrapper">
+                        {% for recipe, avg_rating in bookmarked_recipes %}
+                            <div class="recipes__content swiper-slide">
+                                <div>
+                                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                                    <h1 class="recipes__title">{{ recipe.title }}</h1>
+                                    <div class="recipes__info">
+                                      <div class="recipes__subtitle">
+                                          <h3>👥 <span class="servings-count">{{ recipe.servings }}</span></h3>
+                                      </div>
+                                      <div class="recipes__subtitle">
+                                          <h3>⏲️ <span class="cook_time-count">{{ recipe.cook_time }}'</span></h3>
+                                      </div>
+                                      <div class="recipes__subtitle">
+                                          <h3>🍽️ <span class="type_food-count">{{ recipe.type_food }}</span></h3>
+                                      </div>
+                                      <div class="recipes__subtitle">
+                                          <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
+                                      </div>
+                                      <div class="recipes__subtitle">
+                                          <h3>⭐ <span class="rating-count">{{ avg_rating }}</span></h3>
+                                      </div>
+                                    </div>
+                                    <a href="{{ url_for('main.recipe', recipe_id=recipe.id)}}" class="recipes__button">
+                                        View recipe <i class="ri-arrow-right-line"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- SWIPER ARROWS AND PAGINATION-->
+                    <div class="swiper-button-next">
+                        <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                    <div class="swiper-button-prev">
+                        <i class="ri-arrow-left-s-line"></i>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Photos by User -->
+        <div id="Photos" class="tabcontent">
+            <div class="photos-header">
+              <h1> 📷 Photos </h1>
+            </div>
+
+            <div class="recipes__container swiper">
+              <div class="swiper-wrapper">
+                  <!--Bucle for aquí con las recetas-->
+                  {% if photos %}
+                      {% for photo in photos %}
+                      <div class="recipes__content swiper-slide">
+                          <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="photos__img">
+                      </div>
+                      {% endfor %}
+                  {% endif %}
+              </div>
+              <!-- SWIPER ARROWS AND PAGINATION-->
+              <div class="swiper-button-next">
+                  <i class="ri-arrow-right-s-line"></i>
+              </div>
+              <div class="swiper-button-prev">
+                  <i class="ri-arrow-left-s-line"></i>
+              </div>
+              <div class="swiper-pagination"></div>
+          </div>
+              
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- EDIT JS -->
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal 
+  btn.onclick = function() {
+  modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+  modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+  }
+</script>
+
+
+<!-- TABS JS -->
+<script>
+  function openTab(evt, Name, tab_content, tab_links) {
+
+      console.log(Name);
+      console.log(tab_content);
+      console.log(tab_links);
+      // Declare all variables
+      var i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName(tab_content);
+      console.log(tabcontent);
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName(tab_links);
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(Name).style.display = "block";
+      evt.currentTarget.className += " active";
+      }
+
+      // Get the element with id="default" and click on it
+      window.onload = function() {
+          // Get the element with id="default" and click on it
+          document.getElementById("default").click();
+          document.getElementById("default2").click();
+      };
+</script>
+
+<!-- SWIPER JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    let swiper = new Swiper(".swiper", {
+        loop: true,
+        spaceBetween: 24,
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        breakpoints: {
+            1200: {
+                slidesPerView: 3,
+                spaceBetween: 0,
+            }
+        },
+    });
+
+    window.addEventListener('load', function() {
+        var slides = document.querySelectorAll('.swiper-slide');
+        slides.forEach(function(slide) {
+            slide.style.marginRight = '0px';
+        });
+    });
+</script>
+
 {% endblock %}
