@@ -38,6 +38,15 @@ class Recipe(db.Model):
     type_food = db.Column(db.String(200), nullable=False) # cuisine: asian, spanish...
     category_food = db.Column(db.String(200), nullable=False) # dessert, meal...
 
+    def get_average(self):
+        if self.ratings:
+            total_score = sum(rating.value for rating in self.ratings)
+            average = total_score / len(self.ratings)
+            return round(average, 1)
+        else:
+            return None
+
+
 
 class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)

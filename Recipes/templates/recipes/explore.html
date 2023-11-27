@@ -10,70 +10,115 @@ Explore Recipes
 
 {% block content %}
 <div class="container">
-    <h1>Our Recipes.</h1>
-    <form class="search" action="{{ url_for('explore.search')}}#content-column" method="GET">
-        <input type="text" name="search" class="search-bar" placeholder="Search Recipe...">
-        <input type="submit" value="Search" class="search-btn">
-    </form>
-    <div class="see-all">
-        <a href="{{ url_for('explore.search') }}#content-column">
-            <button class="btn-primary">See All</button>
-        </a>
+    <div class="search-container">
+        <h1>Find Your Recipe</h1>
+        <form class="search" action="{{ url_for('explore.search')}}#results-container" method="GET">
+            <input type="text" name="search" class="search-bar" placeholder="Search Recipe...">
+            <input type="submit" value="Search" class="btn-primary">
+        </form>
     </div>
-    
-    <div class="content-wrapper">
-        <div class="filter-column">
-            <h2>Filter Recipes:</h2>
-            <form class="filter-form" action="{{ url_for('explore.search') }}" method="GET">
-                <p>
-                    <!-- Filter by food type -->
-                    <label for="type_food">Food Type:</label>
-                    <select name="type_food" id="type_food">
-                        <option value="">--Select--</option>
-                        <option value="Mexican">Mexican</option>
-                        <option value="Japanese">Japanese</option>
-                        <option value="Chinese">Chinese</option>
-                        <option value="Korean">Korean</option>
-                        <option value="Thai">Thai</option>
-                        <option value="Indian">Indian</option>
-                        <option value="American">American</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="Italian">Italian</option>
-                        <option value="French">French</option>
-                        <option value="Eastern Europe">Eastern Europe</option>
-                        <option value="Arab">Arab</option>
-                        <option value="African">African</option>
-                        <option value="Other">Other</option>
-                    </select>
 
-                    <!-- Filter by food category -->
-                    <label for="category_food">Category Food:</label>
-                    <select name="category_food" id="category_food">
-                        <option value="">--Select--</option>
-                        <option value="Breakfast">Breakfast</option>
-                        <option value="Meal">Meal</option>
-                        <option value="Brunch">Brunch</option>
-                        <option value="Snack">Snack</option>
-                        <option value="Dessert">Dessert</option>
-                    </select>
 
-                    <!-- Filter by serving -->
-                    <label for="servings">Servings:</label>
-                    <input type="number" name="servings" min="1" max="10">
+    <div class="filter-container">
+        <h1>Filter Recipes</h1>
+        <form class="filter-form" action="{{ url_for('explore.search') }}" method="GET">
+            <p>
+                <!-- Filter by food type -->
+                <label for="type_food">Food Type:</label>
+                <select name="type_food" id="type_food">
+                    <option value="">--Select--</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Thai">Thai</option>
+                    <option value="Indian">Indian</option>
+                    <option value="American">American</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="Italian">Italian</option>
+                    <option value="French">French</option>
+                    <option value="Eastern Europe">Eastern Europe</option>
+                    <option value="Arab">Arab</option>
+                    <option value="African">African</option>
+                    <option value="Other">Other</option>
+                </select>
 
-                    <!-- Filter by Cook Time -->
-                    <label for="cook_time">Cook Time (minutes):</label>
-                    <select name="cook_time" id="cook_time">
-                        <option value="">--Select--</option>
-                        <option value="0-30">Less than 30 minutes</option>
-                        <option value="30-60">30 to 60 minutes</option>
-                        <option value="60-90">60 to 90 minutes</option>
-                        <option value="90-120">90 to 120 minutes</option>
-                        <option value="120+">More than 120 minutes</option>
-                    </select>
-                </p>
-                <input type="submit" value="Aply Filters" class="filter-btn">
-            </form>
+                <!-- Filter by food category -->
+                <label for="category_food">Category Food:</label>
+                <select name="category_food" id="category_food">
+                    <option value="">--Select--</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Meal">Meal</option>
+                    <option value="Brunch">Brunch</option>
+                    <option value="Snack">Snack</option>
+                    <option value="Dessert">Dessert</option>
+                </select>
+
+                <!-- Filter by serving -->
+                <label for="servings">Servings:</label>
+                <select name="servings" id="servings">
+                    <option value="">--Select--</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+
+                <!-- Filter by Cook Time -->
+                <label for="cook_time">Cook Time (minutes):</label>
+                <select name="cook_time" id="cook_time">
+                    <option value="">--Select--</option>
+                    <option value="0-30">Less than 30 minutes</option>
+                    <option value="30-60">30 to 60 minutes</option>
+                    <option value="60-90">60 to 90 minutes</option>
+                    <option value="90-120">90 to 120 minutes</option>
+                    <option value="120+">More than 120 minutes</option>
+                </select>
+            </p>
+            <input type="submit" value="Aply Filters" class="btn-primary">
+        </form>
+    </div>
+    <div id="results-container" class="results-container">
+        <h1>Results</h1>
+        <div class="see-all">
+            <a href="{{ url_for('explore.search') }}#results-container">
+                <button class="btn-primary">See All</button>
+            </a>
+        </div>
+        {% for recipe in paginated_recipes %}
+            <div class="recipes__content swiper-slide">
+                <div>
+                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                    <h1 class="recipes_title">{{ recipe.title }}</h1>
+                    {% if recipe.get_average() == None %}
+                        <p class="recipes__subtitle">No reviews yet ⭐</p>
+                    {% else %}
+                        <p class="recipes__subtitle">{{ recipe.get_average() }} ⭐</p>
+                    {% endif %}
+                    <a href="{{ url_for('main.recipe', recipe_id=recipe.id)}}" class="recipes__button">
+                        View recipe <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="pagination">
+            {% if paginated_recipes.has_prev %}
+                <a href="{{ url_for('explore.search', search=search_query, page=1) }}">Primera</a>
+                <a href="{{ url_for('explore.search', search=search_query, page=paginated_recipes.prev_num) }}">Anterior</a>
+            {% endif %}
+            
+            <span class="current-page">{{ paginated_recipes.page }}</span>
+            
+            {% if paginated_recipes.has_next %}
+                <a href="{{ url_for('explore.search', search=search_query, page=paginated_recipes.next_num) }}">Siguiente</a>
+                <a href="{{ url_for('explore.search', search=search_query, page=paginated_recipes.pages) }}">Última</a>
+            {% endif %}
         </div>
     </div>
 </div>
