@@ -31,9 +31,9 @@ Recipe
     {% endif %}
 
     {% if current_user.is_authenticated and current_user.id == user.id %} 
-        <form action="#" class="edit-form">
-            <button type="submit" id="myBtn" class="edit-button">✏️ Edit Recipe</button>
-        </form>
+
+        <button type="submit" id="myBtn" class="edit-button edit-form">✏️ Edit Recipe</button>
+        
         <!-- The Modal -->
         <div id="myModal" class="modal">
             <!-- Modal content -->
@@ -87,7 +87,7 @@ Recipe
 
 <h1 class="recipe-title">{{ recipe.title }}</h1>
 <div class="user-image">
-    <img src="{{ url_for('static', filename='photos/' + user.profile_image) }}" alt="Profile Picture">
+    <img src="{{ url_for('static', filename='photos/users/' + user.profile_image) }}" alt="Profile Picture">
     <span class="user"> Submitted by chef <a href="{{ url_for('main.user', user_id=user.id) }}"> {{ user.username }}</a></span>    
 </div>
 
@@ -194,7 +194,7 @@ Recipe
                             {% if chef_photos %}
                                 {% for photo in chef_photos %}
                                 <div class="recipes__content swiper-slide">
-                                    <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
+                                    <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
                                 </div>
                                 {% endfor %}
                             {% endif %}
@@ -218,7 +218,7 @@ Recipe
                             {% if recipe.photos %}
                                 {% for photo in recipe.photos %}
                                 <div class="recipes__content swiper-slide">
-                                    <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
+                                    <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
                                 </div>
                                 {% endfor %}
                             {% endif %}

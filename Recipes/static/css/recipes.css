@@ -150,23 +150,7 @@ input, select {
     width: 100%; /* Make sure the container spans the full width */
 }
 
-.bookmark-form, .edit-form {
-    margin: 0; /* Removes any default margin */
-    padding: 20px;
-}
 
-.bookmark-form {
-    margin-right: auto; /* This will push the edit button to the right */
-}
-
-
-
-
-
-
-.edit-form {
-    margin-left: auto; /* This will push the edit button to the right */
-}
 
 /* =================MODAL WINDOW===================*/
 .modal {
@@ -215,13 +199,14 @@ input, select {
   background-color: #f8f8f800; /* Light grey background */
   border: 1px solid #dcdcdc; /* Grey border */
   border-radius: 4px; /* Rounded corners */
-  padding: 10px; /* Top/bottom padding of 10px, left/right padding of 20px */
   font-size: 12px; /* Set font-size */
   cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
   transition: background-color 0.3s ease; /* Smooth transition for background color */
   text-align: left; /* Center the text inside the button */
   display: inline-block; /* Allows setting padding and width */
   color: #142c35; /* Dark grey text color */
+  padding: 10px;
+  margin: 20px;
 }
 
 .bookmark-button.unbookmark{
@@ -233,7 +218,7 @@ input, select {
   color: #ffffff;
 }
 
-.bookmark-button:hover {
+.bookmark-button:hover, .edit-button:hover {
   background-color: #e2e2e2; /* Slightly darker background on hover */
 }
 

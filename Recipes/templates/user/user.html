@@ -20,9 +20,9 @@ User
     <div class="card-column1">
         <div class="button-container">
         {% if current_user.is_authenticated and current_user.id == user.id %} 
-            <form action="#" class="edit-form">
-                <button type="submit" id="myBtn" class="edit-button">✏️ Edit Recipe</button>
-            </form>
+            
+            <button type="submit" id="myBtn" class="edit-button edit-form">✏️ Edit Profile</button>
+            
             <!-- The Modal -->
             <div id="myModal" class="modal">
                 <!-- Modal content -->
@@ -30,13 +30,21 @@ User
                     <span class="close">&times;</span>
                     <h2>✏️ Edit User</h2>
                     <!-- Edit form -->
-                    <form action="{{ url_for('main.edit_user') }}" method="post" class="edit-form">
+                    <form action="{{ url_for('main.edit_user') }}" method="post" class="edit-form" enctype="multipart/form-data">
+                        
+                        <input type="file" id="profile_image_input" name="profile_image_input" style="display: none;" onchange="onFileSelected(event)" accept="image/jpeg,image/png"/>
+                        <img class="profile-picture-edit" src="{{ url_for('static', filename='photos/users/' + user.profile_image) }}" alt="Profile Picture" onclick="document.getElementById('profile_image_input').click();">
+
+                        
                         <label for="edit_name">🔤 Name:</label>
                         <input type="text" id="edit_name" name="edit_name" value="{{ user.name }}">
 
                         <label for="edit_email">👥 Email: </label>
                         <input type="email" id="edit_email" name="edit_email" value="{{ user.email }}">
                         
+                        <label for="edit_bio"> 📝 Bio: </label>
+                        <textarea id="edit_bio" name="edit_bio" rows="10" cols="30"> {{ user.bio }} </textarea>
+
                         <input type="hidden" name="user_id" value="{{ user.id }}">
 
                         <button type="submit" class="save-button">Save</button>
@@ -51,14 +59,14 @@ User
         
         <div class="profile-content">
             <div class="profile-picture">
-                <img src="{{ url_for('static', filename='photos/' + user.profile_image) }}" alt="Profile Picture">
+                <img src="{{ url_for('static', filename='photos/users/' + user.profile_image) }}" alt="Profile Picture">
             </div>
             <div class="profile__info">
                 <h3>{{user.name}}</h3>
                 <p>{{user.username}}</p>
                 <p>Chef in the Realm since: {{user.sign_up_date.month}}/{{user.sign_up_date.year}}</p>
                 <h2>About</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Pellentesque habitant morbi tristique senectus et netus.</p>
+                <p>{{user.bio}}</p>
                 <p>Contact info: <a href="mailto:{{user.email}}">{{user.email}}</a></p>
             </div>
         </div>
@@ -190,7 +198,7 @@ User
                   {% if photos %}
                       {% for photo in photos %}
                       <div class="recipes__content swiper-slide">
-                          <img src="{{ url_for('static', filename='photos/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="photos__img">
+                          <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="photos__img">
                       </div>
                       {% endfor %}
                   {% endif %}
@@ -210,7 +218,21 @@ User
 
 </div>
 
+<script>
+    function onFileSelected(event) {
+        var selectedFile = event.target.files[0];
+        var reader = new FileReader();
 
+        var imgtag = document.querySelector(".profile-picture-edit");
+        imgtag.title = selectedFile.name;
+
+        reader.onload = function(event) {
+            imgtag.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+    }
+</script>
 
 <!-- EDIT JS -->
 <script>

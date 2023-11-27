@@ -24,10 +24,11 @@ RECIPE VIEW: --------------------------------------------- DONE
     - Botón bookmark funcional --------------------------- DONE  (but id se quedan igual por lo que si borras el uno, se queda el 2,3,4...)
     - tabs fotos (creador receta, usuarios, subir foto) -- DONE
     - Edit recipe ---------------------------------------- DONE
+    - Borrar fotos --------------------------------------- TO DO
     
-USER VIEW:
-    - Ordenar -------------------------------------------- TO DO
-    - Editar user ---------------------------------------- TO DO
-    - tabs (User Recipes, Bookmarked, Photos) ------------ TO DO
+USER VIEW: ----------------------------------------------- DONE
+    - Ordenar -------------------------------------------- DONE
+    - Editar user ---------------------------------------- DONE
+    - tabs (User Recipes, Bookmarked, Photos) ------------ DONE
 
 LOGGING ERRORS: ------------------------------------------ TO DO
