@@ -16,6 +16,7 @@ class User(flask_login.UserMixin, db.Model):
     photos = db.relationship('Photo', backref='uploaded_by', lazy='dynamic')
     profile_image = db.Column(db.String(100), nullable=False, default='default.png')
     sign_up_date = db.Column(DateTime(timezone=True), server_default=func.now())
+    bio = db.Column(db.String(256), nullable=True, default="Welcome to my kitchen in RecipeRealm! Here, I'll share my favorite recipes, and culinary adventures. Can't wait to connect with fellow food enthusiasts and exchange delicious ideas. Let's embark on this flavorful journey together!")
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

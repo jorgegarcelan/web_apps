@@ -97,7 +97,7 @@ input, select {
 
 .profile__info {
   text-align: center;
-  margin: auto;
+  margin: 20px;
 }
 
 .profile-picture {
@@ -116,7 +116,24 @@ input, select {
   max-height: 100%; /* prevents the image from being taller than the container */
   object-fit: cover; /* covers the area, may crop the image if the aspect ratio is different */
 }
-  
+
+
+.profile-picture-edit {
+  display: flex; /* enables flexbox layout */
+  justify-content: center; /* centers children horizontally */
+  align-items: center; /* centers children vertically */
+  border-radius: 50%; /* circular shape */
+  overflow: hidden; /* hides the overflow to maintain the circular shape */
+  width: 100px; /* fixed width */
+  height: 100px; /* fixed height */
+  margin: auto; /* centers the circle itself if it's within a flex or grid layout */
+  cursor: pointer;
+}
+
+.profile-picture-edit:hover {
+  filter: brightness(70%); /* reduces brightness to 70% on hover */
+}
+
 
 /* =================TABS===================*/
 .tab {
@@ -356,6 +373,7 @@ input, select {
   border: 1px solid #dcdcdc; /* Grey border */
   border-radius: 4px; /* Rounded corners */
   padding: 10px; /* Top/bottom padding of 10px, left/right padding of 20px */
+  margin: 20px;
   font-size: 12px; /* Set font-size */
   cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
   transition: background-color 0.3s ease; /* Smooth transition for background color */
@@ -373,7 +391,9 @@ input, select {
   color: #ffffff;
 }
 
-
+.edit-button:hover {
+  background-color: #e2e2e2; /* Slightly darker background on hover */
+}
 
 /* =================MODAL WINDOW===================*/
 .modal {

@@ -106,6 +106,7 @@ def recipe(recipe_id):
     count = len(ratings_list)
 
     if is_rated == False:
+        rating = "No reviews yet"
         return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
 
     if count == 0:
@@ -125,27 +126,47 @@ def edit_user():
     # Get data from the submitted form
     user_id = request.form.get('user_id')
     name = request.form.get('edit_name')
-    #description = request.form.get('edit_description')
+    bio = request.form.get('edit_bio')
     email = request.form.get('edit_email')
+    uploaded_file = request.files['profile_image_input']
 
 
     print(f"{user_id=}")
     print(f"{name=}")
-    #print(f"{description=}")
+    print(f"{bio=}")
     print(f"{email=}")
 
 
     user = model.User.query.get_or_404(user_id)
 
-    # Update the recipe with the new data
+    # Update the user with the new data
     user.name = name
-    #recipe.description = description
+    user.bio = bio
     user.email = email
+
+    if uploaded_file.filename != '':
+        content_type = uploaded_file.content_type
+        if content_type == "image/png":
+            file_extension = "png"
+        elif content_type == "image/jpeg":
+            file_extension = "jpg"
+        else:
+            abort(400, f"Unsupported file type {content_type}")
+
+
+        # Save the file
+        path = (
+            pathlib.Path(current_app.root_path)
+            / "static"
+            / "photos"
+            / f"user-{user.id}.{file_extension}"
+        )
+        uploaded_file.save(path)
+
+        user.profile_image = f"user-{user.id}.{file_extension}"
 
     # Commit the changes to the database
     db.session.commit()
-
-    flash('User updated successfully!', 'success')
 
     return redirect(url_for('main.user', user_id=user_id))
 
