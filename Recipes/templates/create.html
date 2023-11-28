@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+<h2>Create Recipe</h2>
+  <form method="post" action="{{ url_for('create_recipe') }}">
+    
+    <!-- Display the current state of the recipe -->
+    <h3>Recipe Details:</h3>
+    <p>Title: {{ recipe.title }}</p>
+    <p>Description: {{ recipe.description }}</p>
+    <p>Cooking Time: {{ recipe.cook_time }} minutes</p>
+    <p>Servings: {{ recipe.servings }}</p>
+    <p>Type of Food: {{ recipe.type_food }}</p>
+    <p>Category of Food: {{ recipe.category_food }}</p>
+    
+    <!-- Add Ingredient -->
+    <h3>Add Ingredient:</h3>
+    <label for="ingredient_id">Select an Ingredient:</label>
+    <select id="ingredient_id" name="ingredient_id">
+        {% for ingredient in ingredients %}
+            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+        {% endfor %}
+    </select>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" step="0.1" required>
+    <label for="unit">Unit:</label>
+    <input type="text" id="unit" name="unit" required>
+    <button type="submit" name="add_ingredient">Add Ingredient</button>
+    
+    <!-- Add Step -->
+    <h3>Add Step:</h3>
+    <label for="step_description">Step Description:</label>
+    <textarea id="step_description" name="step_description" rows="4" required></textarea>
+    <button type="submit" name="add_step">Add Step</button>
+    
+    <!-- Mark as Complete -->
+    <button type="submit" name="complete">Mark as Complete</button>
+    
+    <!-- Hidden fields for passing recipe_id -->
+    <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+  </form>
+
+
+
+{% endblock %}

@@ -106,7 +106,6 @@ def recipe(recipe_id):
     count = len(ratings_list)
 
     if is_rated == False:
-        rating = "No reviews yet"
         return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
 
     if count == 0:
@@ -126,47 +125,27 @@ def edit_user():
     # Get data from the submitted form
     user_id = request.form.get('user_id')
     name = request.form.get('edit_name')
-    bio = request.form.get('edit_bio')
+    #description = request.form.get('edit_description')
     email = request.form.get('edit_email')
-    uploaded_file = request.files['profile_image_input']
 
 
     print(f"{user_id=}")
     print(f"{name=}")
-    print(f"{bio=}")
+    #print(f"{description=}")
     print(f"{email=}")
 
 
     user = model.User.query.get_or_404(user_id)
 
-    # Update the user with the new data
+    # Update the recipe with the new data
     user.name = name
-    user.bio = bio
+    #recipe.description = description
     user.email = email
-
-    if uploaded_file.filename != '':
-        content_type = uploaded_file.content_type
-        if content_type == "image/png":
-            file_extension = "png"
-        elif content_type == "image/jpeg":
-            file_extension = "jpg"
-        else:
-            abort(400, f"Unsupported file type {content_type}")
-
-
-        # Save the file
-        path = (
-            pathlib.Path(current_app.root_path)
-            / "static"
-            / "photos"
-            / f"user-{user.id}.{file_extension}"
-        )
-        uploaded_file.save(path)
-
-        user.profile_image = f"user-{user.id}.{file_extension}"
 
     # Commit the changes to the database
     db.session.commit()
+
+    flash('User updated successfully!', 'success')
 
     return redirect(url_for('main.user', user_id=user_id))
 
@@ -320,3 +299,66 @@ def recipe_vision():
         return render_template("gpt/gpt4vision.html", output=output, uploaded_image=uploaded_image_url)
 
     return render_template("gpt/gpt4vision.html")
+
+@bp.route('/create_recipe', methods=['GET', 'POST'])
+@login_required
+def create_recipe():
+    if request.method == 'POST':
+        if 'complete' in request.form:
+            # Mark the recipe as complete
+            recipe_id = request.form.get('recipe_id')
+            recipe = model.Recipe.query.get_or_404(recipe_id)
+
+            if recipe.user_id == current_user.id:
+                recipe.is_complete = True
+                db.session.commit()
+                flash('Recipe marked as complete!', 'success')
+                return redirect(url_for('recipe_view', recipe_id=recipe_id))
+
+        elif 'add_ingredient' in request.form:
+            # Add an ingredient to the recipe
+            recipe_id = request.form.get('recipe_id')
+            ingredient_id = request.form.get('ingredient_id')
+            quantity = float(request.form.get('quantity'))
+            unit = request.form.get('unit')
+
+            if recipe_id and ingredient_id and quantity and unit:
+                recipe = model.Recipe.query.get_or_404(recipe_id)
+
+                if recipe.user_id == current_user.id and not recipe.is_complete:
+                    quantified_ingredient = model.QuantifiedIngredient(
+                        ingredient_id=ingredient_id,
+                        quantity=quantity,
+                        unit=unit
+                    )
+                    recipe.quantified_ingredients.append(quantified_ingredient)
+                    db.session.commit()
+                    flash('Ingredient added successfully!', 'success')
+
+        elif 'add_step' in request.form:
+            # Add a step to the recipe
+            recipe_id = request.form.get('recipe_id')
+            step_description = request.form.get('step_description')
+
+            if recipe_id and step_description:
+                recipe = model.Recipe.query.get_or_404(recipe_id)
+
+                if recipe.user_id == current_user.id and not recipe.is_complete:
+                    step = model.Step(description=step_description)
+                    recipe.steps.append(step)
+                    db.session.commit()
+                    flash('Step added successfully!', 'success')
+
+    else:
+        # Display the form for entering basic recipe details
+        new_recipe = model.Recipe(title='', description='', cook_time=0, servings=0, type_food='', category_food='', user_id=current_user.id)
+        db.session.add(new_recipe)
+        db.session.commit()
+
+    # Retrieve the current state of the recipe
+    recipe = model.Recipe.query.filter_by(user_id=current_user.id, is_complete=False).order_by(model.Recipe.id.desc()).first()
+
+    # Retrieve existing ingredients for the form
+    ingredients = model.Ingredient.query.all()
+
+    return render_template('create.html', recipe=recipe, ingredients=ingredients)
