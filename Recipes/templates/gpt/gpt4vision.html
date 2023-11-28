@@ -21,7 +21,11 @@ User
     {% if uploaded_image %}
         <h3>Uploaded Image:</h3>
         <img src="{{ uploaded_image }}" alt="Uploaded Image">
-        <p> {{ output }} </p>
+        {% for recipe in output.recipes %}
+            <p> {{ recipe.name }} </p>
+            <p> {{ recipe.ingredients }} </p>
+            <p> {{ recipe.steps }} </p>
+        {% endfor %}
     {% endif %}
 </div>
 {% endblock %}

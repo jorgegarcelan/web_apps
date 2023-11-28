@@ -22,7 +22,7 @@ def gpt4_vision(image):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "What can I cook with the following image? Please provide your answer in json"},
+                    {"type": "text", "text": "What can I cook with the following image? Please provide your answer in json format. It must contain a list of recipes and in each recipes: name, ingredients, steps"},
                     {
                         "image": encoded_image
                     },
