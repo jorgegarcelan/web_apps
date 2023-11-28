@@ -110,7 +110,82 @@ form.search .search-bar {
     text-align: center;
 }
 
+.recipes__content {
+    display: block;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+}
 
+.recipes__img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.recipes__title {
+    font-size: 20px;
+    color: #333;
+    padding: 5px;
+    margin: 0;
+    margin-top: 0;
+    text-align: center;
+}
+
+.recipes__subtitle {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+}
+
+.recipes__button {
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+    color: hsl(207, 4%, 16%);
+    font-size: var(--small-font-size);
+    margin: 0;
+    padding: 5px;
+}
+  
+.recipes__button i {
+    font-size: 1rem;
+    transition: transform .3s;
+}
+  
+.recipes__button:hover i{
+    transform: translateX(.25rem);
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+  
+.pagination a {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    background-color: #f8f9fa;
+    color: #ca9e67;
+    border-radius: 5px;
+}
+  
+.pagination a:hover {
+    background-color: #e2e6ea;
+}
+  
+.current-page {
+    padding: 0.5rem 1rem;
+}
 
 /* Ajustes Responsivos */
 @media (max-width: 768px) {
@@ -131,65 +206,3 @@ form.search .search-bar {
         display: block;
     }
 }
-
-/* .filter-column {
-    text-align: center;
-    width: 30%;
-    padding: 20px;
-    background-color: #ca9e67;
-    border-radius: 10px;
-    border: #000 solid 2px;
-    margin-right: 20px;
-}
-
-.filter-column h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.filter-column label {
-    display: block;
-    margin-bottom: 5px;
-    color: #142c35;
-}
-
-.filter-column select,
-.filter-column input {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #142c35;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.filter-column select option {
-    background-color: var(--background-dark);
-    color: var(--color-text);
-}
-
-.filter-btn {
-    background-color: var(--color-primary);
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.filter-btn:hover {
-    background-color: #00672e;
-}
-
-.content-column {
-    width: 68%;
-} */
-
-
-
-
-

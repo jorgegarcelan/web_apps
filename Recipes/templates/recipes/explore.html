@@ -27,61 +27,58 @@ Explore Recipes
                 <label for="type_food">Food Type:</label>
                 <select name="type_food" id="type_food">
                     <option value="">--Select--</option>
-                    <option value="Mexican">Mexican</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Korean">Korean</option>
-                    <option value="Thai">Thai</option>
-                    <option value="Indian">Indian</option>
-                    <option value="American">American</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="Italian">Italian</option>
-                    <option value="French">French</option>
-                    <option value="Eastern Europe">Eastern Europe</option>
-                    <option value="Arab">Arab</option>
-                    <option value="African">African</option>
-                    <option value="Other">Other</option>
+                    {% set food_types = ['Mexican', 'Japanese', 'Chinese', 'Korean', 'Thai', 'Indian', 'American', 'Spanish', 'Italian', 'French', 'Eastern Europe', 'Arab', 'African', 'Other'] %}
+                    {% for food in food_types %}
+                    <option value="{{ food }}" {% if request.args.get('type_food') == food %}selected{% endif %}>{{ food }}</option>
+                    {% endfor %}
                 </select>
-
+        
                 <!-- Filter by food category -->
                 <label for="category_food">Category Food:</label>
                 <select name="category_food" id="category_food">
                     <option value="">--Select--</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Meal">Meal</option>
-                    <option value="Brunch">Brunch</option>
-                    <option value="Snack">Snack</option>
-                    <option value="Dessert">Dessert</option>
+                    {% set categories = ['Breakfast', 'Meal', 'Brunch', 'Snack', 'Dessert'] %}
+                    {% for category in categories %}
+                    <option value="{{ category }}" {% if request.args.get('category_food') == category %}selected{% endif %}>{{ category }}</option>
+                    {% endfor %}
                 </select>
-
+        
                 <!-- Filter by serving -->
                 <label for="servings">Servings:</label>
                 <select name="servings" id="servings">
                     <option value="">--Select--</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
+                    {% for i in range(1, 11) %}
+                    <option value="{{ i }}" {% if request.args.get('servings')|int == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
                 </select>
-
+        
                 <!-- Filter by Cook Time -->
                 <label for="cook_time">Cook Time (minutes):</label>
                 <select name="cook_time" id="cook_time">
                     <option value="">--Select--</option>
-                    <option value="0-30">Less than 30 minutes</option>
-                    <option value="30-60">30 to 60 minutes</option>
-                    <option value="60-90">60 to 90 minutes</option>
-                    <option value="90-120">90 to 120 minutes</option>
-                    <option value="120+">More than 120 minutes</option>
+                    {% set cook_times = ['0-30', '30-60', '60-90', '90-120', '120+'] %}
+                    {% for time in cook_times %}
+                    <option value="{{ time }}" {% if request.args.get('cook_time') == time %}selected{% endif %}>
+                        {% if time == '0-30' %}Less than 30 minutes
+                        {% elif time == '30-60' %}30 to 60 minutes
+                        {% elif time == '60-90' %}60 to 90 minutes
+                        {% elif time == '90-120' %}90 to 120 minutes
+                        {% elif time == '120+' %}More than 120 minutes
+                        {% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+        
+                <!-- Filter by Rating -->
+                <label for="rating">Rating:</label>
+                <select name="rating" id="rating">
+                    <option value="">--Select--</option>
+                    {% for i in range(0, 6) %}
+                    <option value="{{ i }}" {% if request.args.get('rating')|int == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
                 </select>
             </p>
-            <input type="submit" value="Aply Filters" class="btn-primary">
+            <input type="submit" value="Apply Filters" class="btn-primary">
         </form>
     </div>
     <div id="results-container" class="results-container">
@@ -95,7 +92,7 @@ Explore Recipes
             <div class="recipes__content swiper-slide">
                 <div>
                     <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
-                    <h1 class="recipes_title">{{ recipe.title }}</h1>
+                    <h1 class="recipes__title">{{ recipe.title }}</h1>
                     {% if recipe.get_average() == None %}
                         <p class="recipes__subtitle">No reviews yet ⭐</p>
                     {% else %}
@@ -109,15 +106,16 @@ Explore Recipes
         {% endfor %}
         <div class="pagination">
             {% if paginated_recipes.has_prev %}
-                <a href="{{ url_for('explore.search', search=search_query, page=1) }}">Primera</a>
-                <a href="{{ url_for('explore.search', search=search_query, page=paginated_recipes.prev_num) }}">Anterior</a>
+                <a href="{{ url_for('explore.search', page=1, search=search_query, type_food=type_food, category_food=category_food, servings=servings, cook_time=cook_time, rating=rating) }}#results-container">Primera</a>
+                <a href="{{ url_for('explore.search', page=paginated_recipes.prev_num, search=search_query, type_food=type_food, category_food=category_food, servings=servings, cook_time=cook_time, rating=rating) }}#results-container">Anterior</a>
             {% endif %}
             
+            <!-- Current Page Indicator -->
             <span class="current-page">{{ paginated_recipes.page }}</span>
             
             {% if paginated_recipes.has_next %}
-                <a href="{{ url_for('explore.search', search=search_query, page=paginated_recipes.next_num) }}">Siguiente</a>
-                <a href="{{ url_for('explore.search', search=search_query, page=paginated_recipes.pages) }}">Última</a>
+                <a href="{{ url_for('explore.search', page=paginated_recipes.next_num, search=search_query, type_food=type_food, category_food=category_food, servings=servings, cook_time=cook_time, rating=rating) }}#results-container">Siguiente</a>
+                <a href="{{ url_for('explore.search', page=paginated_recipes.pages, search=search_query, type_food=type_food, category_food=category_food, servings=servings, cook_time=cook_time, rating=rating) }}#results-container">Última</a>
             {% endif %}
         </div>
     </div>
