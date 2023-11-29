@@ -32,3 +32,4 @@ USER VIEW: ----------------------------------------------- DONE
     - tabs (User Recipes, Bookmarked, Photos) ------------ DONE
 
 LOGGING ERRORS: ------------------------------------------ TO DO
+    - Flash messages

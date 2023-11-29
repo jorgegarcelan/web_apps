@@ -16,20 +16,35 @@ def gpt4_vision(image):
 
     client = openai.OpenAI(api_key = openai_api_key)
 
+    template = """
+        {
+            "recipe": {
+                "name": "",
+                "ingredients": [],
+                "steps": []
+            },
+            "recipe": {
+                "name": "",
+                "ingredients": [],
+                "steps": []
+            }
+        }
+        """
+
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=[
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "What can I cook with the following image? Please provide your answer in json format. It must contain a list of recipes and in each recipes: name, ingredients, steps"},
+                    {"type": "text", "text": f"What can I cook with the following image? The output string must be correctly formatted as JSON, this means using double quotes for strings and following JSON syntax rules. Take this as a template: {template}"},
                     {
                         "image": encoded_image
                     },
                 ],
             }
         ],
-        max_tokens=300,
+        max_tokens=500,
     )
 
     print(response.choices[0].message.content)
