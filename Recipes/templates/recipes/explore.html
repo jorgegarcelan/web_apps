@@ -10,7 +10,75 @@ Explore Recipes
 
 {% block content %}
 <div class="container">
+
     <div class="search-container">
+        <div class="button-container">
+                
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="filter-container">
+                        <span class="close">&times;</span>
+                        <h2>✏️ Apply Your Filters</h2>
+                        <!-- Edit form -->
+                        <form class="filter-form edit-form" action="{{ url_for('explore.search') }}" method="GET">
+                            <p>
+                                <!-- Filter by food type -->
+                                <label for="type_food">Food Type:</label>
+                                <select name="type_food" id="type_food">
+                                    <option value="">--Select--</option>
+                                    {% set food_types = ['Mexican', 'Japanese', 'Chinese', 'Korean', 'Thai', 'Indian', 'American', 'Spanish', 'Italian', 'French', 'Eastern Europe', 'Arab', 'African', 'Other'] %}
+                                    {% for food in food_types %}
+                                    <option value="{{ food }}" {% if request.args.get('type_food') == food %}selected{% endif %}>{{ food }}</option>
+                                    {% endfor %}
+                                </select>
+                        
+                                <!-- Filter by food category -->
+                                <label for="category_food">Category Food:</label>
+                                <select name="category_food" id="category_food">
+                                    <option value="">--Select--</option>
+                                    {% set categories = ['Breakfast', 'Meal', 'Brunch', 'Snack', 'Dessert'] %}
+                                    {% for category in categories %}
+                                    <option value="{{ category }}" {% if request.args.get('category_food') == category %}selected{% endif %}>{{ category }}</option>
+                                    {% endfor %}
+                                </select>
+                        
+                                <!-- Filter by serving -->
+                                <label for="servings">Servings:</label>
+                                <select name="servings" id="servings">
+                                    <option value="">--Select--</option>
+                                    {% for i in range(1, 11) %}
+                                    <option value="{{ i }}" {% if request.args.get('servings')|int == i %}selected{% endif %}>{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                        
+                                <!-- Filter by Cook Time -->
+                                <label for="cook_time">Cook Time (minutes):</label>
+                                <select name="cook_time" id="cook_time">
+                                    <option value="">--Select--</option>
+                                    {% set cook_times = ['0-30', '30-60', '60-90', '90-120', '120+'] %}
+                                    {% for time in cook_times %}
+                                    <option value="{{ time }}" {% if request.args.get('cook_time') == time %}selected{% endif %}>
+                                        {% if time == '0-30' %}Less than 30 minutes
+                                        {% elif time == '30-60' %}30 to 60 minutes
+                                        {% elif time == '60-90' %}60 to 90 minutes
+                                        {% elif time == '90-120' %}90 to 120 minutes
+                                        {% elif time == '120+' %}More than 120 minutes
+                                        {% endif %}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </p>
+                            <input type="submit" value="Apply Filters" class="btn-primary save-button">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button type="submit" id="myBtn" class="edit-button edit-form">✏️ Filters </button>
+        </div>
         <h1>Find Your Recipe</h1>
         <form class="search" action="{{ url_for('explore.search')}}#results-container" method="GET">
             <input type="text" name="search" class="search-bar" placeholder="Search Recipe...">
@@ -18,69 +86,6 @@ Explore Recipes
         </form>
     </div>
 
-
-    <div class="filter-container">
-        <h1>Filter Recipes</h1>
-        <form class="filter-form" action="{{ url_for('explore.search') }}" method="GET">
-            <p>
-                <!-- Filter by food type -->
-                <label for="type_food">Food Type:</label>
-                <select name="type_food" id="type_food">
-                    <option value="">--Select--</option>
-                    {% set food_types = ['Mexican', 'Japanese', 'Chinese', 'Korean', 'Thai', 'Indian', 'American', 'Spanish', 'Italian', 'French', 'Eastern Europe', 'Arab', 'African', 'Other'] %}
-                    {% for food in food_types %}
-                    <option value="{{ food }}" {% if request.args.get('type_food') == food %}selected{% endif %}>{{ food }}</option>
-                    {% endfor %}
-                </select>
-        
-                <!-- Filter by food category -->
-                <label for="category_food">Category Food:</label>
-                <select name="category_food" id="category_food">
-                    <option value="">--Select--</option>
-                    {% set categories = ['Breakfast', 'Meal', 'Brunch', 'Snack', 'Dessert'] %}
-                    {% for category in categories %}
-                    <option value="{{ category }}" {% if request.args.get('category_food') == category %}selected{% endif %}>{{ category }}</option>
-                    {% endfor %}
-                </select>
-        
-                <!-- Filter by serving -->
-                <label for="servings">Servings:</label>
-                <select name="servings" id="servings">
-                    <option value="">--Select--</option>
-                    {% for i in range(1, 11) %}
-                    <option value="{{ i }}" {% if request.args.get('servings')|int == i %}selected{% endif %}>{{ i }}</option>
-                    {% endfor %}
-                </select>
-        
-                <!-- Filter by Cook Time -->
-                <label for="cook_time">Cook Time (minutes):</label>
-                <select name="cook_time" id="cook_time">
-                    <option value="">--Select--</option>
-                    {% set cook_times = ['0-30', '30-60', '60-90', '90-120', '120+'] %}
-                    {% for time in cook_times %}
-                    <option value="{{ time }}" {% if request.args.get('cook_time') == time %}selected{% endif %}>
-                        {% if time == '0-30' %}Less than 30 minutes
-                        {% elif time == '30-60' %}30 to 60 minutes
-                        {% elif time == '60-90' %}60 to 90 minutes
-                        {% elif time == '90-120' %}90 to 120 minutes
-                        {% elif time == '120+' %}More than 120 minutes
-                        {% endif %}
-                    </option>
-                    {% endfor %}
-                </select>
-        
-                <!-- Filter by Rating -->
-                <label for="rating">Rating:</label>
-                <select name="rating" id="rating">
-                    <option value="">--Select--</option>
-                    {% for i in range(0, 6) %}
-                    <option value="{{ i }}" {% if request.args.get('rating')|int == i %}selected{% endif %}>{{ i }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-            <input type="submit" value="Apply Filters" class="btn-primary">
-        </form>
-    </div>
     <div id="results-container" class="results-container">
         <h1>Results</h1>
         <div class="see-all">
@@ -120,4 +125,31 @@ Explore Recipes
         </div>
     </div>
 </div>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+  
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+  
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+  
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+  
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+  
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+</script>
 {% endblock %}
