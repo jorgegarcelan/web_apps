@@ -1,6 +1,6 @@
 import datetime
 import dateutil.tz
-from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app
+from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app, jsonify
 from flask_login import current_user, login_required
 from sqlalchemy.sql import func
 from . import model
@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 import os
 import numpy as np
 import pathlib
+
 
 bp = Blueprint("main", __name__)
 
@@ -313,10 +314,14 @@ def recipe_vision():
 
         # Process the image with your GPT model here
         output = gpt.gpt4_vision(filepath)
+        output = jsonify(output)
+
+        print(output)
+        
 
         # URL for the uploaded image
         uploaded_image_url = url_for('static', filename='imgs/' + filename)
 
-        return render_template("gpt/gpt4vision.html", output=output, uploaded_image=uploaded_image_url)
+        return render_template("gpt/gpt4vision.html", output=output.json, uploaded_image=uploaded_image_url)
 
     return render_template("gpt/gpt4vision.html")
