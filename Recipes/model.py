@@ -38,6 +38,7 @@ class Recipe(db.Model):
     photos = db.relationship('Photo', backref='recipe', lazy=True)
     type_food = db.Column(db.String(200), nullable=False) # cuisine: asian, spanish...
     category_food = db.Column(db.String(200), nullable=False) # dessert, meal...
+    is_complete = db.Column(db.Boolean, default=False)
 
     def get_average(self):
         if self.ratings:
