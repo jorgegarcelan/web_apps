@@ -1,6 +1,7 @@
 import openai
 import base64
 import os
+import json
 
 # Retrieve the API key from the environment variable
 openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -16,20 +17,7 @@ def gpt4_vision(image):
 
     client = openai.OpenAI(api_key = openai_api_key)
 
-    template = """
-        {
-            "recipe": {
-                "name": "",
-                "ingredients": [],
-                "steps": []
-            },
-            "recipe": {
-                "name": "",
-                "ingredients": [],
-                "steps": []
-            }
-        }
-        """
+    template = '{"recipes": [{"name": "", "ingredients": [], "steps": []}, {"name": "", "ingredients": [], "steps": []}]}'
 
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
@@ -37,7 +25,7 @@ def gpt4_vision(image):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": f"What can I cook with the following image? The output string must be correctly formatted as JSON, this means using double quotes for strings and following JSON syntax rules. Take this as a template: {template}"},
+                    {"type": "text", "text": f"What can I cook with the following image? Your output to the question must be correctly formatted using the template: {template}"},
                     {
                         "image": encoded_image
                     },
@@ -48,4 +36,4 @@ def gpt4_vision(image):
     )
 
     print(response.choices[0].message.content)
-    return response.choices[0].message.content
+    return json.loads(response.choices[0].message.content)

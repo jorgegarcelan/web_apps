@@ -315,16 +315,20 @@ def recipe_vision():
         print(filepath)
 
         # Process the image with your GPT model here
-        output = gpt.gpt4_vision(filepath)
-        output = jsonify(output)
+        try:
+            output = gpt.gpt4_vision(filepath)
+        except:
+            return abort(400, "There was a problem with the image")
+        #output = jsonify(output)
 
-        print(output)
+
+        print(f"{output=}")
         
 
         # URL for the uploaded image
         uploaded_image_url = url_for('static', filename='imgs/' + filename)
 
-        return render_template("gpt/gpt4vision.html", output=output.json, uploaded_image=uploaded_image_url)
+        return render_template("gpt/gpt4vision.html", output=output, uploaded_image=uploaded_image_url)
 
     return render_template("gpt/gpt4vision.html")
 
