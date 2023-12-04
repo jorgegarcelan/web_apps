@@ -1,119 +1,147 @@
 {% extends "base.html" %}
 
-{% block content %}
-<h2>Create Recipe</h2>
-  <form method="post" action="{{ url_for('main.create_recipe') }}">
-    
-    <!-- Display the current state of the recipe -->
-    <h3>Recipe Details:</h3>
-    <p>Title: {{ recipe.title }}</p>
-    <p>Description: {{ recipe.description }}</p>
-    <p>Cooking Time: {{ recipe.cook_time }} minutes</p>
-    <p>Servings: {{ recipe.servings }}</p>
-    <p>Type of Food: {{ recipe.type_food }}</p>
-    <p>Category of Food: {{ recipe.category_food }}</p>
-    
-    <!-- Add Ingredient -->
-    <h3>Add Ingredient:</h3>
-    <label for="ingredient_id">Select an Ingredient:</label>
-    <select id="ingredient_id" name="ingredient_id">
-        {% for ingredient in ingredients %}
-            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
-        {% endfor %}
-    </select>
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" name="quantity" step="0.1" required>
-    <label for="unit">Unit:</label>
-    <input type="text" id="unit" name="unit" required>
-    <button type="submit" name="add_ingredient">Add Ingredient</button>
-    
-    <!-- Add Step -->
-    <h3>Add Step:</h3>
-    <label for="step_description">Step Description:</label>
-    <textarea id="step_description" name="step_description" rows="4" required></textarea>
-    <button type="submit" name="add_step">Add Step</button>
-    
-    <!-- Mark as Complete -->
-    <button type="submit" name="complete">Mark as Complete</button>
-    
-    <!-- Hidden fields for passing recipe_id -->
-    <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
-  </form>
-
-
-
+{% block title %}
+Create Recipe
 {% endblock %}
 
-<style scoped>
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 20;
-    padding: 20;
-}
+{% block content %}
+<h1>Create a New Recipe</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
 
-.container {
-    width: 50%;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    <!-- Título -->
+    <div>
+        {{ form.title.label }} {{ form.title(size=32) }}
+        {% if form.title.errors %}
+            <ul class="errors">
+                {% for error in form.title.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 
-h2 {
-    color: #333;
-    text-align: center;
-}
+    <!-- Descripción -->
+    <div>
+        {{ form.description.label }} {{ form.description(rows=4) }}
+        {% if form.description.errors %}
+            <ul class="errors">
+                {% for error in form.description.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 
-form {
-    margin-top: 20px;
-}
+    <!-- Servings y Cook Time -->
+    <div>
+        {{ form.servings.label }} {{ form.servings }}
+        {% if form.servings.errors %}
+            <ul class="errors">
+                {% for error in form.servings.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.cook_time.label }} {{ form.cook_time }}
+        {% if form.cook_time.errors %}
+            <ul class="errors">
+                {% for error in form.cook_time.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 
-h3 {
-    margin-top: 10px;
-    color: #555;
-}
+    <h3>Ingredients</h3>
+    <div id="ingredients">
+        <div class="ingredient-template ingredient" style="display: none;">
+            {{ form.ingredients[0].name.label }} {{ form.ingredients[0].name }}
+            {{ form.ingredients[0].quantity.label }} {{ form.ingredients[0].quantity }}
+            <button type="button" class="remove-ingredient">Remove</button>
+        </div>
+    </div>
+    <button type="button" id="add-ingredient">Add Ingredient</button>
+    
+    <h3>Steps</h3>
+    <div id="steps">
+        <div class="step-template step" style="display: none;">
+            {{ form.steps.description.label }} {{ form.steps.description }}
+            <button type="button" class="remove-step">Remove</button>
+        </div>
+    </div>
+    <button type="button" id="add-step">Add Step</button>
 
-label {
-    display: block;
-    margin-top: 10px;
-    color: #777;
-}
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Funciones para agregar y eliminar campos de ingredientes
+    function addIngredient() {
+        var container = document.getElementById('ingredients');
+        var newIngredient = document.querySelector('.ingredient-template').cloneNode(true);
+        var ingredientCount = container.querySelectorAll('.ingredient').length;
+    
+        // Actualiza los atributos name y id para cada campo en el nuevo ingrediente
+        newIngredient.querySelectorAll('input, select, textarea').forEach(function(input) {
+            input.name = input.name.replace('[0]', '[' + ingredientCount + ']');
+            input.id = input.id.replace('_0', '_' + ingredientCount);
+        });
+    
+        newIngredient.style.display = 'block';
+        container.appendChild(newIngredient);
+    }
 
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+    function removeIngredient(button) {
+        if (document.querySelectorAll('ingredient').length > 1) {
+            button.parentNode.remove();
+        } else {
+            alert('You must have at least one ingredient.');
+        }
+    }
 
-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    // Funciones para agregar y eliminar pasos
+    function addStep() {
+        var container = document.getElementById('steps');
+        var newStep = document.querySelector('.step-template').cloneNode(true); // Clona todos los nodos hijos
+        var stepCount = container.querySelectorAll('.step').length;
+    
+        // Actualiza los atributos name y id para cada campo en el nuevo paso
+        newStep.querySelectorAll('input, select, textarea').forEach(function(input) {
+            input.name = input.name.replace('[0]', '[' + stepCount + ']');
+            input.id = input.id.replace('_0', '_' + stepCount);
+        });
+    
+        newStep.style.display = 'block';
+        container.appendChild(newStep);
+    }
 
-button:hover {
-    background-color: #45a049;
-}
+    function removeStep(button) {
+        if (document.querySelectorAll('.step').length > 1) {
+            button.parentNode.remove();
+        } else {
+            alert('You must have at least one step.');
+        }
+    }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
+    document.querySelector('#add-ingredient').addEventListener('click', addIngredient);
+    document.querySelector('#add-step').addEventListener('click', addStep);
 
-ul li {
-    margin-bottom: 5px;
-}
+    document.querySelector('#ingredients').addEventListener('click', function (e) {
+        if (e.target && e.target.className == 'remove-ingredient') {
+            removeIngredient(e.target);
+        }
+    });
 
-
-</style>
+    document.querySelector('#steps').addEventListener('click', function (e) {
+        if (e.target && e.target.className == 'remove-step') {
+            removeStep(e.target);
+        }
+    });
+});
+</script>
+{% endblock %}

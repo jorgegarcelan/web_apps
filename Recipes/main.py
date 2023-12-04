@@ -1,10 +1,12 @@
 import datetime
 import dateutil.tz
+from .forms import RecipeForm  # Formulario personalizado para recetas
+from .model import Recipe, Ingredient, QuantifiedIngredient, Step
 from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app, jsonify
 from flask_login import current_user, login_required
 from sqlalchemy.sql import func
 from . import model
-from Recipes import db, create_app, gpt
+from Recipes import db, gpt
 from werkzeug.utils import secure_filename
 import os
 import numpy as np
@@ -326,66 +328,37 @@ def recipe_vision():
 
     return render_template("gpt/gpt4vision.html")
 
+
 @bp.route('/create_recipe', methods=['GET', 'POST'])
 @login_required
 def create_recipe():
-    if request.method == 'POST':
-        if 'complete' in request.form:
-            # Mark the recipe as complete
-            recipe_id = request.form.get('recipe_id')
-            recipe = model.Recipe.query.get_or_404(recipe_id)
+    form = RecipeForm()
+    if form.validate_on_submit():
+        new_recipe = Recipe(
+            title=form.title.data,
+            description=form.description.data,
+            servings=form.servings.data,
+            cook_time=form.cook_time.data,
+            user_id=current_user.id,
+        )
 
-            if recipe.user_id == current_user.id:
-                recipe.is_complete = True
-                db.session.commit()
-                flash('Recipe marked as complete!', 'success')
-                return redirect(url_for('recipe_view', recipe_id=recipe_id))
-
-        elif 'add_ingredient' in request.form:
-            # Add an ingredient to the recipe
-            recipe_id = request.form.get('recipe_id')
-            ingredient_id = request.form.get('ingredient_id')
-            quantity = float(request.form.get('quantity'))
-            unit = request.form.get('unit')
-
-            if recipe_id and ingredient_id and quantity and unit:
-                recipe = model.Recipe.query.get_or_404(recipe_id)
-
-                if recipe.user_id == current_user.id and not recipe.is_complete:
-                    quantified_ingredient = model.QuantifiedIngredient(
-                        ingredient_id=ingredient_id,
-                        quantity=quantity,
-                        unit=unit
-                    )
-                    recipe.quantified_ingredients.append(quantified_ingredient)
-                    db.session.commit()
-                    flash('Ingredient added successfully!', 'success')
-
-        elif 'add_step' in request.form:
-            # Add a step to the recipe
-            recipe_id = request.form.get('recipe_id')
-            step_description = request.form.get('step_description')
-
-            if recipe_id and step_description:
-                recipe = model.Recipe.query.get_or_404(recipe_id)
-
-                if recipe.user_id == current_user.id and not recipe.is_complete:
-                    step = model.Step(description=step_description)
-                    recipe.steps.append(step)
-                    db.session.commit()
-                    flash('Step added successfully!', 'success')
-
-    else:
-        # Retrieve the current state of the recipe
-        recipe = model.Recipe.query.filter_by(user_id=current_user.id, is_complete=False).order_by(model.Recipe.id.desc()).first()
+        # Agregar ingredientes
+        for ingredient_form in form.ingredients.data:
+            ingredient = Ingredient(name=ingredient_form['name'])
+            db.session.add(ingredient)
+            quantified_ingredient = QuantifiedIngredient(
+                ingredient=ingredient,
+                quantity=ingredient_form['quantity'],
+            )
+            new_recipe.quantified_ingredients.append(quantified_ingredient)
         
-        if recipe == None:
-            # Display the form for entering basic recipe details
-            new_recipe = model.Recipe(title='', description='', cook_time=0, servings=0, type_food='', category_food='', user_id=current_user.id)
-            db.session.add(new_recipe)
-            db.session.commit()
+        # Agregar pasos
+        for step_form in form.steps.data:
+            step = Step(description=step_form['description'])
+            new_recipe.steps.append(step)
 
-    # Retrieve existing ingredients for the form
-    ingredients = model.Ingredient.query.all()
-
-    return render_template('create.html', recipe=recipe, ingredients=ingredients)
+        db.session.add(new_recipe)
+        db.session.commit()
+        new_recipe.quantified_ingredients.append(quantified_ingredient)
+        return redirect(url_for('explore.search'))
+    return render_template('create.html', form=form)
