@@ -15,12 +15,13 @@
         </header>
 
         <nav class="nav">
-            <a href="{{ url_for('main.index') }}">Home</a>
+            <a href="{{ url_for('main.index') }}">🏠 Home</a>
+            <a href="{{ url_for('main.recipe_vision') }}">🤖 Chef Assistant</a>
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('main.user', user_id=current_user.id) }}">Profile</a>
-                <a href="{{ url_for('auth.logout') }}">Logout</a>
+                <a href="{{ url_for('main.user', user_id=current_user.id) }}">🧑🏻‍🍳 Profile</a>
+                <a href="{{ url_for('auth.logout') }}">📤 Logout</a>
             {% else %}
-                <a href="{{ url_for('auth.login') }}">Login</a>
+                <a href="{{ url_for('auth.login') }}">📥 Login</a>
             {% endif %}
             <!-- Additional navigation links -->
         </nav>
