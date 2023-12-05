@@ -17,10 +17,20 @@ User
     <form action="/recipe_vision" method="post" enctype="multipart/form-data">
         <label for="fileUpload">🪄 Upload a photo of your fridge or raw ingredients and we'll do the magic!</label>
         <input type="file" id="fileUpload" name="file" class="upload-button">
-        <input type="submit" value="Upload Image" name="submit" class="submit-button">
+        <input type="submit" value="Upload Image" name="submit" class="submit-button" id="myBtn" onclick="loading()">
     </form>
 </div>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <h2> Recipes are being prepared...</h2>
+        <img src="static/imgs/loading.gif" id="loading">
+    </div>
+</div>
+
+<!-- Cols -->
 {% if uploaded_image %}
 <div class="card-columns">
     <!-- Column 1 -->
@@ -78,6 +88,21 @@ User
 </div>
 {% endif %}
 
+<!-- MODAL JS -->
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+</script>
+
+
 <!-- TABS JS -->
 <script>
     function openTab(evt, Name, tab_content, tab_links) {
@@ -110,7 +135,6 @@ User
         window.onload = function() {
             // Get the element with id="default" and click on it
             document.getElementById("default").click();
-            document.getElementById("default2").click();
         };
 </script>
 
