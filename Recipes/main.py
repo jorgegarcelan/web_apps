@@ -1,7 +1,7 @@
 import datetime
 import dateutil.tz
-from .forms import RecipeForm  # Formulario personalizado para recetas
-from .model import Recipe, Ingredient, QuantifiedIngredient, Step
+from .forms import RecipeForm, IngredientForm, StepForm
+from .model import Recipe, Ingredient, QuantifiedIngredient, Step, Photo
 from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app, jsonify
 from flask_login import current_user, login_required
 from sqlalchemy.sql import func
@@ -332,33 +332,82 @@ def recipe_vision():
 @bp.route('/create_recipe', methods=['GET', 'POST'])
 @login_required
 def create_recipe():
-    form = RecipeForm()
-    if form.validate_on_submit():
-        new_recipe = Recipe(
-            title=form.title.data,
-            description=form.description.data,
-            servings=form.servings.data,
-            cook_time=form.cook_time.data,
-            user_id=current_user.id,
-        )
-
-        # Agregar ingredientes
-        for ingredient_form in form.ingredients.data:
-            ingredient = Ingredient(name=ingredient_form['name'])
-            db.session.add(ingredient)
-            quantified_ingredient = QuantifiedIngredient(
-                ingredient=ingredient,
-                quantity=ingredient_form['quantity'],
-            )
-            new_recipe.quantified_ingredients.append(quantified_ingredient)
+    recipe_form = RecipeForm()
+    ingredient_form = IngredientForm()
+    step_form = StepForm()
+    if request.method == 'POST':
         
-        # Agregar pasos
-        for step_form in form.steps.data:
-            step = Step(description=step_form['description'])
-            new_recipe.steps.append(step)
+        ingredientes_agregados = False
+        pasos_agregados = False
 
-        db.session.add(new_recipe)
-        db.session.commit()
-        new_recipe.quantified_ingredients.append(quantified_ingredient)
-        return redirect(url_for('explore.search'))
-    return render_template('create.html', form=form)
+        if recipe_form.validate_on_submit():
+            new_recipe = Recipe(
+                title=recipe_form.title.data,
+                description=recipe_form.description.data,
+                servings=recipe_form.servings.data,
+                cook_time=recipe_form.cook_time.data,
+                user_id=current_user.id
+            )
+            db.session.add(new_recipe)
+            db.session.flush()
+
+            if recipe_form.image.data:
+                image_file = recipe_form.image.data
+                filename = secure_filename(image_file.filename)
+                file_extension = os.path.splitext(filename)[1]
+                image_file.save(os.path.join('Recipes/static/photos/recipes', filename))
+
+                # Crear y guardar una entrada Photo
+                photo = Photo(
+                    user_id=current_user.id,  # Asumiendo que usas Flask-Login
+                    recipe_id=new_recipe.id,
+                    file_extension=file_extension
+                )
+                db.session.add(photo)
+
+            if 'step_description[]' in request.form:
+                step_descriptions = request.form.getlist('step_description[]')
+                for i, description in enumerate(step_descriptions):
+                    if description.strip():  # Asegurarse de que la descripción no esté vacía o solo contenga espacios
+                        new_step = Step(
+                            recipe_id=new_recipe.id,
+                            sequence_number=i + 1,  # El número de secuencia se genera automáticamente
+                            description=description
+                        )
+                        db.session.add(new_step)
+
+            if 'ingredient[]' in request.form or 'new_ingredient[]' in request.form:
+                ingredient_names = request.form.getlist('ingredient[]')
+                new_ingredient_names = request.form.getlist('new_ingredient[]')
+                ingredient_quantities = request.form.getlist('quantity[]')
+                ingredient_units = request.form.getlist('unit_of_measurement[]')
+                for name, quantity, unit in zip(ingredient_names, ingredient_quantities, ingredient_units):
+                    if name:  # Comprobar si el nombre del ingrediente no está vacío
+                        ingredient = Ingredient.query.filter_by(name=name).first()
+                        if not ingredient:
+                            ingredient = Ingredient(name=name)
+                            db.session.add(ingredient)
+                        quantified_ingredient = QuantifiedIngredient(
+                            ingredient_id=ingredient.id,
+                            recipe_id=new_recipe.id,
+                            quantity=quantity,
+                            unit_of_measurement = unit
+                        )
+                        db.session.add(quantified_ingredient)
+                if ingredient_names:
+                    ingredientes_agregados = True
+        
+            if ingredientes_agregados and pasos_agregados:
+                db.session.commit()
+                flash('Receta creada con éxito!', 'success')
+                return redirect(url_for('explore.search'))
+            else:
+                db.session.rollback()  # Revierte los cambios si no se cumplen las condiciones
+                if not ingredientes_agregados:
+                    flash('Por favor, añade al menos un ingrediente.', 'error')
+                if not pasos_agregados:
+                    flash('Por favor, añade al menos un paso.', 'error')
+        else:
+            flash('Error en el formulario de recetas.', 'error')
+        
+    return render_template('create.html', recipe_form=recipe_form, ingredient_form=ingredient_form, step_form=step_form)

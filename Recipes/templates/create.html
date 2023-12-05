@@ -5,16 +5,24 @@ Create Recipe
 {% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <h1>Create a New Recipe</h1>
-<form method="POST">
-    {{ form.hidden_tag() }}
+<form method="POST" enctype="multipart/form-data">
+    {{ recipe_form.hidden_tag() }}
 
     <!-- Título -->
     <div>
-        {{ form.title.label }} {{ form.title(size=32) }}
-        {% if form.title.errors %}
-            <ul class="errors">
-                {% for error in form.title.errors %}
+        {{ recipe_form.title.label }}
+        {{ recipe_form.title(size=20) }}
+        {% if recipe_form.title.errors %}
+            <ul>
+                {% for error in recipe_form.title.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
@@ -23,10 +31,11 @@ Create Recipe
 
     <!-- Descripción -->
     <div>
-        {{ form.description.label }} {{ form.description(rows=4) }}
-        {% if form.description.errors %}
-            <ul class="errors">
-                {% for error in form.description.errors %}
+        {{ recipe_form.description.label }}
+        {{ recipe_form.description(rows=3) }}
+        {% if recipe_form.description.errors %}
+            <ul>
+                {% for error in recipe_form.description.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
@@ -35,20 +44,57 @@ Create Recipe
 
     <!-- Servings y Cook Time -->
     <div>
-        {{ form.servings.label }} {{ form.servings }}
-        {% if form.servings.errors %}
-            <ul class="errors">
-                {% for error in form.servings.errors %}
+        {{ recipe_form.servings.label }}
+        {{ recipe_form.servings }}
+        {% if recipe_form.servings.errors %}
+            <ul>
+                {% for error in recipe_form.servings.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
     </div>
     <div>
-        {{ form.cook_time.label }} {{ form.cook_time }}
-        {% if form.cook_time.errors %}
-            <ul class="errors">
-                {% for error in form.cook_time.errors %}
+        {{ recipe_form.cook_time.label }}
+        {{ recipe_form.cook_time }}
+        {% if recipe_form.cook_time.errors %}
+            <ul>
+                {% for error in recipe_form.cook_time.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ recipe_form.type_food.label }}
+        {{ recipe_form.type_food() }}
+        {% if recipe_form.type_food.errors %}
+            <ul>
+                {% for error in recipe_form.type_food.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ recipe_form.category_food.label }}
+        {{ recipe_form.category_food() }}
+        {% if recipe_form.category_food.errors %}
+            <ul>
+                {% for error in recipe_form.category_food.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <!-- Campo para Cargar Imagen -->
+    <div>
+        {{ recipe_form.image.label }}
+        {{ recipe_form.image }}
+        {% if recipe_form.image.errors %}
+            <ul>
+                {% for error in recipe_form.image.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
@@ -56,92 +102,122 @@ Create Recipe
     </div>
 
     <h3>Ingredients</h3>
-    <div id="ingredients">
-        <div class="ingredient-template ingredient" style="display: none;">
-            {{ form.ingredients[0].name.label }} {{ form.ingredients[0].name }}
-            {{ form.ingredients[0].quantity.label }} {{ form.ingredients[0].quantity }}
-            <button type="button" class="remove-ingredient">Remove</button>
+    <form method="post">
+        {{ ingredient_form.hidden_tag() }}
+        <div id="ingredients-container">
+            <!-- Aquí se insertarán dinámicamente los formularios de ingredientes -->
+            <div class="ingredient-form">
+                {{ ingredient_form.ingredient.label }}
+                {{ ingredient_form.ingredient() }}
+
+                {{ ingredient_form.new_ingredient.label }}
+                {{ ingredient_form.new_ingredient() }}
+
+                {{ ingredient_form.quantity.label }}
+                {{ ingredient_form.quantity() }}
+
+                {{ ingredient_form.unit_of_measurement.label }}
+                {{ ingredient_form.unit_of_measurement() }}
+            </div>
         </div>
-    </div>
-    <button type="button" id="add-ingredient">Add Ingredient</button>
+        <button type="button" id="add-ingredient-btn">Add New Ingredient</button>
+    </form>
     
     <h3>Steps</h3>
-    <div id="steps">
-        <div class="step-template step" style="display: none;">
-            {{ form.steps.description.label }} {{ form.steps.description }}
-            <button type="button" class="remove-step">Remove</button>
+    <form method="post">
+        {{ step_form.hidden_tag() }}
+    
+        <!-- Contenedor para Formularios de Pasos -->
+        <div id="steps-container">
+            <!-- El formulario de paso inicial -->
+            <div class="step-form">
+                <input type="hidden" name="step_sequence_number[]" value="1" />
+                <label>Step 1</label>
+                {{ step_form.step_description.label }} {{ step_form.step_description(rows=3) }}
+                <!-- Botón para borrar el paso -->
+            </div>
         </div>
-    </div>
-    <button type="button" id="add-step">Add Step</button>
+    
+        <!-- Botón para Agregar Nuevo Formulario de Pasos -->
+        <button type="button" id="add-step-btn">Add New Step</button>
+    
+    </form>
 
     <div>
-        {{ form.submit() }}
+        {{ recipe_form.submit() }}
     </div>
 </form>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Funciones para agregar y eliminar campos de ingredientes
-    function addIngredient() {
-        var container = document.getElementById('ingredients');
-        var newIngredient = document.querySelector('.ingredient-template').cloneNode(true);
-        var ingredientCount = container.querySelectorAll('.ingredient').length;
-    
-        // Actualiza los atributos name y id para cada campo en el nuevo ingrediente
-        newIngredient.querySelectorAll('input, select, textarea').forEach(function(input) {
-            input.name = input.name.replace('[0]', '[' + ingredientCount + ']');
-            input.id = input.id.replace('_0', '_' + ingredientCount);
+    function updateStepNumbers() {
+        // Actualizar los números de secuencia y etiquetas
+        const allSteps = document.querySelectorAll('#steps-container .step-form');
+        allSteps.forEach((stepForm, index) => {
+            const stepNumberInput = stepForm.querySelector('input[type="hidden"]');
+            stepNumberInput.value = index + 1;
+            const stepLabel = stepForm.querySelector('label');
+            stepLabel.textContent = 'Step ' + (index + 1);
         });
-    
-        newIngredient.style.display = 'block';
-        container.appendChild(newIngredient);
     }
 
-    function removeIngredient(button) {
-        if (document.querySelectorAll('ingredient').length > 1) {
-            button.parentNode.remove();
-        } else {
-            alert('You must have at least one ingredient.');
+    document.getElementById('add-ingredient-btn').addEventListener('click', function() {
+        const container = document.getElementById('ingredients-container');
+        const newIngredientForm = container.firstElementChild.cloneNode(true);
+        // Restablecer los valores del formulario clonado
+        newIngredientForm.querySelectorAll('input').forEach(input => input.value = '');
+        newIngredientForm.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+        // Asegúrate de que solo los formularios clonados tengan un botón de eliminar
+        if (container.children.length > 0) {
+            const removeButton = newIngredientForm.querySelector('.remove-ingredient');
+            if (!removeButton) {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = 'Remove Ingredient';
+                button.classList.add('remove-ingredient');
+                newIngredientForm.appendChild(button);
+            }
         }
-    }
+        container.appendChild(newIngredientForm);
+    });
 
-    // Funciones para agregar y eliminar pasos
-    function addStep() {
-        var container = document.getElementById('steps');
-        var newStep = document.querySelector('.step-template').cloneNode(true); // Clona todos los nodos hijos
-        var stepCount = container.querySelectorAll('.step').length;
-    
-        // Actualiza los atributos name y id para cada campo en el nuevo paso
-        newStep.querySelectorAll('input, select, textarea').forEach(function(input) {
-            input.name = input.name.replace('[0]', '[' + stepCount + ']');
-            input.id = input.id.replace('_0', '_' + stepCount);
-        });
-    
-        newStep.style.display = 'block';
-        container.appendChild(newStep);
-    }
-
-    function removeStep(button) {
-        if (document.querySelectorAll('.step').length > 1) {
-            button.parentNode.remove();
-        } else {
-            alert('You must have at least one step.');
+    document.getElementById('ingredients-container').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-ingredient')) {
+            // Asegúrate de que no estás eliminando el último formulario de ingredientes
+            if (event.currentTarget.children.length > 1) {
+                event.target.closest('.ingredient-form').remove();
+            }
         }
-    }
+    });
+    
+    document.getElementById('add-step-btn').addEventListener('click', function() {
+        const container = document.getElementById('steps-container');
+        const newStepForm = container.firstElementChild.cloneNode(true);
+        // Restablecer los valores del formulario clonado
+        newStepForm.querySelector('textarea').value = '';
+        // Asegúrate de que solo los formularios clonados tengan un botón de eliminar
+        if (container.children.length > 0) {
+            const removeButton = newStepForm.querySelector('.remove-step');
+            if (!removeButton) {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = 'Remove Step';
+                button.classList.add('remove-step');
+                newStepForm.appendChild(button);
+            }
+        }
+        container.appendChild(newStepForm);
+        updateStepNumbers();
+    });
 
-    document.querySelector('#add-ingredient').addEventListener('click', addIngredient);
-    document.querySelector('#add-step').addEventListener('click', addStep);
-
-    document.querySelector('#ingredients').addEventListener('click', function (e) {
-        if (e.target && e.target.className == 'remove-ingredient') {
-            removeIngredient(e.target);
+    document.getElementById('steps-container').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-step')) {
+            // Asegúrate de que no estás eliminando el último formulario de pasos
+            if (event.currentTarget.children.length > 1) {
+                event.target.closest('.step-form').remove();
+                updateStepNumbers();
+            }
         }
     });
 
-    document.querySelector('#steps').addEventListener('click', function (e) {
-        if (e.target && e.target.className == 'remove-step') {
-            removeStep(e.target);
-        }
-    });
-});
+    updateStepNumbers();
 </script>
 {% endblock %}

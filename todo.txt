@@ -33,3 +33,8 @@ USER VIEW: ----------------------------------------------- DONE
 
 LOGGING ERRORS: ------------------------------------------ TO DO
     - Flash messages
+
+CREATE RECIPE VIEW:
+    - Manejar type_food y category_food ------------------ TO DO
+    - Poner estilos -------------------------------------- TO DO
+    - Comprobar la lógica -------------------------------- TO DO
