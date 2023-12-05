@@ -1,0 +1,192 @@
+@font-face {
+    font-family: "Bavista Soulare";
+    src: url('../fonts/Bavista_Soulare.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f8f0;
+    color: #142c35;
+    line-height: 1.6;
+  }
+
+h1 {
+    font-family: 'Bavista Soulare';
+    color: #142c35;
+    text-align: center;
+    font-size: 40pt;
+}
+
+h2 {
+  font-family: 'Bavista Soulare';
+  color: #142c35;
+}
+
+
+label {
+  font-size: 16px;
+  display: block; /* Ensures they are block-level */
+}
+
+textarea {
+  width: 100%; /* Set the width to fill the container */
+  padding: 8px 15px; /* Add some padding inside the input */
+  margin: 8px 0; /* Add some margin around the input */
+  box-sizing: border-box; /* Include padding and border in the input's width */
+  border: 1px solid #ccc; /* A subtle border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f8f8f8; /* A light grey background */
+  color: #333; /* Dark grey text color */
+  font-size: 16px; /* Slightly larger font size for better readability */
+  line-height: 1.5; /* More space between lines */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+  resize: none;
+}
+
+input, select {
+  width: 100%; /* Set the width to fill the container */
+  padding: 8px 15px; /* Add some padding inside the input */
+  margin: 8px 0; /* Add some margin around the input */
+  box-sizing: border-box; /* Include padding and border in the input's width */
+  border: 1px solid #ccc; /* A subtle border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f8f8f8; /* A light grey background */
+  color: #333; /* Dark grey text color */
+  font-size: 16px; /* Slightly larger font size for better readability */
+  line-height: 1.5; /* More space between lines */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  /*background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+  display: flex;
+  justify-content: space-between;
+}
+
+.upload {
+  margin: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+}
+
+
+.section-header {
+  grid-column: 1 / -1; /* header will span all columns */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card-columns {
+  display: flex; /* Enables Flexbox */
+}
+
+.card-column1 {
+  width: 25%; 
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
+
+}
+.card-column2 {
+  display: flex; /* Declare the container as a flex container */
+  justify-content: center; /* Center children horizontally */
+  align-items: center; /* Center children vertically */
+  width: 75%;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  margin: 30px;
+  flex-direction: column; /* Stack children vertically */
+}
+
+
+/* =================TABS===================*/
+.tab {
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  margin: 20px;
+  justify-content: center; /* Distribute space between the items */
+  align-items: center; /* Align items vertically */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; /* prevents text from overflowing */
+}
+
+  
+/* =================EDIT===================*/
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Make sure the container spans the full width */
+}
+
+.upload-button, .submit-button {
+  background-color: #f8f8f800; /* Light grey background */
+  border: 1px solid #dcdcdc; /* Grey border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Top/bottom padding of 10px, left/right padding of 20px */
+  margin: 20px;
+  font-size: 12px; /* Set font-size */
+  cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  display: inline-block; /* Allows setting padding and width */
+  color: #142c35; /* Dark grey text color */
+}
+
+.submit-button {
+  background-color: #ca9e67;
+}
+
+.submit-button:hover {
+  background-color: #7d5627; /* Slightly darker background on hover */
+  color: #ffffff;
+}
+
+.upload-buttom:hover {
+  background-color: #e2e2e2; /* Slightly darker background on hover */
+}
+

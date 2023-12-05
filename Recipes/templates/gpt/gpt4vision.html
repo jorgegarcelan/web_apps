@@ -5,26 +5,113 @@ User
 {% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/gpt4vision.css') }}">
 {% endblock %}
 
 {% block content %}
+<div class="section-header">
+    <h1>🤖 Chef Assistant Recommender </h1>
+</div>
+
 <div class="upload">
     <form action="/recipe_vision" method="post" enctype="multipart/form-data">
-        <label for="fileUpload">Upload an image:</label>
-        <input type="file" id="fileUpload" name="file">
-        <input type="submit" value="Upload Image" name="submit">
+        <label for="fileUpload">🪄 Upload a photo of your fridge or raw ingredients and we'll do the magic!</label>
+        <input type="file" id="fileUpload" name="file" class="upload-button">
+        <input type="submit" value="Upload Image" name="submit" class="submit-button">
     </form>
 </div>
 
-<div id="imageDisplay">
-    {% if uploaded_image %}
-        <h3>Uploaded Image:</h3>
-        <img src="{{ uploaded_image }}" alt="Uploaded Image">
-        <p> {{ output }} </p>
-        {% for recipe in output.recipes %}
-            <p> {{ recipe.name }} </p>
-        {% endfor %}
-    {% endif %}
+{% if uploaded_image %}
+<div class="card-columns">
+    <!-- Column 1 -->
+    <div class="card-column1">
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Suggestion 1', 'tabcontent', 'tablinks')" id="default">📝 Suggestion 1</button>
+            <button class="tablinks" onclick="openTab(event, 'Suggestion 2', 'tabcontent', 'tablinks')">📝 Suggestion 2</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="Suggestion 1" class="tabcontent">
+            <h2>{{ output.recipes[0].name }}</h2>
+            <h2>🥕 Ingredients</h2>
+                <ul style="list-style-type:circle;">
+                    {% for ingredient in output.recipes[0].ingredients %}
+                        <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+                <h2>🔢 Steps</h2>
+                <ol type="1">
+                    {% for step in output.recipes[0].steps %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+        </div>
+
+        <div id="Suggestion 2" class="tabcontent">
+            <h2>{{ output.recipes[1].name }}</h2>
+            <h2>🥕 Ingredients</h2>
+                <ul style="list-style-type:circle;">
+                    {% for ingredient in output.recipes[1].ingredients %}
+                        <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+                <h2>🔢 Steps</h2>
+                <ol type="1">
+                    {% for step in output.recipes[1].steps %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+        </div>
+
+
+
+    </div>
+
+    <!-- Column 2 -->
+    <div class="card-column2">
+        <div id="imageDisplay">
+            <h3>📷 Uploaded Image:</h3>
+            <img src="{{ uploaded_image }}" alt="Uploaded Image">
+        </div>
+    </div>
 </div>
+{% endif %}
+
+<!-- TABS JS -->
+<script>
+    function openTab(evt, Name, tab_content, tab_links) {
+
+        console.log(Name);
+        console.log(tab_content);
+        console.log(tab_links);
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName(tab_content);
+        console.log(tabcontent);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName(tab_links);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(Name).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+
+        // Get the element with id="default" and click on it
+        window.onload = function() {
+            // Get the element with id="default" and click on it
+            document.getElementById("default").click();
+            document.getElementById("default2").click();
+        };
+</script>
+
 {% endblock %}
