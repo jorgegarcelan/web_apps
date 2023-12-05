@@ -101,27 +101,23 @@ def recipe(recipe_id):
     print(chef_photos)
 
     # ratings:
-    rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
+    rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has rated the recipe
     is_rated = rate is not None
 
     query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
     ratings_list = db.session.execute(query_rt).scalars().all()
     count = len(ratings_list)
-
-    if is_rated == False:
-        rating = "No reviews yet"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
+    current_rate = rate.value
 
     if count == 0:
         rating = "No reviews yet"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
-
+        count = ""
     else:
         count = f"({count})"
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
-        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=rate.value, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
 
+    return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=current_rate, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
 
 
 @bp.route('/edit_user', methods=['POST'])
