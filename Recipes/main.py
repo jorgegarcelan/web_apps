@@ -100,6 +100,9 @@ def recipe(recipe_id):
     chef_photos = model.Photo.query.filter_by(user_id=user.id, recipe_id=recipe_id).all()
     print(chef_photos)
 
+    your_photos = model.Photo.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).all()
+    print(your_photos)
+
     # ratings:
     rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has rated the recipe
     is_rated = rate is not None
@@ -117,7 +120,7 @@ def recipe(recipe_id):
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
 
-    return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=current_rate, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos)
+    return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=current_rate, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos, your_photos=your_photos)
 
 
 @bp.route('/edit_user', methods=['POST'])

@@ -180,8 +180,9 @@ Recipe
         <div class="card-column2">
             <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks2" onclick="openTab(event, 'Chef Pictures', 'tabcontent2', 'tablinks2')" id="default2">📸 Chef Pictures</button>
-                <button class="tablinks2" onclick="openTab(event, 'Users Pictures', 'tabcontent2', 'tablinks2')">📷 Users Pictures</button>
+                <button class="tablinks2" onclick="openTab(event, 'Chef Pictures', 'tabcontent2', 'tablinks2')" id="default2">📸🧑🏻‍🍳 Chef Pictures</button>
+                <button class="tablinks2" onclick="openTab(event, 'Users Pictures', 'tabcontent2', 'tablinks2')">📷👥 Users Pictures</button>
+                <button class="tablinks2" onclick="openTab(event, 'Your Pictures', 'tabcontent2', 'tablinks2')">📷👤 Your Pictures</button>
                 <button class="tablinks2" onclick="openTab(event, 'Upload Pictures', 'tabcontent2', 'tablinks2')">⤴️ Upload Pictures</button>
             </div>
             <!-- Tab content -->
@@ -212,6 +213,30 @@ Recipe
 
                 <div id="Users Pictures" class="tabcontent2">
                     <h2>📷 Pictures submitted by users</h2>
+                    <div class="recipes__container swiper">
+                        <div class="swiper-wrapper">
+                            <!--Bucle for aquí con las recetas-->
+                            {% if recipe.photos %}
+                                {% for photo in recipe.photos %}
+                                <div class="recipes__content swiper-slide">
+                                    <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <!-- SWIPER ARROWS AND PAGINATION-->
+                        <div class="swiper-button-next">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </div>
+                        <div class="swiper-button-prev">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div id="Your Pictures" class="tabcontent2">
+                    <h2>📷 Pictures submitted by yourself</h2>
                     <div class="recipes__container swiper">
                         <div class="swiper-wrapper">
                             <!--Bucle for aquí con las recetas-->
