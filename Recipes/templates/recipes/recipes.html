@@ -133,7 +133,7 @@ Recipe
                 <h2>🔢 Steps</h2>
                 <ol type="1">
                     {% for step in recipe.steps %}
-                        <li>{{ step.sequence_number }}. <span class="step-description">{{ step.description }}</span></li>
+                        <li><span class="step-description">{{ step.description }}</span></li>
                     {% endfor %}
                 </ol>
             </div>

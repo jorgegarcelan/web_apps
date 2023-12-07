@@ -1,26 +1,26 @@
-id,title,description,user_id,servings,cook_time,type_food,category_food
-1,kfjtlShlTT,WQHDngCwuoYmQoQTBHgiwayKUsjhADYbBHAbJcpzzyCzoihAaA,8,6,49,Other,Meal
-2,QvIXxmPxsk,CSuAVeuoloxwOfhCPgvCCOokEkwplJGUbwAKIbMsRMLfLsgHsK,3,9,108,American,Meal
-3,LorDxslQsP,MIMdClIRDWoSdCxaLDECThMpLFFEcWKuvJHzxOfguZUdPFIRWa,4,5,36,French,Breakfast
-4,QNHbzYSpun,oMUZSxEHvswhxZZxQzUChzolDXirhIZvxBSEnNOFCnAlAnbwHG,7,1,79,Spanish,Snack
-5,DbYeWoiExN,NjhvhgMoRIZLzBBFIEvgYZVeKnfiqhFyHIAkrYabBvxryyscmE,3,9,55,American,Meal
-6,dXxWTbetsT,PfXZutfASxmIeuyVecGKfMjNWLBUsXGMDyPAGpuvKJvebqszyf,5,2,38,Other,Meal
-7,YptYIAORTk,lfcmfJdBltyXYSiHrkpQZkfTbzxXUzIKXLWtrWpNWjjBdYLmSx,2,4,91,Other,Snack
-8,aXavrgdnyn,xGoGlwbtYdVetcBdbGCztXxyTpgpCqjVAUloORWgYepRIOdHSk,6,4,34,African,Meal
-9,OLxIygGgcq,RXRDyEEXrwkYajVbbpwJIkvfkhBGyyaDbZaYmCCAfzCsRkeUBU,7,5,43,Spanish,Snack
-10,rwlVqPmHws,MVATKgomrGKEzUdhleYHKgkzxAvcKpnAriYXVFBMmkUeJDtdWb,6,7,16,Arab,Breakfast
-11,GzOoXsWclD,rpWYqvQXsTtwgZJqanZPLwPIHanRQlxZinQjYQFNwZwnPwREEi,7,1,108,Spanish,Dessert
-12,qeIpHgqnSl,TkRYGcJivsBLMZkjordMafoPFkKUaDTSwgWUpYCzfkDmZnQxCV,5,7,41,Korean,Snack
-13,EGqBHtpWcn,MckOnePzKVtPhffDSEAIkZncxDwUkXcgFKgfSRBYGOlISbELEv,5,2,78,Chinese,Snack
-14,gupwfvcItm,mLzexOCtdyOgICUbhMewLWMtmigvgiHBevPEhsdaokGKLZMAph,7,6,104,Japanese,Snack
-15,LuxNNvxpjy,joPWHXZJfabwVPwhETBYKvpkxfNnAKUsKwyEjesNqbJLbdNXtv,1,9,26,Chinese,Snack
-16,SKffytVAdI,TNyTpwLeUybodVZUSHAkYgiptnWHpNxnxtrWQdenXkmlrJUXmx,10,6,12,Arab,Breakfast
-17,CsKGfNKiMj,SZkAuJsnuoDshyhJvAojImIdMzvOFoPZIUwWDsaRKXyrIdQZHC,9,7,50,Thai,Breakfast
-18,PDPosxRSRu,VzOTUJIRJvsUMUAhOqzjGwCVkOnrtNjZXeArmjUosZSJkxPTVU,3,2,56,French,Breakfast
-19,HhtOqzmDpd,ytUeMemwQOEcnMFWabErUtsfzzqipwwbPSrRfTdTniIZKclAdm,8,6,59,African,Brunch
-20,PnwcIPamRH,lZZAIzbuzUwSWjwQoZPATKKTdekfgWOOzyaHwhLpYHWmIIHZhP,8,8,44,Arab,Dessert
-21,qeEtRrNUBm,sQXNlKbKpIdYIzttsDNptMJFUVrfghSvrMojOubnmNeDRHpwJI,9,7,91,Thai,Brunch
-22,xHqTjkhUqA,PlxhsLlTwPEEbupKzZpvSkZlNFEjWNwSgTRgtRFdNqpbIwPVJn,1,6,120,Italian,Meal
-23,xntzgvDOcf,UCKepcIgvOVLGvAhgfNUHDTiXnZQaOCsRfWipbwNNZrLCqFYGB,1,5,117,African,Breakfast
-24,UCIKYlyeRN,qljdNhnjJjdxOKwZQWiublkHuwKQEGqNfmpvKKSQKNqaavrFTE,1,1,28,Other,Breakfast
-25,LtiNWFHzeV,HNSKneJyhrpEolCHJhvjytxVyMLuAvyeIaGYUFvpnMcLzRHZgd,6,7,34,Indian,Dessert
+title;description;user_id;servings;cook_time;type_food;category_food
+Refreshing Soup;Inspired by traditional Italian cuisine, this recipe offers a modern twist to a classic dish, making it a must-try for all food enthusiasts.;1;5;83;Italian;Meal
+Sweet Sushi;A healthy and nutritious choice, this Sushi dish is light on the stomach yet fulfilling, ideal for those who enjoy a balanced diet.;2;4;18;French;Breakfast
+Refreshing Burger;A healthy and nutritious choice, this Burger dish is light on the stomach yet fulfilling, ideal for those who enjoy a balanced diet.;3;3;25;Indian;Meal
+Refreshing Chicken;Perfect for family dinners, this simple yet delectable Chicken meal is packed with flavors that will delight everyone at the table.;4;4;46;Korean;Brunch
+Refreshing Soup;Perfect for family dinners, this simple yet delectable Soup meal is packed with flavors that will delight everyone at the table.;5;8;38;Korean;Brunch
+Delicious Salad;A healthy and nutritious choice, this Salad dish is light on the stomach yet fulfilling, ideal for those who enjoy a balanced diet.;6;4;84;French;Snack
+Sweet Soup;A healthy and nutritious choice, this Soup dish is light on the stomach yet fulfilling, ideal for those who enjoy a balanced diet.;7;5;16;Korean;Snack
+Tasty Pasta;This dish combines the rich flavors of Pasta with a blend of spices and herbs, creating a mouth-watering experience that's perfect for any occasion.;8;2;112;Other;Dessert
+Savory Burger;This dish combines the rich flavors of Burger with a blend of spices and herbs, creating a mouth-watering experience that's perfect for any occasion.;9;8;29;Italian;Brunch
+Delicious Burger;Inspired by traditional Eastern Europe cuisine, this recipe offers a modern twist to a classic dish, making it a must-try for all food enthusiasts.;10;3;17;Eastern Europe;Breakfast
+Tasty Taco;Inspired by traditional Indian cuisine, this recipe offers a modern twist to a classic dish, making it a must-try for all food enthusiasts.;1;3;27;Indian;Meal
+Rich Pasta;This dish combines the rich flavors of Pasta with a blend of spices and herbs, creating a mouth-watering experience that's perfect for any occasion.;2;2;27;African;Dessert
+Delicious Chicken;Perfect for family dinners, this simple yet delectable Chicken meal is packed with flavors that will delight everyone at the table.;3;2;58;Eastern Europe;Meal
+Spicy Sushi;This dish combines the rich flavors of Sushi with a blend of spices and herbs, creating a mouth-watering experience that's perfect for any occasion.;1;5;44;Other;Breakfast
+Spicy Pasta;Perfect for family dinners, this simple yet delectable Pasta meal is packed with flavors that will delight everyone at the table.;6;2;55;Chinese;Meal
+Exotic Cake;For those with a sweet tooth, this Cake dessert is a heavenly treat, rich in flavors and textures, making it the perfect end to any meal.;4;4;41;Arab;Snack
+Sweet Curry;This dish combines the rich flavors of Curry with a blend of spices and herbs, creating a mouth-watering experience that's perfect for any occasion.;8;4;30;Thai;Breakfast
+Sweet Chicken;Perfect for family dinners, this simple yet delectable Chicken meal is packed with flavors that will delight everyone at the table.;2;6;29;Japanese;Dessert
+Delicious Sushi;For those with a sweet tooth, this Sushi dessert is a heavenly treat, rich in flavors and textures, making it the perfect end to any meal.;1;6;57;Eastern Europe;Breakfast
+Hearty Burger;This dish combines the rich flavors of Burger with a blend of spices and herbs, creating a mouth-watering experience that's perfect for any occasion.;1;8;76;Italian;Brunch
+Hearty Pizza;Perfect for family dinners, this simple yet delectable Pizza meal is packed with flavors that will delight everyone at the table.;10;1;60;Chinese;Breakfast
+Hearty Curry;A healthy and nutritious choice, this Curry dish is light on the stomach yet fulfilling, ideal for those who enjoy a balanced diet.;6;3;111;American;Breakfast
+Light Curry;A healthy and nutritious choice, this Curry dish is light on the stomach yet fulfilling, ideal for those who enjoy a balanced diet.;5;5;49;Thai;Dessert
+Hearty Sushi;This dish combines the rich flavors of Sushi with a blend of spices and herbs, creating a mouth-watering experience that's perfect for any occasion.;4;2;64;Other;Snack
+Tasty Burger;Inspired by traditional Other cuisine, this recipe offers a modern twist to a classic dish, making it a must-try for all food enthusiasts.;7;1;55;Other;Dessert

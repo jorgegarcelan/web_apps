@@ -1,26 +1,126 @@
-id,recipe_id,sequence_number,description
-1,20,1,HzhKQUblEtrGVZQfQdbLWPZqgdMCMcBZggzQppXJvqgYQwpyAY
-2,15,2,dUqayyUOUgxyKCjVMHUciIHQWUpFHHKlJWxhNgJVXeXNYLEBii
-3,2,3,CIPcfmPTylRUEXrPBbVjxHiHbfGxaDbXRYJawWCSSfwzlEYiTt
-4,9,4,rBKpXVXpXjvRKmoOHroyKYmmgDMzzpmEBXgvtewswGbsDbljHE
-5,25,5,mgDPlUSFfLCfKEupZVPTIkHDTXxXHJAYZNWgImHZxWnNAwgNtO
-6,2,6,fprUkeUKBLvtxsnomsymKcSyZuCffNwdqTousgJSvNwTNCMxww
-7,7,7,JUOKtCCEjVepCGICMGkRCGDJUMsMgsOJrhXzhMHRCWFIfZZnLv
-8,16,8,oAqvRfgaZrCAcaPeaJCFbHINteHKZgSxBRmlOYXsWLpzXPwHko
-9,2,9,MOUpyTtxxxWRzZUzScyAhKHZzjcxfzCYiYjSohyVeneniHzuRp
-10,25,10,FViuqekKwmTGlONeOHGQuigPydeVmlpbDxUdutCgBaWaGlMlFv
-11,20,11,urxCqguEhrNHDlUDrWlvaRZxosfEgjueUGsLZKWAxYXHKfqhFK
-12,5,12,UqVcptieIBGFvhLHADMwXyIcxlFtrSmFaZDbsSNUJmOVfMNqiu
-13,2,13,QBmnEiInrfyXbRhJpPKkZrfuIQEgKNabtUxteBCOvSfzYLoLdo
-14,8,14,qpjrolCQoRKtnqGORDrHNIiWvGoHiSnPqULYYiAQAalDeHsKEI
-15,1,15,yQvPOyxFOnhKJoYyomUrlzgohpfYxSHmTOligdPnvBPImFfpRC
-16,1,16,OlxUjgjJBjEwPjUQlDpgIyPuPYnuejPvrkXXWiweEfEKprvIeN
-17,23,17,lVuRAhEhyyaGNQtklhOwVhtBRlzvmcJwOZjZqgFfsYlMgNbSxU
-18,7,18,abgswbhsZwmYHbKFfGjYHDBJCMnTjJiBgktYgOeaXtZmGsLvgB
-19,3,19,cwuBNOiSOzQxfSEgHQZNyDxnbMYGkeJbXClvvBwEGeVMRZUTqJ
-20,1,20,SMCJkyujgLJSawxzyubJvxLgRaHcdoaoZejvOqwkhLXBGLvgVi
-21,12,21,lqEBuHrWOIZpLOzzCRZgMsIByqGfpJJTDAuEZMfYlijlAvxOkU
-22,11,22,UrZDfQrLXzIeNNTdvUwWxUNlHkVtodtaaGQhmArUJpAtDtUcco
-23,13,23,PDvfziOoFZgxjoeHWcwehgsOJuRiVCipBueTAAvFDXXmxmlskv
-24,10,24,UkrsYDsrAmfctPcJPxCUykxiXDQTADTKBNzsZGfZKIPFzJxFgO
-25,16,25,eKHWqwIcqFMcMCenoqbQvYVdOpHYCPcMrRmjFOKSnESzzIbvIf
+recipe_id;sequence_number;description
+1;1;Begin by preparing your pasta dough, then let it rest.
+1;2;Roll out the pasta dough and cut it into your desired shape.
+1;3;Simmer a sauce using tomatoes, garlic, and basil.
+1;4;Boil the pasta until al dente, then drain it.
+1;5;Toss the pasta with the sauce and serve with grated Parmesan.
+2;1;Prepare your ingredients by washing, cutting, and setting them aside.
+2;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+2;3;Cook your main ingredients, frequently stirring or checking for doneness.
+2;4;Add seasonings and sauces according to your taste preferences.
+2;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+3;1;Prepare your ingredients by washing, cutting, and setting them aside.
+3;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+3;3;Cook your main ingredients, frequently stirring or checking for doneness.
+3;4;Add seasonings and sauces according to your taste preferences.
+3;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+4;1;Prepare your ingredients by washing, cutting, and setting them aside.
+4;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+4;3;Cook your main ingredients, frequently stirring or checking for doneness.
+4;4;Add seasonings and sauces according to your taste preferences.
+4;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+5;1;Prepare your ingredients by washing, cutting, and setting them aside.
+5;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+5;3;Cook your main ingredients, frequently stirring or checking for doneness.
+5;4;Add seasonings and sauces according to your taste preferences.
+5;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+6;1;Prepare your ingredients by washing, cutting, and setting them aside.
+6;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+6;3;Cook your main ingredients, frequently stirring or checking for doneness.
+6;4;Add seasonings and sauces according to your taste preferences.
+6;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+7;1;Prepare your ingredients by washing, cutting, and setting them aside.
+7;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+7;3;Cook your main ingredients, frequently stirring or checking for doneness.
+7;4;Add seasonings and sauces according to your taste preferences.
+7;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+8;1;Prepare your ingredients by washing, cutting, and setting them aside.
+8;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+8;3;Cook your main ingredients, frequently stirring or checking for doneness.
+8;4;Add seasonings and sauces according to your taste preferences.
+8;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+9;1;Begin by preparing your pasta dough, then let it rest.
+9;2;Roll out the pasta dough and cut it into your desired shape.
+9;3;Simmer a sauce using tomatoes, garlic, and basil.
+9;4;Boil the pasta until al dente, then drain it.
+9;5;Toss the pasta with the sauce and serve with grated Parmesan.
+10;1;Prepare your ingredients by washing, cutting, and setting them aside.
+10;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+10;3;Cook your main ingredients, frequently stirring or checking for doneness.
+10;4;Add seasonings and sauces according to your taste preferences.
+10;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+11;1;Prepare your ingredients by washing, cutting, and setting them aside.
+11;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+11;3;Cook your main ingredients, frequently stirring or checking for doneness.
+11;4;Add seasonings and sauces according to your taste preferences.
+11;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+12;1;Prepare your ingredients by washing, cutting, and setting them aside.
+12;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+12;3;Cook your main ingredients, frequently stirring or checking for doneness.
+12;4;Add seasonings and sauces according to your taste preferences.
+12;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+13;1;Prepare your ingredients by washing, cutting, and setting them aside.
+13;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+13;3;Cook your main ingredients, frequently stirring or checking for doneness.
+13;4;Add seasonings and sauces according to your taste preferences.
+13;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+14;1;Prepare your ingredients by washing, cutting, and setting them aside.
+14;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+14;3;Cook your main ingredients, frequently stirring or checking for doneness.
+14;4;Add seasonings and sauces according to your taste preferences.
+14;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+15;1;Prepare the stir-fry sauce by mixing soy sauce, oyster sauce, and a bit of cornstarch.
+15;2;Chop the ingredients into bite-sized pieces to ensure even cooking.
+15;3;Heat oil in a wok and stir-fry the meat until it's just done.
+15;4;Add the vegetables to the wok and cook until tender yet crisp.
+15;5;Pour the sauce over and stir quickly to coat everything evenly.
+16;1;Prepare your ingredients by washing, cutting, and setting them aside.
+16;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+16;3;Cook your main ingredients, frequently stirring or checking for doneness.
+16;4;Add seasonings and sauces according to your taste preferences.
+16;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+17;1;Prepare your ingredients by washing, cutting, and setting them aside.
+17;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+17;3;Cook your main ingredients, frequently stirring or checking for doneness.
+17;4;Add seasonings and sauces according to your taste preferences.
+17;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+18;1;Prepare the sushi rice by washing and cooking it with the right amount of water.
+18;2;Season the rice with sushi vinegar and let it cool to room temperature.
+18;3;Slice the fish and vegetables into thin strips.
+18;4;Place a sheet of nori on a bamboo mat and spread rice evenly on top.
+18;5;Arrange the fish and vegetables on the rice and roll the sushi tightly.
+19;1;Prepare your ingredients by washing, cutting, and setting them aside.
+19;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+19;3;Cook your main ingredients, frequently stirring or checking for doneness.
+19;4;Add seasonings and sauces according to your taste preferences.
+19;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+20;1;Begin by preparing your pasta dough, then let it rest.
+20;2;Roll out the pasta dough and cut it into your desired shape.
+20;3;Simmer a sauce using tomatoes, garlic, and basil.
+20;4;Boil the pasta until al dente, then drain it.
+20;5;Toss the pasta with the sauce and serve with grated Parmesan.
+21;1;Prepare the stir-fry sauce by mixing soy sauce, oyster sauce, and a bit of cornstarch.
+21;2;Chop the ingredients into bite-sized pieces to ensure even cooking.
+21;3;Heat oil in a wok and stir-fry the meat until it's just done.
+21;4;Add the vegetables to the wok and cook until tender yet crisp.
+21;5;Pour the sauce over and stir quickly to coat everything evenly.
+22;1;Prepare your ingredients by washing, cutting, and setting them aside.
+22;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+22;3;Cook your main ingredients, frequently stirring or checking for doneness.
+22;4;Add seasonings and sauces according to your taste preferences.
+22;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+23;1;Prepare your ingredients by washing, cutting, and setting them aside.
+23;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+23;3;Cook your main ingredients, frequently stirring or checking for doneness.
+23;4;Add seasonings and sauces according to your taste preferences.
+23;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+24;1;Prepare your ingredients by washing, cutting, and setting them aside.
+24;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+24;3;Cook your main ingredients, frequently stirring or checking for doneness.
+24;4;Add seasonings and sauces according to your taste preferences.
+24;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
+25;1;Prepare your ingredients by washing, cutting, and setting them aside.
+25;2;Preheat your cooking surface, whether it's a pan, pot, or oven.
+25;3;Cook your main ingredients, frequently stirring or checking for doneness.
+25;4;Add seasonings and sauces according to your taste preferences.
+25;5;Serve the dish hot, garnished with herbs or accompaniments as desired.
