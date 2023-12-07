@@ -379,6 +379,7 @@ def recipe_vision():
 @bp.route('/create_recipe', methods=['GET', 'POST'])
 @login_required
 def create_recipe():
+    print("Request method: ", request.method)
     recipe_form = RecipeForm()
     ingredient_form = IngredientForm()
     step_form = StepForm()
@@ -393,6 +394,8 @@ def create_recipe():
                 description=recipe_form.description.data,
                 servings=recipe_form.servings.data,
                 cook_time=recipe_form.cook_time.data,
+                category_food = recipe_form.category_food.data,
+                type_food = recipe_form.type_food.data,
                 user_id=current_user.id
             )
             db.session.add(new_recipe)
@@ -412,28 +415,30 @@ def create_recipe():
                 )
                 db.session.add(photo)
 
-            if 'step_description[]' in request.form:
-                step_descriptions = request.form.getlist('step_description[]')
+            if 'step_description' in request.form:
+                step_descriptions = request.form.getlist('step_description')
                 for i, description in enumerate(step_descriptions):
-                    if description.strip():  # Asegurarse de que la descripción no esté vacía o solo contenga espacios
+                    if description.strip(): 
                         new_step = Step(
                             recipe_id=new_recipe.id,
-                            sequence_number=i + 1,  # El número de secuencia se genera automáticamente
+                            sequence_number=i + 1,
                             description=description
                         )
                         db.session.add(new_step)
+                pasos_agregados = True
 
-            if 'ingredient[]' in request.form or 'new_ingredient[]' in request.form:
-                ingredient_names = request.form.getlist('ingredient[]')
-                new_ingredient_names = request.form.getlist('new_ingredient[]')
-                ingredient_quantities = request.form.getlist('quantity[]')
-                ingredient_units = request.form.getlist('unit_of_measurement[]')
+            if 'ingredient' in request.form or 'new_ingredient' in request.form:
+                ingredient_names = request.form.getlist('ingredient')
+                new_ingredient_names = request.form.getlist('new_ingredient')
+                ingredient_quantities = request.form.getlist('quantity')
+                ingredient_units = request.form.getlist('unit_of_measurement')
                 for name, quantity, unit in zip(ingredient_names, ingredient_quantities, ingredient_units):
                     if name:  # Comprobar si el nombre del ingrediente no está vacío
                         ingredient = Ingredient.query.filter_by(name=name).first()
                         if not ingredient:
                             ingredient = Ingredient(name=name)
                             db.session.add(ingredient)
+                            db.session.flush()
                         quantified_ingredient = QuantifiedIngredient(
                             ingredient_id=ingredient.id,
                             recipe_id=new_recipe.id,
@@ -446,7 +451,6 @@ def create_recipe():
         
             if ingredientes_agregados and pasos_agregados:
                 db.session.commit()
-                flash('Receta creada con éxito!', 'success')
                 return redirect(url_for('explore.search'))
             else:
                 db.session.rollback()  # Revierte los cambios si no se cumplen las condiciones

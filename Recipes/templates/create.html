@@ -4,6 +4,10 @@
 Create Recipe
 {% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+{% endblock %}
+
 {% block content %}
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -13,7 +17,7 @@ Create Recipe
     {% endif %}
 {% endwith %}
 <h1>Create a New Recipe</h1>
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" action="{{ url_for('main.create_recipe') }}">
     {{ recipe_form.hidden_tag() }}
 
     <!-- Título -->
@@ -102,46 +106,41 @@ Create Recipe
     </div>
 
     <h3>Ingredients</h3>
-    <form method="post">
-        {{ ingredient_form.hidden_tag() }}
-        <div id="ingredients-container">
-            <!-- Aquí se insertarán dinámicamente los formularios de ingredientes -->
-            <div class="ingredient-form">
-                {{ ingredient_form.ingredient.label }}
-                {{ ingredient_form.ingredient() }}
+    {{ ingredient_form.hidden_tag() }}
+    <div id="ingredients-container">
+        <!-- Aquí se insertarán dinámicamente los formularios de ingredientes -->
+        <div class="ingredient-form">
+            {{ ingredient_form.ingredient.label }}
+            {{ ingredient_form.ingredient() }}
 
-                {{ ingredient_form.new_ingredient.label }}
-                {{ ingredient_form.new_ingredient() }}
+            {{ ingredient_form.new_ingredient.label }}
+            {{ ingredient_form.new_ingredient() }}
 
-                {{ ingredient_form.quantity.label }}
-                {{ ingredient_form.quantity() }}
+            {{ ingredient_form.quantity.label }}
+            {{ ingredient_form.quantity() }}
 
-                {{ ingredient_form.unit_of_measurement.label }}
-                {{ ingredient_form.unit_of_measurement() }}
-            </div>
+            {{ ingredient_form.unit_of_measurement.label }}
+            {{ ingredient_form.unit_of_measurement() }}
         </div>
-        <button type="button" id="add-ingredient-btn">Add New Ingredient</button>
-    </form>
+    </div>
+    <button type="button" id="add-ingredient-btn">Add New Ingredient</button>
     
     <h3>Steps</h3>
-    <form method="post">
-        {{ step_form.hidden_tag() }}
-    
-        <!-- Contenedor para Formularios de Pasos -->
-        <div id="steps-container">
-            <!-- El formulario de paso inicial -->
-            <div class="step-form">
-                <input type="hidden" name="step_sequence_number[]" value="1" />
-                <label>Step 1</label>
-                {{ step_form.step_description.label }} {{ step_form.step_description(rows=3) }}
-                <!-- Botón para borrar el paso -->
-            </div>
+    {{ step_form.hidden_tag() }}
+
+    <!-- Contenedor para Formularios de Pasos -->
+    <div id="steps-container">
+        <!-- El formulario de paso inicial -->
+        <div class="step-form">
+            <input type="hidden" name="step_sequence_number[]" value="1" />
+            <label>Step 1</label>
+            {{ step_form.step_description.label }} {{ step_form.step_description(rows=3) }}
+            <!-- Botón para borrar el paso -->
         </div>
-    
-        <!-- Botón para Agregar Nuevo Formulario de Pasos -->
-        <button type="button" id="add-step-btn">Add New Step</button>
-    
-    </form>
+    </div>
+
+    <!-- Botón para Agregar Nuevo Formulario de Pasos -->
+    <button type="button" id="add-step-btn">Add New Step</button>
 
     <div>
         {{ recipe_form.submit() }}
