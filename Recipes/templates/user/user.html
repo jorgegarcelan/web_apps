@@ -198,8 +198,15 @@ User
                   {% if photos %}
                       {% for photo in photos %}
                       <div class="recipes__content swiper-slide">
-                          <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="photos__img">
-                      </div>
+                          <div class="photo-container">
+                            <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="photos__img">
+                            <form action="{{ url_for('main.delete_photo') }}" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                <input type="hidden" name="photo_id" value="{{ photo.id }}">
+                                <button class="delete-button">❌</button>
+                            </form>
+                        </div>
+                        </div>
                       {% endfor %}
                   {% endif %}
               </div>
@@ -218,6 +225,7 @@ User
 
 </div>
 
+<!-- PROFILE PHOTO JS -->
 <script>
     function onFileSelected(event) {
         var selectedFile = event.target.files[0];

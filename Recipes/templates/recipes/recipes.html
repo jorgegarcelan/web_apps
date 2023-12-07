@@ -240,10 +240,17 @@ Recipe
                     <div class="recipes__container swiper">
                         <div class="swiper-wrapper">
                             <!--Bucle for aquí con las recetas-->
-                            {% if recipe.photos %}
-                                {% for photo in recipe.photos %}
+                            {% if your_photos %}
+                                {% for photo in your_photos %}
                                 <div class="recipes__content swiper-slide">
-                                    <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
+                                    <div class="photo-container">
+                                        <img src="{{ url_for('static', filename='photos/recipes/photo-' ~ photo.id ~ '.' ~ photo.file_extension) }}" alt="recipe image" class="recipes__img">
+                                        <form action="{{ url_for('main.delete_photo') }}" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                                            <input type="hidden" name="photo_id" value="{{ photo.id }}">
+                                            <button class="delete-button">❌</button>
+                                        </form>
+                                    </div>
                                 </div>
                                 {% endfor %}
                             {% endif %}
@@ -367,8 +374,6 @@ Recipe
         });
     });
 </script>
-    
-
 
 <!-- SWIPER JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

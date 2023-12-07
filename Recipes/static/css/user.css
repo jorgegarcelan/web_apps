@@ -436,3 +436,32 @@ input, select {
   text-decoration: none;
   cursor: pointer;
 }
+
+
+/* =================DELETE PHOTO===================*/
+
+.photo-container {
+  position: relative;
+  display: inline-block; /* or block, depending on layout */
+}
+
+.delete-button {
+  position: absolute;
+  top: 10px; /* adjust as needed */
+  right: 10px; /* adjust as needed */
+  color: white; /* white text */
+  border: none; /* no border */
+  border-radius: 50%; /* round edges */
+  width: 30px; /* fixed width */
+  height: 30px; /* fixed height */
+  text-align: center; /* center the text/icon */
+  line-height: 30px; /* align the text/icon vertically */
+  cursor: pointer; /* cursor effect */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* optional: shadow for the button */
+  opacity: 0.75; /* optional: semi-transparent */
+  transition: opacity 0.3s ease; /* transition for hover effect */
+}
+
+.delete-button:hover {
+  opacity: 1; /* full opacity on hover */
+}

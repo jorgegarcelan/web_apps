@@ -103,24 +103,31 @@ def recipe(recipe_id):
     your_photos = model.Photo.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).all()
     print(your_photos)
 
-    # ratings:
+    # check if user has rated:
     rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has rated the recipe
     is_rated = rate is not None
+    print(f"{is_rated=}")
 
+    # ratings
     query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
     ratings_list = db.session.execute(query_rt).scalars().all()
     count = len(ratings_list)
-    current_rate = rate.value
-
+    print(f"{count=}")
+    
     if count == 0:
         rating = "No reviews yet"
         count = ""
+        
     else:
         count = f"({count})"
         rating = round(np.mean(ratings_list), 1)
         rating = str(rating) + " / 5"
-
-    return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=current_rate, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos, your_photos=your_photos)
+        if not is_rated:
+            current_rate = ""
+        else:
+            current_rate = rate.value
+        
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=current_rate, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos, your_photos=your_photos)
 
 
 @bp.route('/edit_user', methods=['POST'])
@@ -258,7 +265,7 @@ def rate_recipe():
     return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
 
-@bp.route('/upload_image', methods=['POST'])
+@bp.route('/upload_photo', methods=['POST'])
 def upload_photo():
     # Get data from form
     uploaded_file = request.files['file']
@@ -290,6 +297,7 @@ def upload_photo():
             pathlib.Path(current_app.root_path)
             / "static"
             / "photos"
+            / "recipes"
             / f"photo-{photo.id}.{file_extension}"
         )
         uploaded_file.save(path)
@@ -297,6 +305,42 @@ def upload_photo():
         return redirect(url_for('main.recipe', recipe_id=recipe.id))
 
     return abort(400, "No file uploaded")
+
+
+@bp.route('/delete_photo', methods=['POST', 'DELETE'])
+def delete_photo():
+    # Get data from form
+    photo_id = request.form.get('photo_id')
+    recipe_id = request.form.get('recipe_id')
+    print(f"{recipe_id=}")
+    user_id = request.form.get('user_id')
+    print(f"{user_id=}")
+    
+
+    # Find the photo by ID
+    photo = Photo.query.get(photo_id)
+    if photo:
+        # Delete the file from the file system
+        path = ( pathlib.Path(current_app.root_path)
+            / "static"
+            / "photos"
+            / "recipes"
+            / f"photo-{photo.id}.{photo.file_extension}" )
+        
+        os.remove(path)
+        # Delete the record from the database
+        db.session.delete(photo)
+        db.session.commit()
+
+        if recipe_id != None:
+            return redirect(url_for('main.recipe', recipe_id=recipe_id))
+        if user_id != None:
+            return redirect(url_for('main.user', user_id=user_id))
+    
+    return abort(400, "Error while deleting the photo")
+
+
+
 
 @bp.route("/recipe_vision", methods=['GET', 'POST'])
 def recipe_vision():
