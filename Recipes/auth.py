@@ -53,6 +53,11 @@ def signup_post():
         flash("Sorry, the email you provided is already registered")
         return redirect(url_for("auth.signup"))
 
+    # Check if the username is already in the database
+    if User.query.filter_by(username=username).first():
+        flash("Sorry, the username you provided is already registered")
+        return redirect(url_for("auth.signup"))
+
     # Create a new user instance
     new_user = User(email=email, name=name, username=username)
     new_user.set_password(password)
