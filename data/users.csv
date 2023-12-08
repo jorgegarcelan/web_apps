@@ -1,11 +1,11 @@
-email;name;username
-test1@test.es;Test 1;test1
-test2@test.es;Test 2;test2
-test3@test.es;Test 3;test3
-test4@test.es;Test 4;test4
-test5@test.es;Test 5;test5
-test6@test.es;Test 6;test6
-test7@test.es;Test 7;test7
-test8@test.es;Test 8;test8
-test9@test.es;Test 9;test9
-test10@test.es;Test 10;test10
+id;email;name;username;password
+1;test1@test.es;Test 1;test1;test1
+2;test2@test.es;Test 2;test2;test2
+3;test3@test.es;Test 3;test3;test3
+4;test4@test.es;Test 4;test4;test4
+5;test5@test.es;Test 5;test5;test5
+6;test6@test.es;Test 6;test6;test6
+7;test7@test.es;Test 7;test7;test7
+8;test8@test.es;Test 8;test8;test8
+9;test9@test.es;Test 9;test9;test9
+10;test10@test.es;Test 10;test10;test10

@@ -13,7 +13,7 @@ app = create_app()
 def import_csv_data():
     with app.app_context():
         # Read the CSV files
-        #df_users = pd.read_csv('data/users.csv', sep=";")
+        df_users = pd.read_csv('data/users.csv', sep=";")
         df_recipes = pd.read_csv('data/recipes.csv', sep=";")
         df_ingredients = pd.read_csv('data/ingredients.csv', sep=";")
         df_quantified_ingredients = pd.read_csv('data/quantified_ingredients.csv', sep=";")
@@ -23,42 +23,43 @@ def import_csv_data():
         #df_photos = pd.read_csv('data/photos.csv')
 
         # Import data into the database
-        """
         for _, row in df_users.iterrows():
-            db.session.add(User(**row.to_dict()))
-            # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
-        """
-        
+            new_user = User(email=row['email'], name=row['name'], username=row['username'])
+            new_user.set_password(row['password'])
+            db.session.add(new_user)
+
+            # Log the result
+            logging.info("Imported users into the database successfully.")
+
         for _, row in df_recipes.iterrows():
             db.session.add(Recipe(**row.to_dict()))
-            # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
+            # Log the result
+            logging.info("Imported recipes into the database successfully.")
         
         for _, row in df_ingredients.iterrows():
             db.session.add(Ingredient(**row.to_dict()))
-            # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
+            # Log the result
+            logging.info("Imported ingredients into the database successfully.")
         
         for _, row in df_quantified_ingredients.iterrows():
             db.session.add(QuantifiedIngredient(**row.to_dict()))
-            # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
+            # Log the result
+            logging.info("Imported quantified_ingredients into the database successfully.")
         
         for _, row in df_steps.iterrows():
             db.session.add(Step(**row.to_dict()))
-            # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
+            # Log the result
+            logging.info("Imported steps into the database successfully.")
         
         for _, row in df_ratings.iterrows():
             db.session.add(Rating(**row.to_dict()))
-            # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
+            # Log the result
+            logging.info("Imported ratings into the database successfully.")
 
         for _, row in df_bookmark.iterrows():
             db.session.add(Bookmark(**row.to_dict()))
-            # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
+            # Log the result
+            logging.info("Imported bookmark into the database successfully.")
         
         """
         for _, row in df_photos.iterrows():
