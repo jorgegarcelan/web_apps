@@ -25,6 +25,7 @@ RECIPE VIEW: --------------------------------------------- DONE
     - tabs fotos (creador receta, usuarios, subir foto) -- DONE
     - Edit recipe ---------------------------------------- DONE
     - Borrar fotos --------------------------------------- DONE
+    - Centrar imágenes ----------------------------------- TO DO
     
 USER VIEW: ----------------------------------------------- DONE
     - Ordenar -------------------------------------------- DONE
@@ -38,3 +39,12 @@ CREATE RECIPE VIEW:
     - Manejar type_food y category_food ------------------ TO DO
     - Poner estilos -------------------------------------- TO DO
     - Comprobar la lógica -------------------------------- TO DO
+
+CSS:
+    - Ventana de filtros en Explore Recipes ponerlo como ventana de editar perfil ----- DONE
+    - Estilo de la sección de tabs ---------------------------------------------------- TO DO
+    - Formulario crear rectas con estilo como ventana de editar perfil ---------------- DONE
+
+EXPLORE RECIPES:
+    - Poner debajo del nombre la info con iconos como en recipes tab del perfil ------- TO DO
+    - Remove filters button ----------------------------------------------------------- TO DO

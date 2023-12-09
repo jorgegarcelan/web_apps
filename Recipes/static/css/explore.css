@@ -19,6 +19,40 @@ body {
     line-height: 1.6;
 }
 
+label {
+    font-size: 16px;
+    display: block; /* Ensures they are block-level */
+  }
+  
+textarea {
+    width: 100%; /* Set the width to fill the container */
+    padding: 8px 15px; /* Add some padding inside the input */
+    margin: 8px 0; /* Add some margin around the input */
+    box-sizing: border-box; /* Include padding and border in the input's width */
+    border: 1px solid #ccc; /* A subtle border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f8f8f8; /* A light grey background */
+    color: #333; /* Dark grey text color */
+    font-size: 16px; /* Slightly larger font size for better readability */
+    line-height: 1.5; /* More space between lines */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+    resize: none;
+}
+  
+input, select {
+    width: 100%; /* Set the width to fill the container */
+    padding: 8px 15px; /* Add some padding inside the input */
+    margin: 8px 0; /* Add some margin around the input */
+    box-sizing: border-box; /* Include padding and border in the input's width */
+    border: 1px solid #ccc; /* A subtle border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f8f8f8; /* A light grey background */
+    color: #333; /* Dark grey text color */
+    font-size: 16px; /* Slightly larger font size for better readability */
+    line-height: 1.5; /* More space between lines */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
 .container {
     width: 100%;
     display: flex;
@@ -123,6 +157,7 @@ form.search .search-bar {
 .filter-form {
     text-align: center;
 }
+
 
 .recipes__content {
     display: block;
@@ -249,6 +284,7 @@ form.search .search-bar {
     border-radius: 10px;
     transition: transform 0.2s ease-in-out;
 }
+
 
 /* The Close Button */
 .close {
