@@ -26,7 +26,7 @@ class RecipeForm(FlaskForm):
     """Formulario principal para crear una receta."""
     title = StringField('Title', validators=[DataRequired(), Length(max=200)])
     description = TextAreaField('Description', validators=[DataRequired()])
-    servings = IntegerField('Number of Servings', validators=[DataRequired(), NumberRange(min=1)])
+    servings = IntegerField('Number of Servings', validators=[DataRequired(), NumberRange(min=1, max=10)])
     cook_time = IntegerField('Cook Time (in minutes)', validators=[DataRequired(), NumberRange(min=1)])
     image = FileField('Recipe Image', validators=[
         FileRequired(), 
