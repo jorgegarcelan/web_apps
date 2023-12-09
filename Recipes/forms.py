@@ -10,8 +10,7 @@ def ingredient_choices():
 
 
 class IngredientForm(FlaskForm):
-    ingredient = QuerySelectField('Existing Ingredient', query_factory=ingredient_choices, get_label='name', allow_blank=True, blank_text='Select or add new')
-    new_ingredient = StringField('New Ingredient', validators=[Length(max=100)])
+    new_ingredient = StringField('Ingredient', validators=[Length(max=100)])
     quantity = StringField('Quantity', validators=[DataRequired(), Length(max=100)])
     unit_of_measurement = StringField('Unit of Measurement', validators=[Length(max=50)])
     submit = SubmitField('Add Ingredients')
@@ -19,7 +18,7 @@ class IngredientForm(FlaskForm):
 
 class StepForm(FlaskForm):
     sequence_number = IntegerField('Step Number', validators=[DataRequired(), NumberRange(min=1)])
-    step_description = TextAreaField('Step Description', validators=[DataRequired()])
+    step_description = TextAreaField('Description', validators=[DataRequired()])
     submit = SubmitField('Add Steps')
 
 

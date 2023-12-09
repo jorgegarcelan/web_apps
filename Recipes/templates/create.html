@@ -9,143 +9,153 @@ Create Recipe
 {% endblock %}
 
 {% block content %}
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-<h1>Create a New Recipe</h1>
-<form method="POST" enctype="multipart/form-data" action="{{ url_for('main.create_recipe') }}">
-    {{ recipe_form.hidden_tag() }}
-
-    <!-- Título -->
-    <div>
-        {{ recipe_form.title.label }}
-        {{ recipe_form.title(size=20) }}
-        {% if recipe_form.title.errors %}
-            <ul>
-                {% for error in recipe_form.title.errors %}
-                    <li>{{ error }}</li>
+<div class="container">
+    <div class="alert">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
                 {% endfor %}
-            </ul>
-        {% endif %}
+            {% endif %}
+        {% endwith %}
     </div>
-
-    <!-- Descripción -->
-    <div>
-        {{ recipe_form.description.label }}
-        {{ recipe_form.description(rows=3) }}
-        {% if recipe_form.description.errors %}
-            <ul>
-                {% for error in recipe_form.description.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+    <div class="title">
+        <h1>Create a New Recipe</h1>
     </div>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.create_recipe') }}">
+        <div class="recipe-container">
+            {{ recipe_form.hidden_tag() }}
 
-    <!-- Servings y Cook Time -->
-    <div>
-        {{ recipe_form.servings.label }}
-        {{ recipe_form.servings }}
-        {% if recipe_form.servings.errors %}
-            <ul>
-                {% for error in recipe_form.servings.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-    <div>
-        {{ recipe_form.cook_time.label }}
-        {{ recipe_form.cook_time }}
-        {% if recipe_form.cook_time.errors %}
-            <ul>
-                {% for error in recipe_form.cook_time.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-    <div>
-        {{ recipe_form.type_food.label }}
-        {{ recipe_form.type_food() }}
-        {% if recipe_form.type_food.errors %}
-            <ul>
-                {% for error in recipe_form.type_food.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-    <div>
-        {{ recipe_form.category_food.label }}
-        {{ recipe_form.category_food() }}
-        {% if recipe_form.category_food.errors %}
-            <ul>
-                {% for error in recipe_form.category_food.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
+            <!-- Título -->
+            <div>
+                {{ recipe_form.title.label }}
+                {{ recipe_form.title(size=20) }}
+                {% if recipe_form.title.errors %}
+                    <ul>
+                        {% for error in recipe_form.title.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
 
-    <!-- Campo para Cargar Imagen -->
-    <div>
-        {{ recipe_form.image.label }}
-        {{ recipe_form.image }}
-        {% if recipe_form.image.errors %}
-            <ul>
-                {% for error in recipe_form.image.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
+            <!-- Descripción -->
+            <div>
+                {{ recipe_form.description.label }}
+                {{ recipe_form.description(rows=3) }}
+                {% if recipe_form.description.errors %}
+                    <ul>
+                        {% for error in recipe_form.description.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
 
-    <h3>Ingredients</h3>
-    {{ ingredient_form.hidden_tag() }}
-    <div id="ingredients-container">
-        <!-- Aquí se insertarán dinámicamente los formularios de ingredientes -->
-        <div class="ingredient-form">
-            {{ ingredient_form.ingredient.label }}
-            {{ ingredient_form.ingredient() }}
+            <!-- Servings y Cook Time -->
+            <div>
+                {{ recipe_form.servings.label }}
+                {{ recipe_form.servings }}
+                {% if recipe_form.servings.errors %}
+                    <ul>
+                        {% for error in recipe_form.servings.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div>
+                {{ recipe_form.cook_time.label }}
+                {{ recipe_form.cook_time }}
+                {% if recipe_form.cook_time.errors %}
+                    <ul>
+                        {% for error in recipe_form.cook_time.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div>
+                {{ recipe_form.type_food.label }}
+                {{ recipe_form.type_food() }}
+                {% if recipe_form.type_food.errors %}
+                    <ul>
+                        {% for error in recipe_form.type_food.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div>
+                {{ recipe_form.category_food.label }}
+                {{ recipe_form.category_food() }}
+                {% if recipe_form.category_food.errors %}
+                    <ul>
+                        {% for error in recipe_form.category_food.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
 
-            {{ ingredient_form.new_ingredient.label }}
-            {{ ingredient_form.new_ingredient() }}
-
-            {{ ingredient_form.quantity.label }}
-            {{ ingredient_form.quantity() }}
-
-            {{ ingredient_form.unit_of_measurement.label }}
-            {{ ingredient_form.unit_of_measurement() }}
+            <!-- Campo para Cargar Imagen -->
+            <div>
+                {{ recipe_form.image.label }}
+                {{ recipe_form.image }}
+                {% if recipe_form.image.errors %}
+                    <ul>
+                        {% for error in recipe_form.image.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    <button type="button" id="add-ingredient-btn">Add New Ingredient</button>
-    
-    <h3>Steps</h3>
-    {{ step_form.hidden_tag() }}
 
-    <!-- Contenedor para Formularios de Pasos -->
-    <div id="steps-container">
-        <!-- El formulario de paso inicial -->
-        <div class="step-form">
-            <input type="hidden" name="step_sequence_number[]" value="1" />
-            <label>Step 1</label>
-            {{ step_form.step_description.label }} {{ step_form.step_description(rows=3) }}
-            <!-- Botón para borrar el paso -->
+        <div class="ingredients-container">
+            <h3>Ingredients</h3>
+            {{ ingredient_form.hidden_tag() }}
+            <div id="ingredients-container">
+                <!-- Aquí se insertarán dinámicamente los formularios de ingredientes -->
+                <div class="ingredient-form">
+                    {{ ingredient_form.new_ingredient.label }}
+                    {{ ingredient_form.new_ingredient() }}
+
+                    {{ ingredient_form.quantity.label }}
+                    {{ ingredient_form.quantity() }}
+
+                    {{ ingredient_form.unit_of_measurement.label }}
+                    {{ ingredient_form.unit_of_measurement() }}
+                </div>
+            </div>
+            <br>
+            <button type="button" id="add-ingredient-btn" class="btn-primary">Add New Ingredient</button>
         </div>
-    </div>
+        
+        <div class="steps-container">
+            <h3>Steps</h3>
+            {{ step_form.hidden_tag() }}
 
-    <!-- Botón para Agregar Nuevo Formulario de Pasos -->
-    <button type="button" id="add-step-btn">Add New Step</button>
+            <!-- Contenedor para Formularios de Pasos -->
+            <div id="steps-container">
+                <!-- El formulario de paso inicial -->
+                <div class="step-form">
+                    <input type="hidden" name="step_sequence_number[]" value="1" />
+                    <label>Step 1</label>
+                    {{ step_form.step_description.label }} {{ step_form.step_description(rows=3) }}
+                    <!-- Botón para borrar el paso -->
+                </div>
+            </div>
 
-    <div>
-        {{ recipe_form.submit() }}
-    </div>
-</form>
+            <!-- Botón para Agregar Nuevo Formulario de Pasos -->
+            <button type="button" id="add-step-btn" class="btn-primary">Add New Step</button>
+        </div>
+
+        <div>
+            {{ recipe_form.submit(class_='btn-submit') }}
+        </div>
+    </form>
+</div>
 <script>
     function updateStepNumbers() {
         // Actualizar los números de secuencia y etiquetas

@@ -427,13 +427,12 @@ def create_recipe():
                         db.session.add(new_step)
                 pasos_agregados = True
 
-            if 'ingredient' in request.form or 'new_ingredient' in request.form:
-                ingredient_names = request.form.getlist('ingredient')
-                new_ingredient_names = request.form.getlist('new_ingredient')
+            if 'new_ingredient' in request.form:
+                ingredient_names = request.form.getlist('new_ingredient')
                 ingredient_quantities = request.form.getlist('quantity')
                 ingredient_units = request.form.getlist('unit_of_measurement')
                 for name, quantity, unit in zip(ingredient_names, ingredient_quantities, ingredient_units):
-                    if name:  # Comprobar si el nombre del ingrediente no está vacío
+                    if name: 
                         ingredient = Ingredient.query.filter_by(name=name).first()
                         if not ingredient:
                             ingredient = Ingredient(name=name)
