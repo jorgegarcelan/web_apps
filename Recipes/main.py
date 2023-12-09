@@ -62,6 +62,7 @@ def user(user_id):
     query_p = db.select(model.Photo).where(model.Photo.user_id == user_id)
     photos = db.session.execute(query_p).scalars().all()
     print(f"{photos=}")
+    print(f"{recipes[0][0].photos[0].id=}")
     
     return render_template("user/user.html", user=user, recipes=recipes, bookmarked_recipes=bookmarked_recipes, photos=photos)
 

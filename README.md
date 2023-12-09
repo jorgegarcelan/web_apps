@@ -44,4 +44,9 @@ flask --debug --app=Recipes run
     - *Bio*: A user will be able to write whatever makes him/her a unique Chef.
     - *Sign Up Date*: We'll also add when the user signed up, so people could see the experience of the chef in the platform.
 
+- **Recipe Data**: Recipes will be more useful when more info is available. Therefore, we have added different fields that will make a recipe more unique:
+    - *Type of Food*: It refers to the cuisine of such food (italian, asian, spanish...)
+    - *Category of Food*: There are certain foods that are commonly eaten in the breakfast and not in the dinner. That's the reason why we think for users it's important to differentiate between categories of food, so they choose the recipe that best fits in each time of the day!
+
 - **About Us**: We want to get to know our chefs and the recipes they create, so we think that they will also want to get to know us! This section explains who are we, our mission, what we offer and future steps...
+

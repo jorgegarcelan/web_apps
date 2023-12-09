@@ -20,7 +20,7 @@ def import_csv_data():
         df_steps = pd.read_csv('data/steps.csv', sep=";")
         df_ratings = pd.read_csv('data/ratings.csv', sep=";")
         df_bookmark = pd.read_csv('data/bookmark.csv', sep=";")
-        #df_photos = pd.read_csv('data/photos.csv')
+        df_photos = pd.read_csv('data/photos.csv', sep=";")
 
         # Import data into the database
         for _, row in df_users.iterrows():
@@ -61,12 +61,11 @@ def import_csv_data():
             # Log the result
             logging.info("Imported bookmark into the database successfully.")
         
-        """
         for _, row in df_photos.iterrows():
             db.session.add(Photo(**row.to_dict()))
             # After each commit, log the result
-            logging.info("Imported data into the database successfully.")
-        """
+            logging.info("Imported photos into the database successfully.")
+
         
 
         # Commit all changes

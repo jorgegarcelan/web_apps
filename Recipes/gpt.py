@@ -3,6 +3,9 @@ import base64
 import os
 import json
 
+
+## https://platform.openai.com/docs/guides/images/usage?context=python
+
 # Retrieve the API key from the environment variable
 openai_api_key = os.getenv('OPENAI_API_KEY')
 
@@ -37,3 +40,19 @@ def gpt4_vision(image):
 
     print(response.choices[0].message.content)
     return json.loads(response.choices[0].message.content)
+
+
+def dalle_3(prompt):
+
+    client = openai.OpenAI(api_key = openai_api_key)
+    response = client.images.generate(
+        model="dall-e-3",
+        prompt=prompt,
+        size="1792x1024",
+        quality="standard",
+        n=1,
+        )
+
+    image_url = response.data[0].url
+
+    return image_url

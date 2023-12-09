@@ -96,7 +96,7 @@ Explore Recipes
         {% for recipe in paginated_recipes %}
             <div class="recipes__content swiper-slide">
                 <div>
-                    <img src="{{ url_for('static', filename='imgs/photo_recipe.jpg')}}" alt="recipe image" class="recipes__img">
+                    <img src="{{ url_for('static', filename='photos/recipes/photo-' + (recipe.photos[0].id|string) + '.' + (recipe.photos[0].file_extension|string)) }}" alt="recipe image" class="recipes__img">
                     <h1 class="recipes__title">{{ recipe.title }}</h1>
                     {% if recipe.get_average() == None %}
                         <p class="recipes__subtitle">No reviews yet ⭐</p>
