@@ -11,13 +11,13 @@ Create Recipe
 {% block content %}
 <div class="container">
     <div class="alert">
-        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% with messages = get_flashed_messages(category_filter=["create_error"]) %}
             {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% for message in messages %}
+                    <div class="alert alert-create_error">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-        {% endwith %}
+    {% endwith %}
     </div>
     <div class="title">
         <h1>Create a New Recipe</h1>

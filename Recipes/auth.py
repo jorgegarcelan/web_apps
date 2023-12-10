@@ -24,7 +24,7 @@ def login_post():
     # Check if the user exists in the database
     user = User.query.filter_by(email=email).first()
     if not user:
-        flash("Sorry, the username is not correct. Please, signup in case you don't have any account.")
+        flash("Sorry, the username is not correct. Please, signup in case you don't have any account.", "login_error")
         return redirect(url_for("auth.login"))
     
     # Check if the hashed password matches
@@ -32,7 +32,7 @@ def login_post():
         flask_login.login_user(user)
         return redirect(url_for("main.index"))
     else:
-        flash("Sorry, the password is not correct.")
+        flash("Sorry, the password is not correct.", "login_error")
         return redirect(url_for("auth.login"))
     
 
@@ -50,12 +50,12 @@ def signup_post():
 
     # Check if the email is already in the database
     if User.query.filter_by(email=email).first():
-        flash("Sorry, the email you provided is already registered")
+        flash("Sorry, the email you provided is already registered.", "signup_error")
         return redirect(url_for("auth.signup"))
 
     # Check if the username is already in the database
     if User.query.filter_by(username=username).first():
-        flash("Sorry, the username you provided is already registered")
+        flash("Sorry, the username you provided is already registered.", "signup_error")
         return redirect(url_for("auth.signup"))
 
     # Create a new user instance

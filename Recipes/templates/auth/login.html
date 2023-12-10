@@ -12,9 +12,11 @@ Login
 <div class="container main">
 <h2>Login</h2>
 <form action="{{ url_for('auth.login_post') }}" method="post">
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(category_filter=["login_error"]) %}
         {% if messages %}
-            <div class="notification">{{ messages[-1] }}</div>
+            {% for message in messages %}
+                <div class="alert alert-login_error">{{ message }}</div>
+            {% endfor %}
         {% endif %}
     {% endwith %}
     <div>

@@ -2,6 +2,8 @@ import openai
 import base64
 import os
 import json
+from dotenv import load_dotenv
+load_dotenv()
 
 
 ## https://platform.openai.com/docs/guides/images/usage?context=python

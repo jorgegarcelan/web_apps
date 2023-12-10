@@ -36,9 +36,9 @@ LOGGING ERRORS: ------------------------------------------ TO DO
     - Flash messages
 
 CREATE RECIPE VIEW:
-    - Manejar type_food y category_food ------------------ TO DO
-    - Poner estilos -------------------------------------- TO DO
-    - Comprobar la lógica -------------------------------- TO DO
+    - Manejar type_food y category_food ------------------ DONE
+    - Poner estilos -------------------------------------- DONE
+    - Comprobar la lógica -------------------------------- DONE
 
 CSS:
     - Ventana de filtros en Explore Recipes ponerlo como ventana de editar perfil ----- DONE
@@ -48,3 +48,5 @@ CSS:
 EXPLORE RECIPES:
     - Poner debajo del nombre la info con iconos como en recipes tab del perfil ------- TO DO
     - Remove filters button ----------------------------------------------------------- TO DO
+
+- REVISAR Y LIMPIAR TODO EL CÓDIGO
