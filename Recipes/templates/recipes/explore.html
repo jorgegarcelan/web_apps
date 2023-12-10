@@ -22,7 +22,10 @@ Explore Recipes
                         <span class="close">&times;</span>
                         <h2>Apply Your Filters</h2>
                         <!-- Edit form -->
-                        <form class="filter-form edit-form" action="{{ url_for('explore.search') }}" method="GET">
+                        <form id="filter-form" class="filter-form edit-form" action="{{ url_for('explore.search') }}" method="GET">
+                            <div class="button-container2">
+                                <button type="button" id="reset-filters-btn" class="edit-button edit-form">➖ Clear Filters</button>
+                            </div>
                             <p>
                                 <!-- Filter by food type -->
                                 <label for="type_food">Food Type:</label>
@@ -151,5 +154,22 @@ Explore Recipes
         modal.style.display = "none";
     }
     }
+
+    document.getElementById('reset-filters-btn').addEventListener('click', function() {
+        // Obtiene todos los elementos select dentro del formulario de filtros
+        var selectElements = document.querySelectorAll('#filter-form select');
+
+        // Itera sobre cada elemento select y establece su valor seleccionado en la primera opción
+        selectElements.forEach(function(select) {
+            select.selectedIndex = 0; // Esto asume que --Select-- es la primera opción
+        });
+
+        // Opcionalmente, también restablecer cualquier campo de entrada de texto, si es necesario
+        var inputElements = document.querySelectorAll('#filter-form input[type="text"]');
+        inputElements.forEach(function(input) {
+            input.value = ''; // Esto limpia cualquier campo de texto
+        });
+    });
+
 </script>
 {% endblock %}

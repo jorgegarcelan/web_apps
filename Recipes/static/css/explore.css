@@ -243,6 +243,13 @@ form.search .search-bar {
     width: 100%;
 }
 
+.button-container2{
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+}
+
 .edit-button {
     background-color: #f8f8f800; /* Light grey background */
     border: 1px solid #dcdcdc; /* Grey border */
