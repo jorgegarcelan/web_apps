@@ -26,13 +26,16 @@ RECIPE VIEW: --------------------------------------------- DONE
     - Edit recipe ---------------------------------------- DONE
     - Borrar fotos --------------------------------------- DONE
     - Centrar imágenes ----------------------------------- TO DO
+    - Foto principal de la receta no se puede borrar.
+      (Como mucho actualizar) ---------------------------- TO DO
+    - Algunas recetas sin rating no se muestran ---------- TO DO
     
 USER VIEW: ----------------------------------------------- DONE
     - Ordenar -------------------------------------------- DONE
     - Editar user ---------------------------------------- DONE
     - tabs (User Recipes, Bookmarked, Photos) ------------ DONE
 
-LOGGING ERRORS: ------------------------------------------ TO DO
+LOGGING ERRORS: ------------------------------------------ DONE
     - Flash messages
 
 CREATE RECIPE VIEW:
@@ -46,7 +49,8 @@ CSS:
     - Formulario crear rectas con estilo como ventana de editar perfil ---------------- DONE
 
 EXPLORE RECIPES:
-    - Poner debajo del nombre la info con iconos como en recipes tab del perfil ------- TO DO
-    - Remove filters button ----------------------------------------------------------- TO DO
+    - Poner debajo del nombre la info con iconos como en recipes tab del perfil ------- DONE
+    - Remove filters button ----------------------------------------------------------- DONE
 
+- PROBAR TODAS LAS FUNCIONALIDADES Y CORREGIR ERRORES
 - REVISAR Y LIMPIAR TODO EL CÓDIGO
