@@ -97,15 +97,33 @@ Explore Recipes
             </a>
         </div>
         {% for recipe in paginated_recipes %}
-            <div class="recipes__content swiper-slide">
+            <div class="recipes__content">
                 <div>
-                    <img src="{{ url_for('static', filename='photos/recipes/photo-' + (recipe.photos[0].id|string) + '.' + (recipe.photos[0].file_extension|string)) }}" alt="recipe image" class="recipes__img">
-                    <h1 class="recipes__title">{{ recipe.title }}</h1>
-                    {% if recipe.get_average() == None %}
-                        <p class="recipes__subtitle">No reviews yet ⭐</p>
-                    {% else %}
-                        <p class="recipes__subtitle">{{ recipe.get_average() }} ⭐</p>
+                    {% if recipe.photos %}
+                        <img src="{{ url_for('static', filename='photos/recipes/photo-' + (recipe.photos[0].id|string) + '.' + (recipe.photos[0].file_extension|string)) }}" alt="recipe image" class="recipes__img">
                     {% endif %}
+                    <h1 class="recipes__title">{{ recipe.title }}</h1>
+                    <div class="recipes__info">
+                        <div class="recipes__subtitle">
+                            <h3>👥 <span class="servings-count">{{ recipe.servings }}</span></h3>
+                        </div>
+                        <div class="recipes__subtitle">
+                            <h3>⏲️ <span class="cook_time-count">{{ recipe.cook_time }}'</span></h3>
+                        </div>
+                        <div class="recipes__subtitle">
+                            <h3>🍽️ <span class="type_food-count">{{ recipe.type_food }}</span></h3>
+                        </div>
+                        <div class="recipes__subtitle">
+                            <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
+                        </div>
+                        <div class="recipes__subtitle">
+                            {% if recipe.get_average()==None %}
+                                <h3>⭐ <span class="rating-count">Empty</span></h3>
+                            {% else %}
+                                <h3>⭐ <span class="rating-count">{{ recipe.get_average() }}</span></h3>
+                            {% endif %}
+                        </div>
+                    </div>
                     <a href="{{ url_for('main.recipe', recipe_id=recipe.id)}}" class="recipes__button">
                         View recipe <i class="ri-arrow-right-line"></i>
                     </a>

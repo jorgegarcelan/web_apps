@@ -97,7 +97,9 @@ User
                     {% for recipe, avg_rating in recipes %}
                         <div class="recipes__content swiper-slide">
                             <div>
-                                <img src="{{ url_for('static', filename='photos/recipes/photo-' + (recipe.photos[0].id|string) + '.' + (recipe.photos[0].file_extension|string)) }}" alt="recipe image" class="recipes__img">
+                                {% if recipe.photos %}
+                                    <img src="{{ url_for('static', filename='photos/recipes/photo-' + (recipe.photos[0].id|string) + '.' + (recipe.photos[0].file_extension|string)) }}" alt="recipe image" class="recipes__img">
+                                {% endif %}
                                 <h1 class="recipes__title">{{ recipe.title }}</h1>
                                 <div class="recipes__info">
                                     <div class="recipes__subtitle">

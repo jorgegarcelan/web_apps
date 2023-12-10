@@ -33,12 +33,12 @@ def user(user_id):
     
     # recipes:
     recipes = db.session.query(
-            model.Recipe,
-            func.round(func.avg(model.Rating.value), 1).label('average_rating')
-        ).join(model.Rating, model.Rating.recipe_id == model.Recipe.id) \
-        .filter(model.Recipe.user_id == user_id) \
-        .group_by(model.Recipe.id, model.Recipe.title) \
-        .all()
+        model.Recipe,
+        func.coalesce(func.round(func.avg(model.Rating.value), 1), 0).label('average_rating')
+    ).outerjoin(model.Rating, model.Rating.recipe_id == model.Recipe.id) \
+    .filter(model.Recipe.user_id == user_id) \
+    .group_by(model.Recipe.id, model.Recipe.title) \
+    .all()
 
 
 

@@ -186,11 +186,18 @@ form.search .search-bar {
 }
 
 .recipes__subtitle {
-    font-size: 1rem;
+    font-size: 10px;
     color: #666;
     text-align: center;
     margin: 0;
     padding: 5px;
+}
+
+.recipes__info {
+    display: flex;
+    justify-content: left; /* Distribute space between the items */
+    align-items: center; /* Align items vertically */
+    margin: 0 15px;
 }
 
 .recipes__button {
@@ -265,7 +272,7 @@ form.search .search-bar {
 
 .edit-button:hover {
     background-color: #e2e2e2; /* Slightly darker background on hover */
-  }
+}
 
 .modal {
     display: none; /* Hidden by default */
