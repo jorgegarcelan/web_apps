@@ -83,8 +83,11 @@ def recipe(recipe_id):
         ingredients_info.append(ingredient_detail)
 
     # bookmark:
-    bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has bookmarked the recipe
-    is_bookmarked = bookmark is not None
+    if current_user.is_authenticated:
+        bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
+        is_bookmarked = bookmark is not None
+    else:
+        is_bookmarked = None
 
     # photos:
     chef_photos = model.Photo.query.filter_by(user_id=user.id, recipe_id=recipe_id).all()
