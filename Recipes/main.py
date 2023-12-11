@@ -104,6 +104,8 @@ def recipe(recipe_id):
     if count == 0:
         rating = "No reviews yet"
         count = ""
+        current_rate = ""
+        return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=current_rate, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos, your_photos=your_photos)
         
     else:
         count = f"({count})"
