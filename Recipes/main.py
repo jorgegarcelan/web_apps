@@ -82,22 +82,20 @@ def recipe(recipe_id):
         }
         ingredients_info.append(ingredient_detail)
 
-    # bookmark:
     if current_user.is_authenticated:
         bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
         is_bookmarked = bookmark is not None
+        your_photos = model.Photo.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).all()
+        rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has rated the recipe
+        is_rated = rate is not None
     else:
         is_bookmarked = None
+        your_photos = None
+        is_rated = None
 
     # photos:
     chef_photos = model.Photo.query.filter_by(user_id=user.id, recipe_id=recipe_id).all()
-
-    your_photos = model.Photo.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).all()
-
-    # check if user has rated:
-    rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has rated the recipe
-    is_rated = rate is not None
-
+    
     # ratings
     query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
     ratings_list = db.session.execute(query_rt).scalars().all()
