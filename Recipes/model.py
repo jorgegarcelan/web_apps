@@ -10,7 +10,7 @@ class User(flask_login.UserMixin, db.Model):
     email = db.Column(db.String(128), unique=True, nullable=False)
     name = db.Column(db.String(64), nullable=False)
     username = db.Column(db.String(64), nullable=False)
-    password_hash = db.Column(db.String(100), nullable=False)
+    password_hash = db.Column(db.String(2048), nullable=False)
     recipes = db.relationship('Recipe', backref='author', lazy='dynamic')
     ratings = db.relationship('Rating', backref='rated_by', lazy='dynamic')
     photos = db.relationship('Photo', backref='uploaded_by', lazy='dynamic')

@@ -18,6 +18,9 @@ def create_app(config_name=None):
 
     # Configuración de la aplicación.
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
+    # app.config[
+    #     "SQLALCHEMY_DATABASE_URI"
+    # ] = "mysql+mysqldb://24_webapp_031:dGlvdf65@mysql.lab.it.uc3m.es/24_webapp_031b"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     db.init_app(app)
