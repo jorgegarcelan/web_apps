@@ -1,8 +1,17 @@
 # README 
 
-# -------------------------------------------------------------------
+# ####################################################################
 # WEB APP
-# -------------------------------------------------------------------
+# ####################################################################
+
+## Create file for OPENAI API KEY:
+In order for the project to run properly it is important to create a new file called ".env" in the Recipes directory with the content that was sent via email.
+
+
+## Create virtual env
+```
+python3 -m venv venv
+```
 
 ## Activate virtual env
 Activate the virtual environment that has been prepared already.
@@ -12,13 +21,13 @@ Activate the virtual environment that has been prepared already.
 venv\Scripts\activate
 ```
 
-## Create Database:
+## Create Database (ONLY OUTSIDE LAB PC):
 In order to create a database, please execute:
 ``` 
 python init_database.py
 ```
 
-## Insert Example Data:
+## Insert Example Data (ONLY OUTSIDE LAB PC):
 Execute the following command to insert default data:
 ``` 
 python insert_data.py
@@ -29,9 +38,10 @@ python insert_data.py
 flask --debug --app=Recipes run 
 ```
 
-# -------------------------------------------------------------------
+# ####################################################################
 # ADDITIONAL FUNCTIONALITIES
-# -------------------------------------------------------------------
+# ####################################################################
+
 
 - **Remove photos**: A user is able to remove a photo that was previously uploaded by him/he. This functionality is accesible in the recipe view under "Your Pictures" tab, as well as in your profile view under "Photos".
 
@@ -50,3 +60,9 @@ flask --debug --app=Recipes run
 
 - **About Us**: We want to get to know our chefs and the recipes they create, so we think that they will also want to get to know us! This section explains who are we, our mission, what we offer and future steps...
 
+
+# ####################################################################
+# ADDITIONAL COMMENTS
+# ####################################################################
+
+Following with the recent popularity of AI, we have used ChatGPT for the name and logo of our web, creating the data for the database and the photos for the recipes.
