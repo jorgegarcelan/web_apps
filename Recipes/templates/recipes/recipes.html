@@ -86,7 +86,7 @@ Recipe
 
 <h1 class="recipe-title">{{ recipe.title }}</h1>
 <div class="user-image">
-    <img src="{{ url_for('static', filename=user.profile_image) }}" alt="Profile Picture">
+    <img src="{{ url_for('static', filename='photos/users/' + user.profile_image) }}" alt="Profile Picture">
     <span class="user"> Submitted by chef <a href="{{ url_for('main.user', user_id=user.id) }}"> {{ user.username }}</a></span>    
 </div>
 
