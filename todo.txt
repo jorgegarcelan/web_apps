@@ -52,5 +52,8 @@ EXPLORE RECIPES:
     - Poner debajo del nombre la info con iconos como en recipes tab del perfil ------- DONE
     - Remove filters button ----------------------------------------------------------- DONE
 
+GPT VISION:
+    - No funciona bien en el ordenador del laboratorio (problema con la imagen me sale)
+      Comprobar esto ------------------------------------------------------------------ TO DO
 - PROBAR TODAS LAS FUNCIONALIDADES Y CORREGIR ERRORES
 - REVISAR Y LIMPIAR TODO EL CÓDIGO
