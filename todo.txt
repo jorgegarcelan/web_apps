@@ -28,7 +28,7 @@ RECIPE VIEW: --------------------------------------------- DONE
     - Centrar imágenes ----------------------------------- TO DO
     - Foto principal de la receta no se puede borrar.
       (Como mucho actualizar) ---------------------------- TO DO
-    - Algunas recetas sin rating no se muestran ---------- TO DO
+    - Algunas recetas sin rating no se muestran ---------- DONE
     
 USER VIEW: ----------------------------------------------- DONE
     - Ordenar -------------------------------------------- DONE
