@@ -47,8 +47,14 @@ def gpt4_vision(image: str) -> dict:
         max_tokens=500,
     )
 
-    print(response.choices[0].message.content)
-    return json.loads(response.choices[0].message.content)
+    result = response.choices[0].message.content
+    start_pos = result.find('"recipes"')
+    if start_pos != -1:
+        json_str = '{' + result[start_pos:]
+    else:
+        json_str = result
+
+    return json.loads(json_str)
 
 
 def dalle_3(prompt: str) -> str:
