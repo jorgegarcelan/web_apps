@@ -13,13 +13,22 @@ User
     <h1>🤖 Chef Assistant Recommender </h1>
 </div>
 
+
 <div class="upload">
+    {% if current_user.is_authenticated %} 
     <form action="/recipe_vision" method="post" enctype="multipart/form-data">
         <label for="fileUpload">🪄 Upload a photo of your fridge or raw ingredients and we'll do the magic!</label>
         <input type="file" id="fileUpload" name="file" class="upload-button">
         <input type="submit" value="Upload Image" name="submit" class="submit-button" id="myBtn" onclick="loading()">
     </form>
+    {% else %}
+        <p> ⚠️ Not too fast Chef! You must be logged in to upload pictures </p>
+        <form action="{{ url_for('auth.login') }}">
+            <button type="submit" class="submit-button">Log in</button>
+        </form>
+    {% endif %} 
 </div>
+
 
 <!-- The Modal -->
 <div id="myModal" class="modal">

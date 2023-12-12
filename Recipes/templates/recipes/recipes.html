@@ -147,31 +147,38 @@ Recipe
             </div>
             
             <div id="Rate" class="tabcontent">
-                <h2>⭐ Rate</h2>
-                {% if is_rated %}
-                    <p> You have rated this recipe with ⭐{{ current_rate }} </p>
-                {% endif %}
-                <form method="post" class="rate-form" action="{{ url_for('main.rate_recipe') }}">
+                {% if current_user.is_authenticated %} 
+                    <h2>⭐ Rate</h2>
                     {% if is_rated %}
-                        <label for="rating">Chef, update your rating!</label>
-                    {% else %}
-                        <label for="rating">Chef, rate this recipe!</label>
+                        <p> You have rated this recipe with ⭐{{ current_rate }} </p>
                     {% endif %}
-                    <p class="rating-area">
-                        <input id="radio1" type="radio" name="rating" value="1">
-                        <label class="star" for="radio1">⭐</label>
-                        <input id="radio2" type="radio" name="rating" value="2">
-                        <label class="star" for="radio2">⭐</label>
-                        <input id="radio3" type="radio" name="rating" value="3">
-                        <label class="star" for="radio3">⭐</label>
-                        <input id="radio4" type="radio" name="rating" value="4">
-                        <label class="star" for="radio4">⭐</label>
-                        <input id="radio5" type="radio" name="rating" value="5">
-                        <label class="star" for="radio5">⭐</label>
-                    </p>
-                    <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
-                    <button type="submit" class="bookmark-button unbookmark">Submit</button>
-                </form>
+                    <form method="post" class="rate-form" action="{{ url_for('main.rate_recipe') }}">
+                        {% if is_rated %}
+                            <label for="rating">Chef, update your rating!</label>
+                        {% else %}
+                            <label for="rating">Chef, rate this recipe!</label>
+                        {% endif %}
+                        <p class="rating-area">
+                            <input id="radio1" type="radio" name="rating" value="1">
+                            <label class="star" for="radio1">⭐</label>
+                            <input id="radio2" type="radio" name="rating" value="2">
+                            <label class="star" for="radio2">⭐</label>
+                            <input id="radio3" type="radio" name="rating" value="3">
+                            <label class="star" for="radio3">⭐</label>
+                            <input id="radio4" type="radio" name="rating" value="4">
+                            <label class="star" for="radio4">⭐</label>
+                            <input id="radio5" type="radio" name="rating" value="5">
+                            <label class="star" for="radio5">⭐</label>
+                        </p>
+                        <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                        <button type="submit" class="bookmark-button unbookmark">Submit</button>
+                    </form>
+                {% else %}
+                    <p> ⚠️ Not too fast Chef! You must be logged in to upload pictures </p>
+                    <form action="{{ url_for('auth.login') }}">
+                        <button type="submit" class="bookmark-button unbookmark">Log in</button>
+                    </form>
+                {% endif %} 
             </div>
         </div>
     
