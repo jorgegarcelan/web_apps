@@ -70,8 +70,8 @@ Following with the recent popularity of AI, we have used ChatGPT for the name an
 
 ## 👥 Authors
 
-- [@PabloGradolph](https://github.com/PabloGradolph)
-- [@jorgegarcelan](https://github.com/jorgegarcelan)
+- [@PabloGradolph](https://github.com/PabloGradolph) -> NIA: 100458456
+- [@jorgegarcelan](https://github.com/jorgegarcelan) -> NIA: 100442062
 
 
 ![Logo](https://upload.wikimedia.org/wikipedia/commons/4/47/Acronimo_y_nombre_uc3m.png)
