@@ -1,10 +1,11 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request
 from . import db
 from .model import Recipe, Rating
 from sqlalchemy import func
 
 
 bp = Blueprint("explore", __name__)
+
 
 @bp.route("/explore")
 def search():

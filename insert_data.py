@@ -1,7 +1,5 @@
 import pandas as pd
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from Recipes.model import User, Recipe, Ingredient, QuantifiedIngredient, Step, Rating, Bookmark, Photo  # import your models
+from Recipes.model import User, Recipe, Ingredient, QuantifiedIngredient, Step, Rating, Bookmark, Photo
 from Recipes import db, create_app
 import logging
 
@@ -65,8 +63,6 @@ def import_csv_data():
             db.session.add(Photo(**row.to_dict()))
             # After each commit, log the result
             logging.info("Imported photos into the database successfully.")
-
-        
 
         # Commit all changes
         db.session.commit()

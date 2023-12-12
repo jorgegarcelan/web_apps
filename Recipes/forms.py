@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, IntegerField, SubmitField, FileField, SelectField
-from wtforms_alchemy import QuerySelectField
 from wtforms.validators import DataRequired, Length, NumberRange
 from flask_wtf.file import FileAllowed, FileRequired
 from .model import Ingredient

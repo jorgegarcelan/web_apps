@@ -5,7 +5,6 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 
-
 ## https://platform.openai.com/docs/guides/images/usage?context=python
 
 # Retrieve the API key from the environment variable

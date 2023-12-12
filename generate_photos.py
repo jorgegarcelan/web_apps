@@ -1,7 +1,5 @@
 from Recipes.gpt import dalle_3
 from pathlib import Path
-from Recipes import model
-from Recipes.model import User, Recipe, Ingredient, QuantifiedIngredient, Step, Rating, Bookmark, Photo  # import your models
 from Recipes import db, create_app
 import pandas as pd
 from PIL import Image

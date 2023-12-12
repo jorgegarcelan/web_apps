@@ -52,7 +52,7 @@ form input[type=text] {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* Makes sure the padding doesn't affect the total width */
+    box-sizing: border-box;
 }
 
 button {

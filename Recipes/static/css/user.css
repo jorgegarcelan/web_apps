@@ -28,51 +28,47 @@ h2 {
 
 label {
   font-size: 16px;
-  display: block; /* Ensures they are block-level */
+  display: block;
 }
 
 textarea {
-  width: 100%; /* Set the width to fill the container */
-  padding: 8px 15px; /* Add some padding inside the input */
-  margin: 8px 0; /* Add some margin around the input */
-  box-sizing: border-box; /* Include padding and border in the input's width */
-  border: 1px solid #ccc; /* A subtle border */
-  border-radius: 4px; /* Rounded corners */
-  background-color: #f8f8f8; /* A light grey background */
-  color: #333; /* Dark grey text color */
-  font-size: 16px; /* Slightly larger font size for better readability */
-  line-height: 1.5; /* More space between lines */
-  transition: border-color 0.3s; /* Smooth transition for border color */
+  width: 100%;
+  padding: 8px 15px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: border-color 0.3s;
   resize: none;
 }
 
 input, select {
-  width: 100%; /* Set the width to fill the container */
-  padding: 8px 15px; /* Add some padding inside the input */
-  margin: 8px 0; /* Add some margin around the input */
-  box-sizing: border-box; /* Include padding and border in the input's width */
-  border: 1px solid #ccc; /* A subtle border */
-  border-radius: 4px; /* Rounded corners */
-  background-color: #f8f8f8; /* A light grey background */
-  color: #333; /* Dark grey text color */
-  font-size: 16px; /* Slightly larger font size for better readability */
-  line-height: 1.5; /* More space between lines */
-  transition: border-color 0.3s; /* Smooth transition for border color */
+  width: 100%;
+  padding: 8px 15px; 
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: border-color 0.3s;
 }
-
 
 .container {
   margin: 0 auto;
   padding: 20px;
-  /*background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
   display: flex;
   justify-content: space-between;
 }
 
 .card-columns {
-  display: flex; /* Enables Flexbox */
+  display: flex;
 }
 
 .card-column1 {
@@ -94,46 +90,43 @@ input, select {
   margin: 30px;
 }
 
-
 .profile__info {
   text-align: center;
   margin: 20px;
 }
 
 .profile-picture {
-  display: flex; /* enables flexbox layout */
-  justify-content: center; /* centers children horizontally */
-  align-items: center; /* centers children vertically */
-  border-radius: 50%; /* circular shape */
-  overflow: hidden; /* hides the overflow to maintain the circular shape */
-  width: 100px; /* fixed width */
-  height: 100px; /* fixed height */
-  margin: auto; /* centers the circle itself if it's within a flex or grid layout */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  margin: auto;
 }
 
 .profile-picture img {
-  max-width: 100%; /* ensures the image is not larger than the container */
-  max-height: 100%; /* prevents the image from being taller than the container */
-  object-fit: cover; /* covers the area, may crop the image if the aspect ratio is different */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
-
 .profile-picture-edit {
-  display: flex; /* enables flexbox layout */
-  justify-content: center; /* centers children horizontally */
-  align-items: center; /* centers children vertically */
-  border-radius: 50%; /* circular shape */
-  overflow: hidden; /* hides the overflow to maintain the circular shape */
-  width: 100px; /* fixed width */
-  height: 100px; /* fixed height */
-  margin: auto; /* centers the circle itself if it's within a flex or grid layout */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  margin: auto;
   cursor: pointer;
 }
 
 .profile-picture-edit:hover {
-  filter: brightness(70%); /* reduces brightness to 70% on hover */
+  filter: brightness(70%);
 }
-
 
 /* =================TABS===================*/
 .tab {
@@ -141,7 +134,6 @@ input, select {
   background-color: #ffffff;
 }
 
-/* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
   float: left;
@@ -153,98 +145,93 @@ input, select {
   font-size: 17px;
 }
 
-/* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
 }
 
-/* Create an active/current tablink class */
 .tab button.active {
   background-color: #ccc;
 }
 
-/* Style the tab content */
 .tabcontent {
   margin: 20px;
-  justify-content: center; /* Distribute space between the items */
-  align-items: center; /* Align items vertically */
+  justify-content: center;
+  align-items: center;
   flex: 1;
   display: flex;
   flex-direction: column;
-  word-wrap: break-word; /* prevents text from overflowing */
+  word-wrap: break-word;
 }
 
-  .recipes-header {
-    grid-column: 1 / -1; /* header will span all columns */
+.recipes-header {
+    grid-column: 1 / -1;
     text-align: center;
     margin-bottom: 20px;
-  }
+}
   
-  .recipe-card {
+.recipe-card {
     display: flex;
     flex-direction: column;
-    height: 100%; /* makes sure all cards have the same height */
+    height: 100%; 
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 10px;
     margin-bottom: 20px;
     background: #ffffff;
     transition: transform 0.2s ease-in-out;
     overflow: hidden;
-  }
+}
   
-  .card-image img {
+.card-image img {
     width: 100%;
-    height: 200px; /* fixed height for images */
+    height: 200px;
     object-fit: cover;
-  }
+}
   
-  .card-body {
+.card-body {
     display: flex;
     flex-direction: column;
     padding: 15px;
-    flex: 1; /* allows the card body to expand */
-  }
+    flex: 1;
+}
   
-  .recipe-title {
+.recipe-title {
     color: #142c35;
     margin-bottom: 10px;
-    word-wrap: break-word; /* prevents text from overflowing */
-  }
+    word-wrap: break-word;
+}
   
-  .recipe-description,
-  .recipe-servings,
-  .recipe-cook-time {
+.recipe-description,
+.recipe-servings,
+.recipe-cook-time {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* aligns content to the top */
-    word-wrap: break-word; /* prevents text from overflowing */
-  }
+    justify-content: flex-start;
+    word-wrap: break-word;
+}
   
-  .recipe-description h3,
-  .recipe-servings h3,
-  .recipe-cook-time h3 {
+.recipe-description h3,
+.recipe-servings h3,
+.recipe-cook-time h3 {
     margin-top: 10px;
     margin-bottom: 5px;
-  }
+}
   
-  .recipe-description p,
-  .recipe-servings p,
-  .recipe-cook-time p {
+.recipe-description p,
+.recipe-servings p,
+.recipe-cook-time p {
     color: #666;
-  }
+}
   
-  /* Ensures all paragraphs have the same height for alignment */
-  .recipe-description p,
-  .recipe-servings p,
-  .recipe-cook-time p {
+.recipe-description p,
+.recipe-servings p,
+.recipe-cook-time p {
     display: flex;
     align-items: center;
-    min-height: 3em; /* adjust accordingly */
-  }
-  
-/*=============== Recipes ===============*/S
+    min-height: 3em;
+}
 
+/*=============== Recipes ===============*/
 .recipes__container {
   overflow: initial;
 }
@@ -258,18 +245,18 @@ input, select {
 }
 
 .recipes__img {
-  display: block; /* Images are inline by default, block will allow margin: auto to work */
-  width: 250px; /* Set your desired width */
-  height: auto; /* Maintain aspect ratio */
+  display: block;
+  width: 250px;
+  height: auto;
   border-radius: 0.75rem;
-  margin: 1.5rem auto; /* Top and bottom margins are 1.5rem, left and right are auto */
+  margin: 1.5rem auto;
 }
 
 .photos__img {
     width: 500px;
     border-radius: .75rem;
     margin-bottom: 1.5rem;
-  }
+}
 
 .recipes__subtitle {
   font-size: 10px;
@@ -283,17 +270,15 @@ input, select {
 
 .recipes__info {
   display: flex;
-  justify-content: left; /* Distribute space between the items */
-  align-items: center; /* Align items vertically */
+  justify-content: left;
+  align-items: center;
   margin: 30px;
 }
 
 .recipes__info > div {
-  /* If you want to ensure that the divs do not shrink or grow, set them to not flex */
   flex: 0 0 auto;
-  margin: 0 5px; /* Add a little space between each div */
+  margin: 0 5px;
 }
-
 
 .recipes__button {
   display: inline-flex;
@@ -312,7 +297,6 @@ input, select {
   transform: translateX(.25rem);
 }
 
-/* Swiper class */
 .recipes__container .swiper-button-prev::after,
 .recipes__container .swiper-button-next::after {
   content: '';
@@ -359,27 +343,27 @@ input, select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Make sure the container spans the full width */
+    width: 100%;
 }
 
 .edit-form {
-    margin-left: auto; /* This will push the edit button to the right */
-    margin: 0; /* Removes any default margin */
+    margin-left: auto;
+    margin: 0;
     padding: 20px;
 }
 
 .edit-button, .save-button {
-  background-color: #f8f8f800; /* Light grey background */
-  border: 1px solid #dcdcdc; /* Grey border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 10px; /* Top/bottom padding of 10px, left/right padding of 20px */
+  background-color: #f8f8f800;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  padding: 10px;
   margin: 20px;
-  font-size: 12px; /* Set font-size */
-  cursor: pointer; /* Change mouse cursor to pointer when hovering over the button */
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
-  text-align: left; /* Center the text inside the button */
-  display: inline-block; /* Allows setting padding and width */
-  color: #142c35; /* Dark grey text color */
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left;
+  display: inline-block;
+  color: #142c35;
 }
 
 .save-button {
@@ -387,42 +371,39 @@ input, select {
 }
 
 .save-button:hover {
-  background-color: #7d5627; /* Slightly darker background on hover */
+  background-color: #7d5627;
   color: #ffffff;
 }
 
 .edit-button:hover {
-  background-color: #e2e2e2; /* Slightly darker background on hover */
+  background-color: #e2e2e2;
 }
 
 /* =================MODAL WINDOW===================*/
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 10;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto;  /*Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
-
-/* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 40%; /* Could be more or less, depending on screen size */
+  width: 40%;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-radius: 10px;
   transition: transform 0.2s ease-in-out;
 }
 
-/* The Close Button */
 .close {
   color: #aaa;
   float: right;
@@ -437,31 +418,29 @@ input, select {
   cursor: pointer;
 }
 
-
 /* =================DELETE PHOTO===================*/
-
 .photo-container {
   position: relative;
-  display: inline-block; /* or block, depending on layout */
+  display: inline-block;
 }
 
 .delete-button {
   position: absolute;
-  top: 10px; /* adjust as needed */
-  right: 10px; /* adjust as needed */
-  color: white; /* white text */
-  border: none; /* no border */
-  border-radius: 50%; /* round edges */
-  width: 30px; /* fixed width */
-  height: 30px; /* fixed height */
-  text-align: center; /* center the text/icon */
-  line-height: 30px; /* align the text/icon vertically */
-  cursor: pointer; /* cursor effect */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* optional: shadow for the button */
-  opacity: 0.75; /* optional: semi-transparent */
-  transition: opacity 0.3s ease; /* transition for hover effect */
+  top: 10px;
+  right: 10px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
 }
 
 .delete-button:hover {
-  opacity: 1; /* full opacity on hover */
+  opacity: 1;
 }

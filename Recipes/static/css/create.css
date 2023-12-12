@@ -21,36 +21,36 @@ body {
 
 label {
     font-size: 16px;
-    display: block; /* Ensures they are block-level */
+    display: block;
 }
   
 textarea {
-    width: 100%; /* Set the width to fill the container */
-    padding: 8px 15px; /* Add some padding inside the input */
-    margin: 8px 0; /* Add some margin around the input */
-    box-sizing: border-box; /* Include padding and border in the input's width */
-    border: 1px solid #ccc; /* A subtle border */
-    border-radius: 4px; /* Rounded corners */
-    background-color: #f8f8f8; /* A light grey background */
-    color: #333; /* Dark grey text color */
-    font-size: 16px; /* Slightly larger font size for better readability */
-    line-height: 1.5; /* More space between lines */
-    transition: border-color 0.3s; /* Smooth transition for border color */
+    width: 100%;
+    padding: 8px 15px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: border-color 0.3s;
     resize: none;
 }
   
 input, select {
-    width: 100%; /* Set the width to fill the container */
-    padding: 8px 15px; /* Add some padding inside the input */
-    margin: 8px 0; /* Add some margin around the input */
-    box-sizing: border-box; /* Include padding and border in the input's width */
-    border: 1px solid #ccc; /* A subtle border */
-    border-radius: 4px; /* Rounded corners */
-    background-color: #f8f8f8; /* A light grey background */
-    color: #333; /* Dark grey text color */
-    font-size: 16px; /* Slightly larger font size for better readability */
-    line-height: 1.5; /* More space between lines */
-    transition: border-color 0.3s; /* Smooth transition for border color */
+    width: 100%;
+    padding: 8px 15px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: border-color 0.3s;
 }
 
 .container {
@@ -133,12 +133,10 @@ h3 {
     text-align: center;
 }
 
-/* Add some padding inside the card container */
 .container {
     padding: 2px 16px;
 }
 
-/* Clear floats */
 .row::after {
     content: "";
     clear: both;
@@ -188,7 +186,7 @@ form div button:hover {
 }
 
 .btn-submit {
-    background-color: #333; /* Green background */
+    background-color: #333;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -202,5 +200,5 @@ form div button:hover {
 }
 
 .btn-submit:hover {
-    background-color: #555; /* Darker green on hover */
+    background-color: #555;
 }

@@ -1,8 +1,6 @@
-import datetime
-import dateutil.tz
 from .forms import RecipeForm, IngredientForm, StepForm
 from .model import Recipe, Ingredient, QuantifiedIngredient, Step, Photo
-from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app, jsonify
+from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app
 from flask_login import current_user, login_required
 from sqlalchemy.sql import func
 from . import model
@@ -14,6 +12,7 @@ import pathlib
 
 
 bp = Blueprint("main", __name__)
+
 
 @bp.route("/")
 def index():
@@ -39,8 +38,6 @@ def user(user_id):
     .filter(model.Recipe.user_id == user_id) \
     .group_by(model.Recipe.id, model.Recipe.title) \
     .all()
-
-
 
     # bookmark:
     bookmarked_recipes = db.session.query(
@@ -69,7 +66,6 @@ def recipe(recipe_id):
     query_u = db.select(model.User).where(model.User.id == recipe.user_id)
     user = db.session.execute(query_u).scalar_one_or_none()
     
-
     # ingredients:
     quantified_ingredients = model.QuantifiedIngredient.query.filter_by(recipe_id=recipe_id).all()     # Query the QuantifiedIngredient model to get all entries related to the recipe_id
 
@@ -128,7 +124,6 @@ def edit_user():
     email = request.form.get('edit_email')
     uploaded_file = request.files['profile_image_input']
 
-
     user = model.User.query.get_or_404(user_id)
 
     # Update the user with the new data
@@ -144,7 +139,6 @@ def edit_user():
             file_extension = "jpg"
         else:
             abort(400, f"Unsupported file type {content_type}")
-
 
         # Save the file
         path = (
@@ -308,8 +302,6 @@ def delete_photo():
     return abort(400, "Error while deleting the photo")
 
 
-
-
 @bp.route("/recipe_vision", methods=['GET', 'POST'])
 def recipe_vision():
     if request.method == 'POST':
@@ -328,7 +320,6 @@ def recipe_vision():
             output = gpt.gpt4_vision(filepath)
         except:
             return abort(400, "There was a problem with the image")
-        #output = jsonify(output)
 
         # URL for the uploaded image
         uploaded_image_url = url_for('static', filename='imgs/' + filename)
@@ -368,7 +359,6 @@ def create_recipe():
                 file_extension = os.path.splitext(filename)[1]
                 file_extension = file_extension[1:]
 
-                # Crear y guardar una entrada Photo
                 photo = Photo(
                     user_id=current_user.id,
                     recipe_id=new_recipe.id,
@@ -415,7 +405,7 @@ def create_recipe():
                 db.session.commit()
                 return redirect(url_for('explore.search'))
             else:
-                db.session.rollback()  # Revierte los cambios si no se cumplen las condiciones
+                db.session.rollback()
                 if not ingredientes_agregados:
                     flash('Por favor, añade al menos un ingrediente.', 'create_error')
                 if not pasos_agregados:
