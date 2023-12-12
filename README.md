@@ -1,47 +1,51 @@
-# README 
+# Recipe Realm Web App 🌐
 
-# ####################################################################
-# WEB APP
-# ####################################################################
+Welcome to the Recipe Realm, the ultimate web application for discovering, creating, and sharing your favorite cooking recipes.
 
-## Create file for OPENAI API KEY:
-In order for the project to run properly it is important to create a new file called ".env" in the Recipes directory with the content that was sent via email.
+## Setup Instructions 🚀
 
+Before running the application, follow these setup instructions to get started.
 
-## Create virtual env
-```
-python3 -m venv venv
-```
+### OpenAI API Key Setup
 
-## Activate virtual env
-Activate the virtual environment that has been prepared already.
+Create a `.env` file in the Recipes directory with the OpenAI API key contents that were sent via email. This file is crucial for the application to function properly.
 
-### Command Prompt (cmd):
-```
-venv\Scripts\activate
-```
+### Virtual Environment
 
-## Create Database (ONLY OUTSIDE LAB PC):
-In order to create a database, please execute:
+Set up a virtual environment to manage the project's dependencies.
+
+#### Creation:
+```python3 -m venv venv```
+
+#### Activation:
+For Windows Command Prompt:
+```venv\Scripts\activate```
+
+For Linux/macOS:
+```source venv/bin/activate```
+
+#### Install all dependencies:
+```pip install -r requirements.txt```
+
+### Database Configuration 💻
+The __init__.py file includes configuration settings for both SQLite and MySQL. Adjust these settings according to your database preferences:
+- For a simple setup or testing, SQLite is recommended.
+- For a production environment, MySQL or another robust database system is advisable.
+
+If the database has not been initialized yet:
 ``` 
 python init_database.py
 ```
-
-## Insert Example Data (ONLY OUTSIDE LAB PC):
 Execute the following command to insert default data:
 ``` 
 python insert_data.py
 ```
-
-## Run app:
+Execute the following command to start the Flask development server:
 ``` 
 flask --debug --app=Recipes run 
 ```
 
-# ####################################################################
-# ADDITIONAL FUNCTIONALITIES
-# ####################################################################
-
+## ADDITIONAL FUNCTIONALITIES ⚙️
 
 - **Remove photos**: A user is able to remove a photo that was previously uploaded by him/he. This functionality is accesible in the recipe view under "Your Pictures" tab, as well as in your profile view under "Photos".
 
@@ -60,9 +64,14 @@ flask --debug --app=Recipes run
 
 - **About Us**: We want to get to know our chefs and the recipes they create, so we think that they will also want to get to know us! This section explains who are we, our mission, what we offer and future steps...
 
-
-# ####################################################################
-# ADDITIONAL COMMENTS
-# ####################################################################
+## ADDITIONAL INFORMATION ℹ️
 
 Following with the recent popularity of AI, we have used ChatGPT for the name and logo of our web, creating the data for the database and the photos for the recipes.
+
+## 👥 Authors
+
+- [@PabloGradolph](https://github.com/PabloGradolph)
+- [@jorgegarcelan](https://github.com/jorgegarcelan)
+
+
+![Logo](https://upload.wikimedia.org/wikipedia/commons/4/47/Acronimo_y_nombre_uc3m.png)
