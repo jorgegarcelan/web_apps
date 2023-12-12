@@ -57,7 +57,7 @@ Home Page
                                     <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
                                 </div>
                                 <div class="recipes__subtitle">
-                                    <h3>⭐ <span class="rating-count">{{ avg_rating }}</span></h3>
+                                    <h3>⭐ <span class="rating-count">{{ recipe.get_average() }}</span></h3>
                                 </div>
                             </div>
                             <a href="{{ url_for('main.recipe', recipe_id=recipe.id)}}" class="recipes__button">
@@ -182,7 +182,7 @@ Home Page
     },
     breakpoints: {
         1200: {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 0,
         }
     },
