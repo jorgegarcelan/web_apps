@@ -5,8 +5,15 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "poppins";
+    src: url('../fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'poppins', sans-serif;
     background-color: #f9f8f0;
     color: #142c35;
     line-height: 1.6;

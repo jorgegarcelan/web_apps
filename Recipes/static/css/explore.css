@@ -5,15 +5,7 @@
     font-style: normal;
 }
 
-@font-face {
-  font-family: "poppins";
-  src: url('../fonts/Poppins-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
-    font-family: 'poppins';
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
