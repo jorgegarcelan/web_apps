@@ -281,28 +281,39 @@ def delete_photo():
     photo_id = request.form.get('photo_id')
     recipe_id = request.form.get('recipe_id')
     user_id = request.form.get('user_id')
-    
+
     # Find the photo by ID
     photo = Photo.query.get(photo_id)
-    if photo:
-        # Delete the file from the file system
-        path = ( pathlib.Path(current_app.root_path)
-            / "static"
-            / "photos"
-            / "recipes"
-            / f"photo-{photo.id}.{photo.file_extension}" )
-        
-        os.remove(path)
-        # Delete the record from the database
-        db.session.delete(photo)
-        db.session.commit()
 
-        if recipe_id != None:
-            return redirect(url_for('main.recipe', recipe_id=recipe_id))
-        if user_id != None:
-            return redirect(url_for('main.user', user_id=user_id))
+    # Fetch recipe photos
+    chef_photos = model.Photo.query.filter_by(user_id=user_id, recipe_id=photo.recipe_id).all()
+
+    # do not delete if photo is the first photo of the recipe (it is the principal for that recipe)
+    if photo_id == str(chef_photos[0].id):
+        abort(400, "Error while deleting the photo: You can not remove the default photo for that recipe")
     
-    return abort(400, "Error while deleting the photo")
+    else:
+        # Find the photo by ID
+        photo = Photo.query.get(photo_id)
+        if photo:
+            # Delete the file from the file system
+            path = ( pathlib.Path(current_app.root_path)
+                / "static"
+                / "photos"
+                / "recipes"
+                / f"photo-{photo.id}.{photo.file_extension}" )
+            
+            os.remove(path)
+            # Delete the record from the database
+            db.session.delete(photo)
+            db.session.commit()
+
+            if recipe_id != None:
+                return redirect(url_for('main.recipe', recipe_id=recipe_id))
+            if user_id != None:
+                return redirect(url_for('main.user', user_id=user_id))
+        
+        return abort(400, "Error while deleting the photo")
 
 
 @bp.route("/recipe_vision", methods=['GET', 'POST'])
