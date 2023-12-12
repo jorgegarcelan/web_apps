@@ -22,7 +22,7 @@ User
         <input type="submit" value="Upload Image" name="submit" class="submit-button" id="myBtn" onclick="loading()">
     </form>
     {% else %}
-        <p> ⚠️ Not too fast Chef! You must be logged in to upload pictures </p>
+        <p> ⚠️ Not too fast Chef! You must be logged in to use the chef assistant </p>
         <form action="{{ url_for('auth.login') }}">
             <button type="submit" class="submit-button">Log in</button>
         </form>
