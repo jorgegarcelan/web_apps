@@ -17,9 +17,9 @@ def create_app(config_name=None):
     app.config["SECRET_KEY"] = "93220d9b340cf9a6c39bac99cce7daf220167498f91fa"
 
     # Application configuration
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
+    app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://24_webapp_031:dGlvdf65@mysql.lab.it.uc3m.es/24_webapp_031c"
     # Uncomment the following line to use MySQL
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://24_webapp_031:dGlvdf65@mysql.lab.it.uc3m.es/24_webapp_031b"
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     db.init_app(app)

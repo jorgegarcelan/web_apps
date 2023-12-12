@@ -286,10 +286,10 @@ def delete_photo():
     photo = Photo.query.get(photo_id)
 
     # Fetch recipe photos
-    chef_photos = model.Photo.query.filter_by(user_id=user_id, recipe_id=photo.recipe_id).all()
+    photos = model.Photo.query.all()
 
     # do not delete if photo is the first photo of the recipe (it is the principal for that recipe)
-    if photo_id == str(chef_photos[0].id):
+    if photo_id == str(photos[0].id):
         abort(400, "Error while deleting the photo: You can not remove the default photo for that recipe")
     
     else:
