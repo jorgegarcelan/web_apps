@@ -9,14 +9,16 @@ bp = Blueprint("explore", __name__)
 
 @bp.route("/explore")
 def search():
+    """
+    Explore page to search and filter recipes.
+    """
     page = request.args.get('page', 1, type=int)
     search_query = request.args.get('search', '')
-    per_page = 5
-
     type_food = request.args.get('type_food')
     category_food = request.args.get('category_food')
     servings = request.args.get('servings')
     cook_time = request.args.get('cook_time')
+    per_page = 5
 
     recipes_query = Recipe.query
 
@@ -40,9 +42,10 @@ def search():
         Rating.recipe_id,
         func.avg(Rating.value).label('average_rating')
     ).group_by(Rating.recipe_id).subquery()
-    recipes_query = recipes_query.outerjoin(subq, Recipe.id == subq.c.recipe_id).order_by(subq.c.average_rating.desc(), Recipe.id)
 
+    recipes_query = recipes_query.outerjoin(subq, Recipe.id == subq.c.recipe_id).order_by(subq.c.average_rating.desc(), Recipe.id)
     paginated_recipes = recipes_query.paginate(page=page, per_page=per_page)
+    
     filter_params = {
         'search_query': search_query,
         'type_food': type_food,
@@ -51,6 +54,4 @@ def search():
         'cook_time': cook_time,
     }
 
-    return render_template('recipes/explore.html', 
-                           paginated_recipes=paginated_recipes, 
-                           **filter_params)
+    return render_template('recipes/explore.html', paginated_recipes=paginated_recipes, **filter_params)

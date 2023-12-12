@@ -8,16 +8,25 @@ bp = Blueprint("auth", __name__)
 
 @bp.route("/signup")
 def signup():
+    """
+    Display the signup page.
+    """
     return render_template("auth/signup.html")
 
 
 @bp.route("/login")
 def login():
+    """
+    Display the login page.
+    """
     return render_template("auth/login.html")
 
 
 @bp.route("/login", methods=["POST"])
 def login_post():
+    """
+    Handle the login form submission.
+    """
     email = request.form.get("email")
     password = request.form.get("password")
 
@@ -38,6 +47,9 @@ def login_post():
 
 @bp.route("/signup", methods=["POST"])
 def signup_post():
+    """
+    Handle the signup form submission.
+    """
     email = request.form.get("email")
     name = request.form.get("name")
     username = request.form.get("username")
@@ -69,5 +81,8 @@ def signup_post():
 
 @bp.route('/logout')
 def logout():
+    """
+    Log out the current user.
+    """
     flask_login.logout_user()
     return redirect(url_for('auth.login'))

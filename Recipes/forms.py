@@ -5,10 +5,14 @@ from flask_wtf.file import FileAllowed, FileRequired
 from .model import Ingredient
 
 def ingredient_choices():
+    """Retrieve a list of ingredient choices."""
     return Ingredient.query.all()
 
 
 class IngredientForm(FlaskForm):
+    """
+    Form for adding ingredients to a recipe.
+    """
     new_ingredient = StringField('Ingredient', validators=[Length(max=100)])
     quantity = StringField('Quantity', validators=[DataRequired(), Length(max=100)])
     unit_of_measurement = StringField('Unit of Measurement', validators=[Length(max=50)])
@@ -16,13 +20,18 @@ class IngredientForm(FlaskForm):
 
 
 class StepForm(FlaskForm):
+    """
+    Form for adding cooking steps to a recipe.
+    """
     sequence_number = IntegerField('Step Number', validators=[DataRequired(), NumberRange(min=1)])
     step_description = TextAreaField('Description', validators=[DataRequired()])
     submit = SubmitField('Add Steps')
 
 
 class RecipeForm(FlaskForm):
-    """Formulario principal para crear una receta."""
+    """
+    Main form for creating a new recipe.
+    """
     title = StringField('Title', validators=[DataRequired(), Length(max=200)])
     description = TextAreaField('Description', validators=[DataRequired()])
     servings = IntegerField('Number of Servings', validators=[DataRequired(), NumberRange(min=1, max=10)])

@@ -1,11 +1,11 @@
-from .forms import RecipeForm, IngredientForm, StepForm
-from .model import Recipe, Ingredient, QuantifiedIngredient, Step, Photo
 from flask import Blueprint, render_template, abort, request, url_for, flash, redirect, current_app
 from flask_login import current_user, login_required
 from sqlalchemy.sql import func
-from . import model
-from Recipes import db, gpt
 from werkzeug.utils import secure_filename
+from Recipes import db, gpt
+from .forms import RecipeForm, IngredientForm, StepForm
+from .model import Recipe, Ingredient, QuantifiedIngredient, Step, Photo
+from . import model
 import os
 import numpy as np
 import pathlib
@@ -16,6 +16,9 @@ bp = Blueprint("main", __name__)
 
 @bp.route("/")
 def index():
+    """
+    Home page route showing top recipes based on average rating.
+    """
     top_recipes = db.session.query(
         model.Recipe, 
         func.avg(model.Rating.value).label('average_rating')
@@ -26,11 +29,14 @@ def index():
 
 @bp.route("/user/<int:user_id>")
 def user(user_id):
-    # user:
+    """
+    User profile route showing user details, recipes, bookmarks, and photos.
+    """
+    # Fetch user details
     query_u = db.select(model.User).where(model.User.id == user_id)
     user = db.session.execute(query_u).scalar_one_or_none()
     
-    # recipes:
+    # Fetch user recipes with average ratings
     recipes = db.session.query(
         model.Recipe,
         func.coalesce(func.round(func.avg(model.Rating.value), 1), 0).label('average_rating')
@@ -39,7 +45,7 @@ def user(user_id):
     .group_by(model.Recipe.id, model.Recipe.title) \
     .all()
 
-    # bookmark:
+    # Fetch bookmarked recipes
     bookmarked_recipes = db.session.query(
         model.Recipe,
         func.round(func.avg(model.Rating.value), 1).label('average_rating')
@@ -49,7 +55,7 @@ def user(user_id):
     .group_by(model.Recipe.id) \
     .all()
 
-    # photos:
+    # Fetch user photos
     query_p = db.select(model.Photo).where(model.Photo.user_id == user_id)
     photos = db.session.execute(query_p).scalars().all()
     
@@ -58,25 +64,20 @@ def user(user_id):
 
 @bp.route("/recipes/<int:recipe_id>")
 def recipe(recipe_id):
-    # recipe:
+    """
+    Display a recipe page with detailed information, including ingredients, user ratings, and photos.
+    """
+    # Fetch recipe details
     query_r = db.select(model.Recipe).where(model.Recipe.id == recipe_id)
     recipe = db.session.execute(query_r).scalar_one_or_none()
     
-    # user:
+    # Fetch user details
     query_u = db.select(model.User).where(model.User.id == recipe.user_id)
     user = db.session.execute(query_u).scalar_one_or_none()
     
-    # ingredients:
+    # Fetch ingredients information
     quantified_ingredients = model.QuantifiedIngredient.query.filter_by(recipe_id=recipe_id).all()     # Query the QuantifiedIngredient model to get all entries related to the recipe_id
-
-    ingredients_info = []
-    for qi in quantified_ingredients:
-        ingredient_detail = {
-            'name': qi.ingredient.name,
-            'quantity': qi.quantity,
-            'unit_of_measurement': qi.unit_of_measurement
-        }
-        ingredients_info.append(ingredient_detail)
+    ingredients_info = [{'name': qi.ingredient.name, 'quantity': qi.quantity, 'unit_of_measurement': qi.unit_of_measurement} for qi in quantified_ingredients]
 
     if current_user.is_authenticated:
         bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
@@ -85,22 +86,17 @@ def recipe(recipe_id):
         rate = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()      # Query to check if the current user has rated the recipe
         is_rated = rate is not None
     else:
-        is_bookmarked = None
-        your_photos = None
-        is_rated = None
+        is_bookmarked, your_photos, is_rated = None, None, None
 
-    # photos:
+    # Fetch recipe photos and ratings
     chef_photos = model.Photo.query.filter_by(user_id=user.id, recipe_id=recipe_id).all()
-    
-    # ratings
     query_rt = db.select(model.Rating.value).where(model.Rating.recipe_id == recipe_id)
     ratings_list = db.session.execute(query_rt).scalars().all()
-    count = len(ratings_list)
     
+    # Compute average rating
+    count = len(ratings_list)
     if count == 0:
-        rating = "No reviews yet"
-        count = ""
-        current_rate = ""
+        rating, count, current_rate = "No reviews yet", "", ""
         return render_template("recipes/recipes.html", recipe=recipe, user=user, rating=rating, current_rate=current_rate, count=count, ingredients_info=ingredients_info, is_bookmarked=is_bookmarked, is_rated=is_rated, chef_photos=chef_photos, your_photos=your_photos)
         
     else:
@@ -117,21 +113,21 @@ def recipe(recipe_id):
 
 @bp.route('/edit_user', methods=['POST'])
 def edit_user():
-    # Get data from the submitted form
+    """
+    Handle the POST request to edit a user's profile information.
+    """
     user_id = request.form.get('user_id')
     name = request.form.get('edit_name')
     bio = request.form.get('edit_bio')
     email = request.form.get('edit_email')
     uploaded_file = request.files['profile_image_input']
 
+    # Fetch and update user data
     user = model.User.query.get_or_404(user_id)
+    user.name, user.bio, user.email = name, bio, email
 
-    # Update the user with the new data
-    user.name = name
-    user.bio = bio
-    user.email = email
-
-    if uploaded_file.filename != '':
+    # Handle profile image upload
+    if uploaded_file.filename:
         content_type = uploaded_file.content_type
         if content_type == "image/png":
             file_extension = "png"
@@ -154,12 +150,14 @@ def edit_user():
 
     # Commit the changes to the database
     db.session.commit()
-
     return redirect(url_for('main.user', user_id=user_id))
 
 
 @bp.route('/edit_recipe', methods=['POST'])
 def edit_recipe():
+    """
+    Handle POST request to edit a recipe's details.
+    """
     # Get data from the submitted form
     recipe_id = request.form.get('recipe_id')
     name = request.form.get('edit_name')
@@ -181,12 +179,14 @@ def edit_recipe():
 
     # Commit the changes to the database
     db.session.commit()
-
     return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
 
 @bp.route('/bookmark', methods=['POST'])
 def bookmark_recipe():
+    """
+    Toggle bookmark status for a recipe.
+    """
     # Get data from the submitted form
     recipe_id = request.form.get('recipe_id')
 
@@ -194,11 +194,9 @@ def bookmark_recipe():
     bookmark = model.Bookmark.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
     
     if bookmark:
-        # Bookmark exists, remove it
         db.session.delete(bookmark)
         db.session.commit()
     else:
-        # Bookmark does not exist, add a new one
         new_bookmark = model.Bookmark(user_id=current_user.id, recipe_id=recipe_id)
         db.session.add(new_bookmark)
         db.session.commit()
@@ -207,7 +205,11 @@ def bookmark_recipe():
 
 
 @bp.route('/rate_recipe', methods=['POST'])
+@login_required
 def rate_recipe():
+    """
+    Rate a recipe by the current user.
+    """
     # Get data from the submitted form
     rating_value = request.form.get('rating')
     recipe_id = request.form.get('recipe_id')
@@ -216,21 +218,20 @@ def rate_recipe():
     rating = model.Rating.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
 
     if rating:
-        # If a rating exists, update it
         rating.value = rating_value
     else:
-        # If no rating exists, create a new one
         new_rating = model.Rating(user_id=current_user.id, recipe_id=recipe_id, value=rating_value)
         db.session.add(new_rating)
 
     db.session.commit()
-
-    # Redirect to the recipe page or wherever is appropriate
     return redirect(url_for('main.recipe', recipe_id=recipe_id))
 
 
 @bp.route('/upload_photo', methods=['POST'])
 def upload_photo():
+    """
+    Handle photo upload for a recipe.
+    """
     # Get data from form
     uploaded_file = request.files['file']
     recipe_id = request.form.get('recipe_id')
@@ -273,12 +274,14 @@ def upload_photo():
 
 @bp.route('/delete_photo', methods=['POST', 'DELETE'])
 def delete_photo():
+    """
+    Delete a specific photo associated with a recipe or user.
+    """
     # Get data from form
     photo_id = request.form.get('photo_id')
     recipe_id = request.form.get('recipe_id')
     user_id = request.form.get('user_id')
     
-
     # Find the photo by ID
     photo = Photo.query.get(photo_id)
     if photo:
@@ -304,6 +307,9 @@ def delete_photo():
 
 @bp.route("/recipe_vision", methods=['GET', 'POST'])
 def recipe_vision():
+    """
+    Handle recipe suggestions based on image input using GPT model.
+    """
     if request.method == 'POST':
         file = request.files.get('file')
 
@@ -323,7 +329,6 @@ def recipe_vision():
 
         # URL for the uploaded image
         uploaded_image_url = url_for('static', filename='imgs/' + filename)
-
         return render_template("gpt/gpt4vision.html", output=output, uploaded_image=uploaded_image_url)
 
     return render_template("gpt/gpt4vision.html")
@@ -332,11 +337,14 @@ def recipe_vision():
 @bp.route('/create_recipe', methods=['GET', 'POST'])
 @login_required
 def create_recipe():
+    """
+    Route to create a new recipe, handling both display and form submission.
+    """
     recipe_form = RecipeForm()
     ingredient_form = IngredientForm()
     step_form = StepForm()
+
     if request.method == 'POST':
-        
         ingredientes_agregados = False
         pasos_agregados = False
 
@@ -353,12 +361,12 @@ def create_recipe():
             db.session.add(new_recipe)
             db.session.flush()
 
+            # Handle recipe image
             if recipe_form.image.data:
                 image_file = recipe_form.image.data
                 filename = secure_filename(image_file.filename)
                 file_extension = os.path.splitext(filename)[1]
                 file_extension = file_extension[1:]
-
                 photo = Photo(
                     user_id=current_user.id,
                     recipe_id=new_recipe.id,
@@ -368,6 +376,7 @@ def create_recipe():
                 db.session.flush()
                 image_file.save(os.path.join('Recipes/static/photos/recipes', f"photo-{photo.id}.{file_extension}"))
 
+            # Handle steps
             if 'step_description' in request.form:
                 step_descriptions = request.form.getlist('step_description')
                 for i, description in enumerate(step_descriptions):
@@ -380,6 +389,7 @@ def create_recipe():
                         db.session.add(new_step)
                 pasos_agregados = True
 
+            # Handle ingredients
             if 'new_ingredient' in request.form:
                 ingredient_names = request.form.getlist('new_ingredient')
                 ingredient_quantities = request.form.getlist('quantity')
@@ -400,7 +410,8 @@ def create_recipe():
                         db.session.add(quantified_ingredient)
                 if ingredient_names:
                     ingredientes_agregados = True
-        
+
+            # Handle possible errors. Otherwise, finish the process.
             if ingredientes_agregados and pasos_agregados:
                 db.session.commit()
                 return redirect(url_for('explore.search'))
