@@ -36,13 +36,30 @@ Home Page
     <div class="container section__border">
         <div class="recipes__container swiper">
             <div class="swiper-wrapper">
-                {% for recipe, average_rating in top_recipes %}
+                {% for recipe, avg_rating in top_recipes %}
                     <div class="recipes__content swiper-slide">
                         <div>
-                            <img src="{{ url_for('static', filename='photos/recipes/photo-' + (recipe.photos[0].id|string) + '.' + (recipe.photos[0].file_extension|string)) }}" alt="recipe image" class="recipes__img">
-                            <h1 class="recipes_title">{{ recipe.title }}</h1>
-                            <p class="recipes__subtitle">{{ average_rating }} ⭐</p>
-
+                            {% if recipe.photos %}
+                                <img src="{{ url_for('static', filename='photos/recipes/photo-' + (recipe.photos[0].id|string) + '.' + (recipe.photos[0].file_extension|string)) }}" alt="recipe image" class="recipes__img">
+                            {% endif %}
+                            <h1 class="recipes__title">{{ recipe.title }}</h1>
+                            <div class="recipes__info">
+                                <div class="recipes__subtitle">
+                                    <h3>👥 <span class="servings-count">{{ recipe.servings }}</span></h3>
+                                </div>
+                                <div class="recipes__subtitle">
+                                    <h3>⏲️ <span class="cook_time-count">{{ recipe.cook_time }}'</span></h3>
+                                </div>
+                                <div class="recipes__subtitle">
+                                    <h3>🍽️ <span class="type_food-count">{{ recipe.type_food }}</span></h3>
+                                </div>
+                                <div class="recipes__subtitle">
+                                    <h3>🍴 <span class="category_food-count">{{ recipe.category_food }}</span></h3>
+                                </div>
+                                <div class="recipes__subtitle">
+                                    <h3>⭐ <span class="rating-count">{{ avg_rating }}</span></h3>
+                                </div>
+                            </div>
                             <a href="{{ url_for('main.recipe', recipe_id=recipe.id)}}" class="recipes__button">
                                 View recipe <i class="ri-arrow-right-line"></i>
                             </a>
