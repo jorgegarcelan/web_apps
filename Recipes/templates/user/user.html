@@ -92,7 +92,7 @@ User
                 <h1>🍽️ User Recipes</h1>
             </div>
 
-            <div class="recipes__container swiper">
+            <div class="recipes__container swiper general-swiper">
                 <div class="swiper-wrapper">
                     {% for recipe, avg_rating in recipes %}
                         <div class="recipes__content swiper-slide">
@@ -144,7 +144,7 @@ User
                     <h1>🤎 Bookmarked Recipes</h1>
                 </div>
 
-                <div class="recipes__container swiper">
+                <div class="recipes__container swiper general-swiper">
                     <div class="swiper-wrapper">
                         {% for recipe, avg_rating in bookmarked_recipes %}
                             <div class="recipes__content swiper-slide">
@@ -194,7 +194,7 @@ User
               <h1> 📷 Photos </h1>
             </div>
 
-            <div class="recipes__container swiper">
+            <div class="recipes__container swiper specific-swiper">
               <div class="swiper-wrapper">
                   <!--Bucle for aquí con las recetas-->
                   {% if photos %}
@@ -313,7 +313,8 @@ User
 <!-- SWIPER JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-    let swiper = new Swiper(".swiper", {
+    // Swiper for Recipes and Bookmark tabs
+    let generalSwiper = new Swiper(".general-swiper", {
         loop: true,
         spaceBetween: 24,
 
@@ -330,6 +331,22 @@ User
                 spaceBetween: 0,
             }
         },
+    });
+
+    // Swiper for Photos tab
+    let specificSwiper = new Swiper(".specific-swiper", {
+        loop: true,
+        spaceBetween: 24,
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        // This will apply to all screen sizes for this specific swiper
+        slidesPerView: 1,
     });
 
     window.addEventListener('load', function() {
